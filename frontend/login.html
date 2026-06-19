@@ -6,18 +6,19 @@
     <title>NMB Service Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/styles.css" />
   </head>
-  <body>
+  <body data-page="login">
     <div class="utility-bar">
-      <div class="utility-links">
-        <span>Government of India</span>
-        <a class="utility-link" href="/">Home</a>
-        <span>Secure Service Access</span>
-      </div>
-      <div class="utility-links">
-        <span>English | Hindi</span>
+      <div class="utility-primary">
+        <span data-i18n="utility.gov">Government of India</span>
+        <a class="utility-link" href="/" data-i18n="utility.home">Home</a>
+        <span data-i18n="utility.login">Secure Login</span>
+        <div class="lang-switcher" aria-label="Language selector">
+          <button class="language-toggle" type="button" data-lang-switch="en" aria-pressed="true">English</button>
+          <button class="language-toggle" type="button" data-lang-switch="hi" aria-pressed="false">हिन्दी</button>
+        </div>
       </div>
     </div>
     <header class="masthead">
@@ -26,63 +27,74 @@
           <img src="/assets/images/nmb-seal-logo.png" alt="" />
         </div>
         <div class="brand-copy">
-          <p class="eyebrow">Government of India</p>
-          <h1>National Makhana Board Portal</h1>
-          <p>Department of Agriculture & Farmers Welfare</p>
+          <p class="eyebrow" data-i18n="masthead.gov">Government of India</p>
+          <h1 data-i18n="masthead.title">National Makhana Board Portal</h1>
+          <p data-i18n="masthead.department">Department of Agriculture & Farmers Welfare</p>
         </div>
       </div>
       <div class="masthead-actions">
-        <span class="header-badge">Protected Service Gateway</span>
+        <span class="header-badge" data-i18n="login.badge">Protected Service Gateway</span>
+        <a class="button primary" href="#login-entry" data-i18n="actions.login">Service Login</a>
+        <a class="button secondary" href="/beneficiary" data-i18n="actions.beneficiary">Beneficiary Services</a>
       </div>
     </header>
     <nav class="gov-nav" aria-label="Primary navigation">
-      <a href="/">Home</a>
-      <a href="/beneficiary">Beneficiary Services</a>
-      <a href="/dashboard">Officer Console</a>
-      <a class="active" href="/login">Login</a>
+      <a href="/" data-i18n="nav.home">Home</a>
+      <a href="/services" data-i18n="nav.services">Services</a>
+      <a href="/helpdesk" data-i18n="nav.helpdesk">Helpdesk</a>
+      <a class="nav-cta active" href="/login" data-i18n="nav.login">Login</a>
+      <a href="/dashboard" data-i18n="nav.dashboard">Officer Console</a>
     </nav>
 
     <main class="login-shell">
+      <section class="login-entry-strip">
+        <div>
+          <strong data-i18n="login.loginNoticeTitle">Secure entry for beneficiaries and officers</strong>
+          <p data-i18n="login.loginNoticeBody">Login is available here as the primary service entry point for beneficiary services, inspection workflows, and officer actions.</p>
+        </div>
+        <a class="button primary" href="#login-entry" data-i18n="login.loginNoticeAction">Go to Login Form</a>
+      </section>
       <section class="login-panel">
-        <article class="login-info">
-          <p class="eyebrow">Government Service Gateway</p>
-          <h1>Login to NMB Digital Services</h1>
-          <p class="hint">Use authorized credentials to access beneficiary, inspection, state workflow, or board-level operational services.</p>
+        <article class="login-info" id="login-entry">
+          <p class="eyebrow" data-i18n="login.loginEyebrow">Government Service Gateway</p>
+          <h1 data-i18n="login.loginTitle">Login to NMB Digital Services</h1>
+          <p class="hint" data-i18n="login.loginHint">Use authorized credentials to access beneficiary, inspection, state workflow, or board-level operational services.</p>
 
           <div class="login-role-list">
             <div class="login-role-item">
-              <strong>NMB Admin</strong>
-              <div>National visibility, audit logs, and final decision actions.</div>
+              <strong data-i18n="login.roleOneTitle">NMB Admin</strong>
+              <div data-i18n="login.roleOneBody">National visibility, audit logs, and final decision actions.</div>
             </div>
             <div class="login-role-item">
-              <strong>State Officer</strong>
-              <div>Application review, clarifications, inspections, and recommendations.</div>
+              <strong data-i18n="login.roleTwoTitle">State Officer</strong>
+              <div data-i18n="login.roleTwoBody">Application review, clarifications, inspections, and recommendations.</div>
             </div>
             <div class="login-role-item">
-              <strong>Inspector</strong>
-              <div>Inspection completion with geo-tagged field verification.</div>
+              <strong data-i18n="login.roleThreeTitle">Inspector</strong>
+              <div data-i18n="login.roleThreeBody">Inspection completion with geo-tagged field verification.</div>
             </div>
             <div class="login-role-item">
-              <strong>Beneficiary</strong>
-              <div>Profile management, application filing, and status tracking.</div>
+              <strong data-i18n="login.roleFourTitle">Beneficiary</strong>
+              <div data-i18n="login.roleFourBody">Profile management, application filing, and status tracking.</div>
             </div>
           </div>
         </article>
 
         <form id="login-form" class="login-form-panel">
-          <p class="eyebrow">Authentication</p>
-          <h2>Sign in</h2>
-          <label>Email <input name="email" value="nmb.admin@example.com" /></label>
-          <label>Password <input name="password" type="password" value="Pass@123" /></label>
-          <button class="button primary" type="submit">Continue to Services</button>
+          <p class="eyebrow" data-i18n="login.authEyebrow">Authentication</p>
+          <h2 data-i18n="login.signIn">Sign in</h2>
+          <label><span data-i18n="login.email">Email</span> <input name="email" value="nmb.admin@example.com" /></label>
+          <label><span data-i18n="login.password">Password</span> <input name="password" type="password" value="Pass@123" /></label>
+          <button class="button primary" type="submit" data-i18n="login.submit">Continue to Services</button>
           <p id="message" class="message"></p>
-          <p class="hint">Demo users: `nmb.admin@example.com`, `bihar.officer@example.com`, `inspector@example.com`, `farmer@example.com`.</p>
+          <p class="hint" data-i18n="login.demoUsers">Demo users: `nmb.admin@example.com`, `bihar.officer@example.com`, `inspector@example.com`, `farmer@example.com`.</p>
         </form>
       </section>
     </main>
     <footer class="footer-note">
-      Secure access point for National Makhana Board beneficiary services and officer operations.
+      <span data-i18n="login.footer">Secure access point for National Makhana Board beneficiary services and officer operations.</span>
     </footer>
+    <script src="/assets/site.js"></script>
+    <script src="/assets/app.js"></script>
   </body>
-  <script src="/assets/app.js"></script>
   </html>

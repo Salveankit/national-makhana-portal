@@ -14,7 +14,7 @@ if (form) {
     });
     const message = document.getElementById("message");
     if (!res.ok) {
-      message.textContent = "Login failed";
+      message.textContent = window.NMBI18n?.translate("loginPage.error") || "Login failed";
       return;
     }
     const data = await res.json();

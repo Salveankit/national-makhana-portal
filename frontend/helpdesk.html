@@ -6,20 +6,23 @@
     <title>NMB Helpdesk</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/styles.css" />
   </head>
-  <body>
+  <body data-page="helpdesk">
     <div class="utility-bar">
-      <div class="utility-links">
-        <span>Government of India</span>
-        <a class="utility-link" href="#main">Skip to main content</a>
-        <span>Screen Reader Access</span>
-        <span>English | Hindi</span>
+      <div class="utility-primary">
+        <span data-i18n="utility.gov">Government of India</span>
+        <a class="utility-link skip-link" href="#main" data-i18n="utility.skip">Skip to main content</a>
+        <span data-i18n="utility.screenReader">Screen Reader Access</span>
+        <div class="lang-switcher" aria-label="Language selector">
+          <button class="language-toggle" type="button" data-lang-switch="en" aria-pressed="true">English</button>
+          <button class="language-toggle" type="button" data-lang-switch="hi" aria-pressed="false">हिन्दी</button>
+        </div>
       </div>
       <div class="utility-links">
-        <a class="utility-link" href="/health">System Status</a>
-        <a class="utility-link" href="/login">Secure Login</a>
+        <a class="utility-link" href="/health" data-i18n="utility.status">System Status</a>
+        <a class="utility-link" href="/login" data-i18n="utility.login">Secure Login</a>
       </div>
     </div>
 
@@ -29,59 +32,61 @@
           <img src="/assets/images/nmb-seal-logo.png" alt="" />
         </div>
         <div class="brand-copy">
-          <p class="eyebrow">Government of India</p>
-          <h1>National Makhana Board Portal</h1>
-          <p>Department of Agriculture & Farmers Welfare</p>
+          <p class="eyebrow" data-i18n="masthead.gov">Government of India</p>
+          <h1 data-i18n="masthead.title">National Makhana Board Portal</h1>
+          <p data-i18n="masthead.department">Department of Agriculture & Farmers Welfare</p>
         </div>
       </div>
       <div class="masthead-actions">
-        <span class="header-badge">User Assistance</span>
-        <a class="button secondary" href="/beneficiary">Beneficiary Services</a>
+        <span class="header-badge" data-i18n="helpdesk.badge">User Assistance</span>
+        <a class="button primary" href="/login" data-i18n="actions.login">Service Login</a>
+        <a class="button secondary" href="/beneficiary" data-i18n="actions.beneficiary">Beneficiary Services</a>
       </div>
     </header>
     <nav class="gov-nav" aria-label="Primary navigation">
-      <a href="/">Home</a>
-      <a href="/services">Services</a>
-      <a href="/schemes">Schemes</a>
-      <a href="/updates">Updates</a>
-      <a class="active" href="/helpdesk">Helpdesk</a>
-      <a href="/dashboard">Officer Console</a>
+      <a href="/" data-i18n="nav.home">Home</a>
+      <a href="/services" data-i18n="nav.services">Services</a>
+      <a href="/schemes" data-i18n="nav.schemes">Schemes</a>
+      <a href="/updates" data-i18n="nav.updates">Updates</a>
+      <a class="active" href="/helpdesk" data-i18n="nav.helpdesk">Helpdesk</a>
+      <a class="nav-cta" href="/login" data-i18n="nav.login">Login</a>
+      <a href="/dashboard" data-i18n="nav.dashboard">Officer Console</a>
     </nav>
 
     <main id="main" class="page-shell">
-      <div class="notice-strip">
+      <div class="notice-strip" data-i18n="helpdesk.notice">
         Use the helpdesk section to find the correct service page, secure login, or officer access point.
       </div>
 
       <section class="section-block">
         <div class="section-heading">
-          <h2>Quick Assistance</h2>
-          <p>Support guidance is grouped by user need so that public users do not need to interpret internal process terminology.</p>
+          <h2 data-i18n="helpdesk.heading">Quick Assistance</h2>
+          <p data-i18n="helpdesk.lead">Support guidance is grouped by user need so that public users do not need to interpret internal process terminology.</p>
         </div>
         <div class="feature-grid">
           <article class="card">
-            <h3>Registration Support</h3>
-            <p>Use the beneficiary workspace to create or update a farmer profile and maintain service eligibility details.</p>
+            <h3 data-i18n="helpdesk.cardOneTitle">Registration Support</h3>
+            <p data-i18n="helpdesk.cardOneBody">Use the beneficiary workspace to create or update a farmer profile and maintain service eligibility details.</p>
             <div class="actions">
-              <a class="button primary" href="/beneficiary">Open Beneficiary Workspace</a>
+              <a class="button primary" href="/beneficiary" data-i18n="helpdesk.cardOneAction">Open Beneficiary Workspace</a>
             </div>
           </article>
           <article class="card">
-            <h3>Application Status Support</h3>
-            <p>Beneficiaries can track current application stage, clarifications, field verification, and decision progress after login.</p>
+            <h3 data-i18n="helpdesk.cardTwoTitle">Application Status Support</h3>
+            <p data-i18n="helpdesk.cardTwoBody">Beneficiaries can track current application stage, clarifications, field verification, and decision progress after login.</p>
           </article>
           <article class="card">
-            <h3>Officer Access Support</h3>
-            <p>Authorized officers can move to the monitoring console for review, planning, budget tracking, and approvals.</p>
+            <h3 data-i18n="helpdesk.cardThreeTitle">Officer Access Support</h3>
+            <p data-i18n="helpdesk.cardThreeBody">Authorized officers can move to the monitoring console for review, planning, budget tracking, and approvals.</p>
             <div class="actions">
-              <a class="button secondary" href="/dashboard">Open Officer Console</a>
+              <a class="button secondary" href="/dashboard" data-i18n="helpdesk.cardThreeAction">Open Officer Console</a>
             </div>
           </article>
           <article class="card">
-            <h3>Login Assistance</h3>
-            <p>Use the secure login page to access services for beneficiaries, state officers, inspectors, and administrators.</p>
+            <h3 data-i18n="helpdesk.cardFourTitle">Login Assistance</h3>
+            <p data-i18n="helpdesk.cardFourBody">Use the secure login page to access services for beneficiaries, state officers, inspectors, and administrators.</p>
             <div class="actions">
-              <a class="button secondary" href="/login">Open Secure Login</a>
+              <a class="button secondary" href="/login" data-i18n="helpdesk.cardFourAction">Open Secure Login</a>
             </div>
           </article>
         </div>
@@ -91,40 +96,41 @@
     <footer class="footer-note">
       <div class="gov-footer-grid">
         <div class="footer-identity">
-          <strong>National Makhana Board Portal</strong>
-          <p class="footer-ministry">Department of Agriculture & Farmers Welfare</p>
-          <p>Government of India</p>
-          <p>Integrated digital access for beneficiary registration, application services, field verification, and board review.</p>
+          <strong data-i18n="footer.portal">National Makhana Board Portal</strong>
+          <p class="footer-ministry" data-i18n="footer.department">Department of Agriculture & Farmers Welfare</p>
+          <p data-i18n="footer.gov">Government of India</p>
+          <p data-i18n="footer.summary">Integrated digital access for beneficiary registration, application services, field verification, and board review.</p>
         </div>
         <div>
-          <h3>Public Pages</h3>
+          <h3 data-i18n="footer.publicPages">Public Pages</h3>
           <div class="footer-links">
-            <a href="/">Home</a>
-            <a href="/services">Services</a>
-            <a href="/schemes">Schemes</a>
-            <a href="/updates">Updates</a>
+            <a href="/" data-i18n="nav.home">Home</a>
+            <a href="/services" data-i18n="nav.services">Services</a>
+            <a href="/schemes" data-i18n="nav.schemes">Schemes</a>
+            <a href="/updates" data-i18n="nav.updates">Updates</a>
           </div>
         </div>
         <div>
-          <h3>Service Access</h3>
+          <h3 data-i18n="footer.access">Service Access</h3>
           <div class="footer-links">
-            <a href="/beneficiary">Beneficiary Services</a>
-            <a href="/login">Secure Login</a>
-            <a href="/dashboard">Officer Console</a>
-            <a href="/helpdesk">Helpdesk</a>
+            <a href="/beneficiary" data-i18n="actions.beneficiary">Beneficiary Services</a>
+            <a href="/login" data-i18n="utility.login">Secure Login</a>
+            <a href="/dashboard" data-i18n="nav.dashboard">Officer Console</a>
+            <a href="/helpdesk" data-i18n="nav.helpdesk">Helpdesk</a>
           </div>
         </div>
         <div>
-          <h3>Support</h3>
-          <p>Choose Beneficiary Services, Secure Login, or Officer Console according to your role and the service you need to access.</p>
-          <a class="footer-support-link" href="/login">Open Secure Login</a>
+          <h3 data-i18n="footer.support">Support</h3>
+          <p data-i18n="helpdesk.supportBody">Choose Beneficiary Services, Secure Login, or Officer Console according to your role and the service you need to access.</p>
+          <a class="footer-support-link" href="/login" data-i18n="helpdesk.supportAction">Open Secure Login</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2026 National Makhana Board. All rights reserved.</span>
-        <span>Last Updated: 18 June 2026</span>
-        <span>Content owned by the Department of Agriculture & Farmers Welfare, Government of India.</span>
+        <span data-i18n="footer.rights">© 2026 National Makhana Board. All rights reserved.</span>
+        <span data-i18n="footer.updated">Last Updated: 18 June 2026</span>
+        <span data-i18n="footer.ownership">Content owned by the Department of Agriculture & Farmers Welfare, Government of India.</span>
       </div>
     </footer>
+    <script src="/assets/site.js"></script>
   </body>
 </html>
