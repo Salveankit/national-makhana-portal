@@ -498,8 +498,20 @@ function getPageTranslations(language) {
 }
 
 function resolveTranslation(language, key) {
+  const page = document.body.dataset.page || "";
   const source = getPageTranslations(language);
-  return key.split(".").reduce((value, segment) => value?.[segment], source);
+  const directMatch = key.split(".").reduce((value, segment) => value?.[segment], source);
+  if (typeof directMatch === "string") {
+    return directMatch;
+  }
+
+  if (page && key.startsWith(`${page}.`)) {
+    const pageKey = key.slice(page.length + 1);
+    const pageSource = translations[page]?.[language] || {};
+    return pageKey.split(".").reduce((value, segment) => value?.[segment], pageSource);
+  }
+
+  return directMatch;
 }
 
 function updateLanguageButtons(language) {
