@@ -1,0 +1,8 @@
+{
+  "env": {
+    "APP_ENV": "production",
+    "APP_DATA_DIR": "/tmp/national-makhana-portal",
+    "SQLITE_PATH": "/tmp/national-makhana-portal/makhana.db",
+    "DOCUMENT_ROOT": "/tmp/national-makhana-portal/documents"
+  }
+}

@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NMB Monitoring Console</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="dashboard-body">
+    <div class="utility-bar">
+      <div class="utility-links">
+        <span>Government of India</span>
+        <a class="utility-link" href="/">Home</a>
+        <span>Monitoring Console</span>
+      </div>
+      <div class="utility-links">
+        <a class="utility-link" href="/login">Switch User</a>
+      </div>
+    </div>
+    <header class="masthead">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="assets/images/nmb-seal-logo.png" alt="" />
+        </div>
+        <div class="brand-copy">
+          <p class="eyebrow">Government of India</p>
+          <h1>National Makhana Board Operations Console</h1>
+          <p>Planning, workflow review, inspection management, and monitoring</p>
+        </div>
+      </div>
+      <div class="masthead-actions">
+        <span class="header-badge">Authorized Officer Access</span>
+      </div>
+    </header>
+    <nav class="gov-nav" aria-label="Primary navigation">
+      <a href="/">Home</a>
+      <a href="/beneficiary">Beneficiary Services</a>
+      <a class="active" href="/dashboard">Officer Console</a>
+    </nav>
+
+    <main class="dashboard dashboard-pro">
+      <div class="admin-layout">
+        <aside class="sidebar">
+          <div class="sidebar-brand">
+            <h2>NMB Console</h2>
+            <p>National, state, and field operations</p>
+          </div>
+          <nav class="sidebar-nav" aria-label="Console navigation">
+            <button class="sidebar-link active" type="button" data-section-target="overview">Dashboard Overview</button>
+            <button class="sidebar-link" type="button" data-section-target="planning">Planning Workspace</button>
+            <button class="sidebar-link" type="button" data-section-target="workflow">Workflow Desk</button>
+            <button class="sidebar-link" type="button" data-section-target="system">System Overview</button>
+            <button class="sidebar-link" type="button" data-section-target="services">Service Readiness</button>
+          </nav>
+        </aside>
+
+        <section class="content-area">
+          <div class="breadcrumb">Dashboard &gt; National Monitoring &gt; Current Operational Scope</div>
+
+          <section class="hero-monitor">
+            <div class="monitor-copy">
+              <p class="eyebrow">National Monitoring and Operations</p>
+              <h1 id="name">Loading...</h1>
+              <p id="role" class="muted"></p>
+              <p class="monitor-lead">Operational console for field progress, Annual Action Plan submissions, budget visibility, service readiness, and workflow actioning.</p>
+            </div>
+            <div class="console-hero-art" aria-hidden="true">
+              <picture>
+                <source srcset="assets/images/nmb-console-operations.webp" type="image/webp" />
+                <img src="assets/images/nmb-console-operations.png" alt="" />
+              </picture>
+            </div>
+          </section>
+
+          <div class="console-tab-strip" aria-label="Workspace sections">
+            <button class="console-tab active" type="button" data-section-target="overview">Overview</button>
+            <button class="console-tab" type="button" data-section-target="planning">Planning</button>
+            <button class="console-tab" type="button" data-section-target="workflow">Workflow</button>
+            <button class="console-tab" type="button" data-section-target="system">System</button>
+            <button class="console-tab" type="button" data-section-target="services">Services</button>
+          </div>
+
+          <section class="console-section active" data-console-section="overview">
+            <div class="section-shell">
+              <div class="section-header">
+                <div>
+                  <p class="eyebrow">Operational Dashboard</p>
+                  <h2>Overview and Monitoring</h2>
+                  <p class="section-copy">Use this view for national or state-level monitoring, dashboard filters, KPI review, and field performance signals.</p>
+                </div>
+              </div>
+
+              <form id="dashboard-filter-form" class="workbench-panel compact-form filter-bar-panel">
+                <div class="panel-heading panel-heading-tight">
+                  <div>
+                    <p class="eyebrow">Filters</p>
+                    <h2>Dashboard Scope</h2>
+                  </div>
+                </div>
+                <div class="filter-bar">
+                  <label class="filter-group">Financial Year
+                    <select name="financial_year" id="filter-financial-year">
+                      <option value="2023-24">2023-24</option>
+                      <option value="2024-25">2024-25</option>
+                      <option value="2025-26">2025-26</option>
+                      <option value="2026-27" selected>2026-27</option>
+                    </select>
+                  </label>
+                  <label class="filter-group">State
+                    <select name="state_code" id="filter-state-code"></select>
+                  </label>
+                  <label class="filter-group">District
+                    <select name="district_code" id="filter-district-code"></select>
+                  </label>
+                  <div class="filter-group filter-slicer-group">
+                    <span class="filter-slicer-label">Quarter</span>
+                    <input id="filter-quarter-input" name="quarter" type="hidden" value="" />
+                    <div class="slicer-row" id="quarter-slicer" aria-label="Quarter slicer">
+                      <button class="slicer-pill active" type="button" data-quarter-value="">All</button>
+                      <button class="slicer-pill" type="button" data-quarter-value="Q1">Q1</button>
+                      <button class="slicer-pill" type="button" data-quarter-value="Q2">Q2</button>
+                      <button class="slicer-pill" type="button" data-quarter-value="Q3">Q3</button>
+                      <button class="slicer-pill" type="button" data-quarter-value="Q4">Q4</button>
+                    </div>
+                  </div>
+                  <div class="filter-actions">
+                    <button class="button primary" type="submit">Apply Filters</button>
+                    <button id="reset-dashboard-filters" class="button secondary" type="button">Reset</button>
+                    <button id="export-report" class="button secondary" type="button">Export CSV</button>
+                  </div>
+                </div>
+                <div id="filter-summary" class="filter-summary"></div>
+                <p id="filter-message" class="message"></p>
+              </form>
+
+              <section class="kpi-board" id="kpi-board">
+                <article class="kpi-panel accent-blue">
+                  <span class="kpi-label">Applications</span>
+                  <strong id="kpi-applications">0</strong>
+                  <small>Cases in current scope</small>
+                </article>
+                <article class="kpi-panel accent-green">
+                  <span class="kpi-label">Approved</span>
+                  <strong id="kpi-approved">0</strong>
+                  <small>Board-approved cases</small>
+                </article>
+                <article class="kpi-panel accent-amber">
+                  <span class="kpi-label">Area</span>
+                  <strong id="kpi-area">0</strong>
+                  <small>Hectares covered</small>
+                </article>
+                <article class="kpi-panel accent-indigo">
+                  <span class="kpi-label">Production</span>
+                  <strong id="kpi-production">0</strong>
+                  <small>Metric tonnes reported</small>
+                </article>
+                <article class="kpi-panel accent-rose">
+                  <span class="kpi-label">Allocated Budget</span>
+                  <strong id="kpi-budget">0</strong>
+                  <small>Current FY allocation</small>
+                </article>
+              </section>
+
+              <section class="pro-grid two-col">
+                <article class="analytics-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">Status Pipeline</p>
+                      <h2>Application Breakdown</h2>
+                    </div>
+                  </div>
+                  <div id="status-breakdown" class="status-stack"></div>
+                </article>
+
+                <article class="analytics-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">Budget Tracking</p>
+                      <h2>Component Utilization</h2>
+                    </div>
+                  </div>
+                  <div id="budget-cards" class="metric-list"></div>
+                </article>
+              </section>
+
+              <section class="pro-grid two-col">
+                <article class="analytics-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">State Rollup</p>
+                      <h2>Geography Comparison</h2>
+                    </div>
+                  </div>
+                  <div id="state-cards" class="district-grid"></div>
+                </article>
+
+                <article class="analytics-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">Quarter Trend</p>
+                      <h2>Field Data Trendline Inputs</h2>
+                    </div>
+                  </div>
+                  <div id="trend-cards" class="metric-list"></div>
+                </article>
+              </section>
+
+              <section class="pro-grid two-col">
+                <article class="analytics-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">District Signals</p>
+                      <h2>Area and Production Cards</h2>
+                    </div>
+                  </div>
+                  <div id="district-cards" class="district-grid"></div>
+                </article>
+
+                <article class="analytics-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">Annual Action Plans</p>
+                      <h2>Submission Snapshot</h2>
+                    </div>
+                  </div>
+                  <div id="aap-cards" class="metric-list"></div>
+                </article>
+              </section>
+            </div>
+          </section>
+
+          <section class="console-section" data-console-section="planning">
+            <div class="section-shell">
+              <div class="section-header">
+                <div>
+                  <p class="eyebrow">Planning Workspace</p>
+                  <h2>Plans, Budgets, and Reporting</h2>
+                  <p class="section-copy">Use this workspace for AAP submission, district metrics, budget entries, utilization reporting, and reporting snapshots.</p>
+                </div>
+                <div class="section-visual-card">
+                  <picture>
+                    <source srcset="assets/images/nmb-workflow-illustration.webp" type="image/webp" />
+                    <img src="assets/images/nmb-workflow-illustration.png" alt="" />
+                  </picture>
+                  <div>
+                    <strong>Planning and budget workbench</strong>
+                    <span>AAP, district metrics, and utilization controls</span>
+                  </div>
+                </div>
+              </div>
+
+              <section class="pro-grid two-col" id="planning-panel">
+                <form id="aap-form" class="workbench-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">Planning</p>
+                      <h2>Submit Annual Action Plan</h2>
+                    </div>
+                  </div>
+                  <label>Financial Year <input name="financial_year" value="2026-27" /></label>
+                  <label>Cultivation Target (Ha) <input name="cultivation_target_hectares" type="number" step="0.1" value="1350" /></label>
+                  <label>Farmer Target <input name="farmer_target" type="number" step="1" value="5200" /></label>
+                  <label>Infrastructure Target <input name="infrastructure_target" type="number" step="1" value="28" /></label>
+                  <label>Budget Requested <input name="budget_requested" type="number" step="1" value="25000000" /></label>
+                  <label>Remarks <textarea name="remarks">Expansion in high-yield Bihar clusters with post-harvest support focus.</textarea></label>
+                  <button class="button primary" type="submit">Submit AAP</button>
+                  <p id="aap-message" class="message"></p>
+                </form>
+
+                <form id="field-data-form" class="workbench-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">Field Data</p>
+                      <h2>Update District Metrics</h2>
+                    </div>
+                  </div>
+                  <label>District Code <input name="district_code" value="BR-AR" /></label>
+                  <label>Financial Year <input name="financial_year" value="2026-27" /></label>
+                  <label>Quarter <input name="quarter" value="Q2" /></label>
+                  <label>Area (Ha) <input name="area_hectares" type="number" step="0.1" value="285" /></label>
+                  <label>Production (MT) <input name="production_mt" type="number" step="0.1" value="540" /></label>
+                  <label>Farmer Count <input name="farmer_count" type="number" step="1" value="980" /></label>
+                  <label>Processing Units <input name="processing_units" type="number" step="1" value="4" /></label>
+                  <button class="button primary" type="submit">Add Field Record</button>
+                  <p id="field-data-message" class="message"></p>
+                </form>
+              </section>
+
+              <section class="pro-grid two-col">
+                <form id="budget-form" class="workbench-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">Budget Control</p>
+                      <h2>Create Budget Allocation</h2>
+                    </div>
+                  </div>
+                  <label>State Code <input name="state_code" value="BR" /></label>
+                  <label>Component <input name="component_name" value="Training and Extension" /></label>
+                  <label>Financial Year <input name="financial_year" value="2026-27" /></label>
+                  <label>Allocated Amount <input name="allocated_amount" type="number" step="1" value="3500000" /></label>
+                  <label>Released Amount <input name="released_amount" type="number" step="1" value="1800000" /></label>
+                  <label>Utilized Amount <input name="utilized_amount" type="number" step="1" value="900000" /></label>
+                  <button class="button primary" type="submit">Create Budget Entry</button>
+                  <p id="budget-message" class="message"></p>
+                </form>
+
+                <form id="budget-utilization-form" class="workbench-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">State Update</p>
+                      <h2>Report Budget Utilization</h2>
+                    </div>
+                  </div>
+                  <label>Budget ID
+                    <select name="budget_id" id="budget-utilization-id"></select>
+                  </label>
+                  <label>Released Amount <input name="released_amount" type="number" step="1" value="14000000" /></label>
+                  <label>Utilized Amount <input name="utilized_amount" type="number" step="1" value="8400000" /></label>
+                  <label>Remarks <textarea name="remarks">Updated after Q2 utilization reporting.</textarea></label>
+                  <button class="button primary" type="submit">Update Utilization</button>
+                  <p id="budget-utilization-message" class="message"></p>
+                </form>
+              </section>
+
+              <section class="pro-grid">
+                <article class="analytics-panel report-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">Reporting</p>
+                      <h2>Snapshot Report</h2>
+                    </div>
+                  </div>
+                  <div id="report-summary" class="report-summary report-summary-grid"></div>
+                  <button id="refresh-report" class="button secondary" type="button">Refresh Report</button>
+                </article>
+              </section>
+            </div>
+          </section>
+
+          <section class="console-section" data-console-section="workflow">
+            <div class="section-shell">
+              <div class="section-header">
+                <div>
+                  <p class="eyebrow">Workflow Desk</p>
+                  <h2>Review Queue and Officer Actions</h2>
+                  <p class="section-copy">Use this workspace for case review, clarification requests, field inspection assignment, board decisions, and AAP review.</p>
+                </div>
+                <div class="section-visual-card">
+                  <picture>
+                    <source srcset="assets/images/nmb-workflow-illustration.webp" type="image/webp" />
+                    <img src="assets/images/nmb-workflow-illustration.png" alt="" />
+                  </picture>
+                  <div>
+                    <strong>Case actions and inspection handling</strong>
+                    <span>Review, recommend, assign, and close cases</span>
+                  </div>
+                </div>
+              </div>
+
+              <section class="pro-grid two-col" id="workflow-panel">
+                <article class="analytics-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">Officer Queue</p>
+                      <h2>Current Workflow Queue</h2>
+                    </div>
+                  </div>
+                  <div id="queue-cards" class="queue-list"></div>
+                </article>
+
+                <div class="stacked-panels">
+                  <form id="clarification-form" class="workbench-panel compact-form">
+                    <div class="panel-heading">
+                      <div>
+                        <p class="eyebrow">State Review</p>
+                        <h2>Raise Clarification</h2>
+                      </div>
+                    </div>
+                    <label>Application ID
+                      <select name="application_id" id="clarification-application-id"></select>
+                    </label>
+                    <label>Query <textarea name="query_text">Please upload clearer land record.</textarea></label>
+                    <button class="button primary" type="submit">Raise</button>
+                    <p id="clarification-message" class="message"></p>
+                  </form>
+
+                  <form id="inspection-form" class="workbench-panel compact-form">
+                    <div class="panel-heading">
+                      <div>
+                        <p class="eyebrow">Inspection</p>
+                        <h2>Assign Field Visit</h2>
+                      </div>
+                    </div>
+                    <label>Application ID
+                      <select name="application_id" id="inspection-application-id"></select>
+                    </label>
+                    <label>Inspector Email <input name="inspector_email" value="inspector@example.com" /></label>
+                    <button class="button primary" type="submit">Assign</button>
+                    <p id="inspection-message" class="message"></p>
+                  </form>
+
+                  <form id="decision-form" class="workbench-panel compact-form">
+                    <div class="panel-heading">
+                      <div>
+                        <p class="eyebrow">Decision</p>
+                        <h2>Recommend or Approve</h2>
+                      </div>
+                    </div>
+                    <label>Application ID
+                      <select name="application_id" id="decision-application-id"></select>
+                    </label>
+                    <label>Action
+                      <select name="decision">
+                        <option value="recommend">Recommend by State</option>
+                        <option value="Approved">Approve</option>
+                        <option value="Rejected">Reject</option>
+                        <option value="Returned">Return</option>
+                      </select>
+                    </label>
+                    <label>Remarks <textarea name="remarks">All required checks completed.</textarea></label>
+                    <button class="button primary" type="submit">Submit</button>
+                    <p id="decision-message" class="message"></p>
+                  </form>
+
+                  <form id="batch-decision-form" class="workbench-panel compact-form">
+                    <div class="panel-heading">
+                      <div>
+                        <p class="eyebrow">Batch Decision</p>
+                        <h2>Process Multiple Applications</h2>
+                      </div>
+                    </div>
+                    <label>Application IDs <textarea name="application_ids" id="batch-application-ids"></textarea></label>
+                    <label>Decision
+                      <select name="decision">
+                        <option value="Approved">Approve</option>
+                        <option value="Rejected">Reject</option>
+                        <option value="Returned">Return</option>
+                      </select>
+                    </label>
+                    <label>Remarks <textarea name="remarks">Processed in reviewed batch.</textarea></label>
+                    <button class="button primary" type="submit">Run Batch Action</button>
+                    <p id="batch-decision-message" class="message"></p>
+                  </form>
+
+                  <form id="inspection-complete-form" class="workbench-panel compact-form">
+                    <div class="panel-heading">
+                      <div>
+                        <p class="eyebrow">Inspector Closure</p>
+                        <h2>Complete Inspection</h2>
+                      </div>
+                    </div>
+                    <label>Inspection ID
+                      <select name="inspection_id" id="inspection-complete-id"></select>
+                    </label>
+                    <label>Remarks <textarea name="remarks">Site verified and geo-tagged.</textarea></label>
+                    <label>Latitude <input name="latitude" type="number" step="0.0001" value="25.6201" /></label>
+                    <label>Longitude <input name="longitude" type="number" step="0.0001" value="87.4821" /></label>
+                    <label>Accuracy <input name="accuracy" type="number" step="1" value="15" /></label>
+                    <label>Photo Name <input name="photo_name" value="site-photo.jpg" /></label>
+                    <button class="button primary" type="submit">Complete</button>
+                    <p id="inspection-complete-message" class="message"></p>
+                  </form>
+
+                  <form id="aap-review-form" class="workbench-panel compact-form">
+                    <div class="panel-heading">
+                      <div>
+                        <p class="eyebrow">NMB AAP Review</p>
+                        <h2>Review Submitted AAP</h2>
+                      </div>
+                    </div>
+                    <label>AAP ID
+                      <select name="aap_id" id="aap-review-id"></select>
+                    </label>
+                    <label>Decision
+                      <select name="decision">
+                        <option value="Approved">Approve</option>
+                        <option value="Query Raised">Raise Query</option>
+                        <option value="Returned">Return</option>
+                      </select>
+                    </label>
+                    <label>Remarks <textarea name="remarks">Planning targets align with current field signals.</textarea></label>
+                    <button class="button primary" type="submit">Review AAP</button>
+                    <p id="aap-review-message" class="message"></p>
+                  </form>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <section class="console-section" data-console-section="system">
+            <div class="section-shell">
+              <div class="section-header">
+                <div>
+                  <p class="eyebrow">System Overview</p>
+                  <h2>Operations, Notifications, and Queue Health</h2>
+                  <p class="section-copy">Use this section for storage visibility, service posture, queue health, and recent notification activity.</p>
+                </div>
+              </div>
+
+              <section class="pro-grid two-col">
+                <article class="analytics-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">System Health</p>
+                      <h2>Operations Overview</h2>
+                    </div>
+                  </div>
+                  <div id="system-services" class="metric-list"></div>
+                  <div id="system-integrations" class="metric-list"></div>
+                  <div id="system-queues" class="metric-list"></div>
+                </article>
+
+                <article class="analytics-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">Notifications</p>
+                      <h2>Delivery Intent Log</h2>
+                    </div>
+                  </div>
+                  <div id="notification-log" class="metric-list"></div>
+                </article>
+              </section>
+            </div>
+          </section>
+
+          <section class="console-section" data-console-section="services">
+            <div class="section-shell">
+              <div class="section-header">
+                <div>
+                  <p class="eyebrow">Service Readiness</p>
+                  <h2>Integration Catalog and Service Actions</h2>
+                  <p class="section-copy">Use this workspace for integration readiness review and controlled service-event demonstrations.</p>
+                </div>
+              </div>
+
+              <section class="pro-grid two-col">
+                <article class="analytics-panel">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="eyebrow">Integration Readiness</p>
+                      <h2>Service Capability Catalog</h2>
+                    </div>
+                  </div>
+                  <div id="integration-catalog" class="metric-list"></div>
+                  <div id="integration-log" class="metric-list"></div>
+                </article>
+
+                <div class="stacked-panels">
+                  <form id="mock-notify-form" class="workbench-panel compact-form">
+                    <div class="panel-heading">
+                      <div>
+                        <p class="eyebrow">Notification Services</p>
+                        <h2>Send Service Notification</h2>
+                      </div>
+                    </div>
+                    <label>Channel
+                      <select name="channel" id="mock-notify-channel">
+                        <option value="sms">SMS</option>
+                        <option value="email">Email</option>
+                        <option value="whatsapp">WhatsApp</option>
+                      </select>
+                    </label>
+                    <label><span id="mock-notify-recipient-label">Mobile Number</span>
+                      <input id="mock-notify-recipient" name="recipient" inputmode="tel" autocomplete="tel" value="9876543210" />
+                      <small id="mock-notify-recipient-hint" class="field-hint">Enter a 10 digit mobile number for SMS delivery.</small>
+                    </label>
+                    <label>Template Key <input name="template_key" value="application_submitted" /></label>
+                    <label>Message <textarea name="message">Your application has moved to the next workflow stage.</textarea></label>
+                    <button class="button primary" type="submit">Send Notification</button>
+                    <p id="mock-notify-message" class="message"></p>
+                  </form>
+
+                  <form id="mock-aadhaar-kyc-form" class="workbench-panel compact-form">
+                    <div class="panel-heading">
+                      <div>
+                        <p class="eyebrow">Identity Services</p>
+                        <h2>Run Aadhaar Verification Flow</h2>
+                      </div>
+                    </div>
+                    <label>Beneficiary Name <input name="beneficiary_name" value="Demo Farmer" /></label>
+                    <label>Aadhaar Number <input name="aadhaar_number" value="123412341234" /></label>
+                    <label>Consent
+                      <select name="consent">
+                        <option value="true">Consent Provided</option>
+                        <option value="false">No Consent</option>
+                      </select>
+                    </label>
+                    <button class="button primary" type="submit">Run Verification</button>
+                    <p id="mock-aadhaar-message" class="message"></p>
+                  </form>
+
+                  <form id="mock-dbt-form" class="workbench-panel compact-form">
+                    <div class="panel-heading">
+                      <div>
+                        <p class="eyebrow">Benefit Transfer</p>
+                        <h2>Run DBT Disbursement Flow</h2>
+                      </div>
+                    </div>
+                    <label>Application ID <input name="application_id" value="APP-BR-0001" /></label>
+                    <label>Beneficiary Name <input name="beneficiary_name" value="Demo Farmer" /></label>
+                    <label>Bank Account Last 4 <input name="bank_account_last4" value="4321" /></label>
+                    <label>Amount <input name="amount" type="number" step="1" value="45000" /></label>
+                    <button class="button primary" type="submit">Run Disbursement</button>
+                    <p id="mock-dbt-message" class="message"></p>
+                  </form>
+                </div>
+              </section>
+            </div>
+          </section>
+        </section>
+      </div>
+    </main>
+    <footer class="footer-note">
+      Officer-facing operational workspace for planning, budgets, inspections, approval workflows, service readiness, and monitoring.
+    </footer>
+    <script src="assets/dashboard.js"></script>
+  </body>
+</html>

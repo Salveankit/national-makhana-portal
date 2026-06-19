@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NMB Service Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <div class="utility-bar">
+      <div class="utility-links">
+        <span>Government of India</span>
+        <a class="utility-link" href="/">Home</a>
+        <span>Secure Service Access</span>
+      </div>
+      <div class="utility-links">
+        <span>English | Hindi</span>
+      </div>
+    </div>
+    <header class="masthead">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="/assets/images/nmb-seal-logo.png" alt="" />
+        </div>
+        <div class="brand-copy">
+          <p class="eyebrow">Government of India</p>
+          <h1>National Makhana Board Portal</h1>
+          <p>Department of Agriculture & Farmers Welfare</p>
+        </div>
+      </div>
+      <div class="masthead-actions">
+        <span class="header-badge">Protected Service Gateway</span>
+      </div>
+    </header>
+    <nav class="gov-nav" aria-label="Primary navigation">
+      <a href="/">Home</a>
+      <a href="/beneficiary">Beneficiary Services</a>
+      <a href="/dashboard">Officer Console</a>
+      <a class="active" href="/login">Login</a>
+    </nav>
+
+    <main class="login-shell">
+      <section class="login-panel">
+        <article class="login-info">
+          <p class="eyebrow">Government Service Gateway</p>
+          <h1>Login to NMB Digital Services</h1>
+          <p class="hint">Use authorized credentials to access beneficiary, inspection, state workflow, or board-level operational services.</p>
+
+          <div class="login-role-list">
+            <div class="login-role-item">
+              <strong>NMB Admin</strong>
+              <div>National visibility, audit logs, and final decision actions.</div>
+            </div>
+            <div class="login-role-item">
+              <strong>State Officer</strong>
+              <div>Application review, clarifications, inspections, and recommendations.</div>
+            </div>
+            <div class="login-role-item">
+              <strong>Inspector</strong>
+              <div>Inspection completion with geo-tagged field verification.</div>
+            </div>
+            <div class="login-role-item">
+              <strong>Beneficiary</strong>
+              <div>Profile management, application filing, and status tracking.</div>
+            </div>
+          </div>
+        </article>
+
+        <form id="login-form" class="login-form-panel">
+          <p class="eyebrow">Authentication</p>
+          <h2>Sign in</h2>
+          <label>Email <input name="email" value="nmb.admin@example.com" /></label>
+          <label>Password <input name="password" type="password" value="Pass@123" /></label>
+          <button class="button primary" type="submit">Continue to Services</button>
+          <p id="message" class="message"></p>
+          <p class="hint">Demo users: `nmb.admin@example.com`, `bihar.officer@example.com`, `inspector@example.com`, `farmer@example.com`.</p>
+        </form>
+      </section>
+    </main>
+    <footer class="footer-note">
+      Secure access point for National Makhana Board beneficiary services and officer operations.
+    </footer>
+  </body>
+  <script src="/assets/app.js"></script>
+  </html>

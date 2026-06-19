@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NMB Beneficiary Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body class="beneficiary-body">
+    <div class="utility-bar">
+      <div class="utility-links">
+        <span>Government of India</span>
+        <a class="utility-link" href="/">Home</a>
+        <span>Beneficiary Services</span>
+      </div>
+      <div class="utility-links">
+        <a class="utility-link" href="/login">Switch User</a>
+      </div>
+    </div>
+    <header class="masthead">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="/assets/images/nmb-seal-logo.png" alt="" />
+        </div>
+        <div class="brand-copy">
+          <p class="eyebrow">Government of India</p>
+          <h1>National Makhana Board Portal</h1>
+          <p>Beneficiary Registration and Application Services</p>
+        </div>
+      </div>
+      <div class="masthead-actions">
+        <span class="header-badge">Citizen Service Workspace</span>
+      </div>
+    </header>
+    <nav class="gov-nav" aria-label="Primary navigation">
+      <a href="/">Home</a>
+      <a class="active" href="/beneficiary">Beneficiary Services</a>
+      <a href="/dashboard">Officer Console</a>
+      <a href="/login">Login</a>
+    </nav>
+
+    <main class="dashboard">
+      <section class="workspace-hero">
+        <div class="workspace-head">
+          <div>
+            <p class="eyebrow">Citizen Workspace</p>
+            <h1>Registration, application submission, and status tracking</h1>
+            <p id="beneficiary-meta" class="muted">Loading...</p>
+          </div>
+          <div class="quick-links">
+            <a href="#profile-form">Profile</a>
+            <a href="#application-form">Application</a>
+            <a href="#status">Know Your Status</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace-grid">
+        <div class="kpi-card">
+          <strong>Single Window</strong>
+          <span>Registration and application workflow</span>
+        </div>
+        <div class="kpi-card">
+          <strong>LGD-ready</strong>
+          <span>Structured location hierarchy</span>
+        </div>
+        <div class="kpi-card">
+          <strong>Status Tracking</strong>
+          <span>Timeline-oriented application visibility</span>
+        </div>
+      </section>
+
+      <section class="workspace-grid">
+        <form id="profile-form" class="workspace-shell">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Registration</p>
+              <h2>Beneficiary Profile</h2>
+            </div>
+          </div>
+          <label>Name <input name="name" /></label>
+          <label>Mobile <input name="mobile" /></label>
+          <label>State Code <input name="state_code" value="BR" /></label>
+          <label>District Code <input name="district_code" value="BR-PUR" /></label>
+          <label>Block Code <input name="block_code" value="BR-PUR-KR" /></label>
+          <label>Village Code <input name="village_code" value="BR-PUR-KR-001" /></label>
+          <label>Cultivation Type <input name="cultivation_type" value="pond_based" /></label>
+          <label>Total Land Acres <input name="total_land_acres" type="number" step="0.1" /></label>
+          <label>Makhana Area Acres <input name="makhana_area_acres" type="number" step="0.1" /></label>
+          <button class="button primary" type="submit">Save Profile</button>
+          <p id="profile-message" class="message"></p>
+        </form>
+
+        <form id="aadhaar-form" class="workspace-shell">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Identity</p>
+              <h2>Verify Aadhaar</h2>
+            </div>
+          </div>
+          <label>Aadhaar Number <input name="aadhaar_number" value="123412341234" /></label>
+          <label>Consent
+            <select name="consent">
+              <option value="true">I consent to tokenized verification</option>
+              <option value="false">No consent</option>
+            </select>
+          </label>
+          <div id="aadhaar-status" class="hint">Verification not started.</div>
+          <button class="button primary" type="submit">Verify Identity</button>
+          <p id="aadhaar-message" class="message"></p>
+        </form>
+
+        <form id="application-form" class="workspace-shell">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Application</p>
+              <h2>Apply for Scheme Support</h2>
+            </div>
+          </div>
+          <label>Scheme Component <input name="scheme_component" value="Makhana Cultivation Support" /></label>
+          <label>Pond Area Acres <input name="pond_area_acres" type="number" step="0.1" value="1.2" /></label>
+          <label>Requested Amount <input name="requested_amount" type="number" step="1" value="45000" /></label>
+          <label>Document Name <input name="file_name" value="aadhaar-copy.pdf" /></label>
+          <label>Document Type <input name="document_type" value="identity_proof" /></label>
+          <label>Latitude <input name="latitude" type="number" step="0.0001" value="25.6112" /></label>
+          <label>Longitude <input name="longitude" type="number" step="0.0001" value="87.4901" /></label>
+          <label>Accuracy <input name="accuracy" type="number" step="1" value="25" /></label>
+          <button class="button primary" type="submit">Submit Application</button>
+          <p id="application-message" class="message"></p>
+        </form>
+      </section>
+
+      <section id="status" class="workspace-shell wide-panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Know Your Status</p>
+            <h2>My Applications</h2>
+          </div>
+        </div>
+        <div id="application-list" class="metric-list">Loading...</div>
+      </section>
+    </main>
+    <footer class="footer-note">
+      Beneficiary service module for farmer registration, identity verification, application submission, and workflow status visibility.
+    </footer>
+    <script src="/assets/beneficiary.js"></script>
+  </body>
+  </html>
