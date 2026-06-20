@@ -13,3 +13,10 @@ app = "backend.app.main:app"
 
 [tool.uv]
 package = false
+
+[tool.pytest.ini_options]
+norecursedirs = [
+  ".git",
+  ".pytest_cache",
+  "pytest-cache-files-*",
+]

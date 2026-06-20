@@ -171,3 +171,18 @@ class BudgetRecord(BaseModel):
     updated_by: str
     updated_at: str
     remarks: str | None = None
+
+
+class ChatInteractionRecord(BaseModel):
+    chat_id: str
+    session_id: str | None = None
+    user_email: str | None = None
+    role: str = "public"
+    page: str
+    language: str = "en"
+    message: str
+    answer: str
+    mode: str
+    fallback_used: bool = False
+    source_titles: list[str] = Field(default_factory=list)
+    created_at: str

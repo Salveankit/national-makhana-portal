@@ -27,8 +27,8 @@
 
     <header class="masthead">
       <div class="brand-block">
-        <div class="brand-mark" aria-hidden="true">
-          <img src="/assets/images/nmb-seal-logo.png" alt="" />
+        <div class="brand-mark brand-mark-emblem" aria-hidden="true">
+          <img src="/assets/images/india-government-emblem.png" alt="" />
         </div>
         <div class="brand-copy">
           <p class="eyebrow" data-i18n="masthead.gov">Government of India</p>
@@ -47,79 +47,273 @@
       <a class="active" href="/services" data-i18n="nav.services">Services</a>
       <a href="/schemes" data-i18n="nav.schemes">Schemes</a>
       <a href="/updates" data-i18n="nav.updates">Updates</a>
-      <a href="/helpdesk" data-i18n="nav.helpdesk">Helpdesk</a>
       <a href="/dashboard" data-i18n="nav.dashboard">Officer Console</a>
     </nav>
 
     <main id="main" class="page-shell">
+      <section class="portal-hero portal-hero-services">
+        <div class="portal-hero-main">
+          <span class="section-kicker" data-i18n="services.badge">Public Service Directory</span>
+          <h2 data-i18n="services.heading">Service Access Directory</h2>
+          <p data-i18n="services.lead">Find the correct service route for registration, application filing, field verification, officer review, and board-level approval.</p>
+          <div class="service-hero-points">
+            <span class="service-hero-point" data-i18n="services.heroPointOne">Public filing and tracking through one beneficiary workspace</span>
+            <span class="service-hero-point" data-i18n="services.heroPointTwo">Secure officer route for scrutiny, inspection, and approval</span>
+            <span class="service-hero-point" data-i18n="services.heroPointThree">Helpdesk escalation for unresolved access issues</span>
+          </div>
+          <div class="hero-action-row">
+            <a class="button primary" href="/beneficiary" data-i18n="actions.beneficiary">Beneficiary Services</a>
+            <a class="button secondary" href="/login" data-i18n="utility.login">Secure Login</a>
+          </div>
+          <div class="portal-hero-media">
+            <img src="/assets/images/nmb-services-hero-generated.png" alt="Beneficiary services interaction near makhana cultivation ponds" />
+          </div>
+        </div>
+        <aside class="portal-hero-side">
+          <div class="hero-stat-grid service-entry-grid">
+            <article class="service-entry-card">
+              <span class="hero-stat-label" data-i18n="services.entryOneLabel">Public Access</span>
+              <strong data-i18n="services.entryOneTitle">Beneficiary Workspace</strong>
+              <p data-i18n="services.entryOneBody">Use this route for registration, application submission, and status tracking.</p>
+              <a class="button secondary" href="/beneficiary" data-i18n="services.entryOneAction">Open Beneficiary Services</a>
+            </article>
+            <article class="service-entry-card">
+              <span class="hero-stat-label" data-i18n="services.entryTwoLabel">Secure Access</span>
+              <strong data-i18n="services.entryTwoTitle">Officer Login</strong>
+              <p data-i18n="services.entryTwoBody">Use secure login for scrutiny, inspections, approval, and monitoring functions.</p>
+              <a class="button primary" href="/login" data-i18n="services.entryTwoAction">Open Secure Login</a>
+            </article>
+            <article class="services-visual-card">
+              <img src="/assets/images/nmb-services-field-support-generated.png" alt="Officer, inspector, and beneficiary reviewing field documents" />
+              <div class="services-visual-copy">
+                <strong data-i18n="services.visualTitle">Field support and document review</strong>
+                <p data-i18n="services.visualBody">Service delivery extends from public registration to document scrutiny, field verification, and assisted resolution at district level.</p>
+              </div>
+            </article>
+          </div>
+        </aside>
+      </section>
+
       <div class="notice-strip" data-i18n="services.notice">
-        Service modules are organized for beneficiaries, state implementing agencies, inspection teams, and board administrators.
+        Public-facing services begin in the beneficiary workspace. Review, inspection, and approval functions operate through the secure officer environment.
       </div>
 
-      <section class="section-block">
+      <section class="section-block catalog-section services-directory-shell">
         <div class="section-heading">
-          <h2 data-i18n="services.heading">Digital Service Catalogue</h2>
-          <p data-i18n="services.lead">Service areas are arranged to help users find the right function quickly.</p>
+          <h2 data-i18n="services.catalogHeading">Operational Service Catalogue</h2>
+          <p data-i18n="services.catalogLead">Select the relevant module by workflow stage, responsible role, and access mode.</p>
         </div>
-        <div class="service-grid">
-          <article class="service-card">
-            <span class="tag" data-i18n="services.serviceOneTag">Citizen Service</span>
-            <h3 data-i18n="services.serviceOneTitle">Beneficiary Registration</h3>
-            <p data-i18n="services.serviceOneBody">Farmer profile creation with location hierarchy, cultivation details, and identity-linked service access.</p>
-            <div class="actions">
-              <a class="button primary" href="/beneficiary" data-i18n="services.serviceOneAction">Open Workspace</a>
+        <div class="services-portal-layout">
+          <div class="catalog-main">
+            <div class="services-toolbar" role="toolbar" aria-label="Service directory filters">
+              <label class="services-search" for="service-search">
+                <span class="services-search-label" data-i18n="services.searchLabel">Search services</span>
+                <input
+                  id="service-search"
+                  type="search"
+                  data-service-search-input
+                  data-i18n-placeholder="services.searchPlaceholder"
+                  placeholder="Search by role, workflow stage, or service name"
+                />
+              </label>
+              <div class="services-filter-group">
+                <button class="services-filter is-active" type="button" data-service-filter="all" data-i18n="services.filterAll">All Modules</button>
+                <button class="services-filter" type="button" data-service-filter="public" data-i18n="services.filterPublic">Beneficiary Services</button>
+                <button class="services-filter" type="button" data-service-filter="secure" data-i18n="services.filterSecure">Officer Workflows</button>
+              </div>
             </div>
-          </article>
-          <article class="service-card">
-            <span class="tag" data-i18n="services.serviceTwoTag">Citizen Service</span>
-            <h3 data-i18n="services.serviceTwoTitle">Application Submission</h3>
-            <p data-i18n="services.serviceTwoBody">Scheme support application with document metadata, geotag inputs, and acknowledgement-based filing.</p>
-          </article>
-          <article class="service-card">
-            <span class="tag" data-i18n="services.serviceThreeTag">Citizen Service</span>
-            <h3 data-i18n="services.serviceThreeTitle">Status Tracking</h3>
-            <p data-i18n="services.serviceThreeBody">Beneficiaries can view stage progression, clarifications, inspections, and final decision visibility.</p>
-          </article>
-          <article class="service-card">
-            <span class="tag" data-i18n="services.serviceFourTag">State Operations</span>
-            <h3 data-i18n="services.serviceFourTitle">Review and Recommendation</h3>
-            <p data-i18n="services.serviceFourBody">State officers process applications, raise clarifications, assign field visits, and recommend eligible cases.</p>
-          </article>
-          <article class="service-card">
-            <span class="tag" data-i18n="services.serviceFiveTag">Inspection</span>
-            <h3 data-i18n="services.serviceFiveTitle">Field Verification</h3>
-            <p data-i18n="services.serviceFiveBody">Inspectors complete on-ground verification with site details, coordinates, photographs, and remarks.</p>
-          </article>
-          <article class="service-card">
-            <span class="tag" data-i18n="services.serviceSixTag">Board Operations</span>
-            <h3 data-i18n="services.serviceSixTitle">Approval and Monitoring</h3>
-            <p data-i18n="services.serviceSixBody">National-level users review recommendations, approve or return applications, and monitor implementation progress.</p>
-          </article>
+
+            <div class="services-results-bar">
+              <p class="services-results-text" data-service-results data-i18n="services.resultsSummaryStatic">Showing all service modules.</p>
+              <a class="services-results-link" href="/login" data-i18n="services.resultsAction">Need secure service access?</a>
+            </div>
+
+            <div class="service-directory-list" aria-live="polite">
+              <article class="service-directory-row" data-service-group="public">
+                <div class="service-directory-main">
+                  <div class="service-directory-head">
+                    <div class="service-directory-code">
+                      <span class="service-card-code" data-i18n="services.serviceOneCode">Module 01</span>
+                      <span class="tag" data-i18n="services.serviceOneTag">Public Entry</span>
+                    </div>
+                    <h3 data-i18n="services.serviceOneTitle">Beneficiary Registration</h3>
+                  </div>
+                  <p class="service-card-meta" data-i18n="services.serviceOneMeta">Role: Beneficiary · Access: Public workspace</p>
+                  <p data-i18n="services.serviceOneBody">Farmer profile creation with identity verification, location hierarchy, and cultivation profile setup.</p>
+                </div>
+                <div class="service-directory-route">
+                  <strong data-i18n="services.stageLabel">Workflow Use</strong>
+                  <span data-i18n="services.serviceOneRoute">Used before application filing.</span>
+                </div>
+                <div class="service-directory-action">
+                  <a class="button primary" href="/beneficiary" data-i18n="services.serviceOneAction">Open Workspace</a>
+                </div>
+              </article>
+
+              <article class="service-directory-row" data-service-group="public">
+                <div class="service-directory-main">
+                  <div class="service-directory-head">
+                    <div class="service-directory-code">
+                      <span class="service-card-code" data-i18n="services.serviceTwoCode">Module 02</span>
+                      <span class="tag" data-i18n="services.serviceTwoTag">Public Entry</span>
+                    </div>
+                    <h3 data-i18n="services.serviceTwoTitle">Application Submission</h3>
+                  </div>
+                  <p class="service-card-meta" data-i18n="services.serviceTwoMeta">Role: Beneficiary · Access: Public workspace</p>
+                  <p data-i18n="services.serviceTwoBody">Scheme support filing with document capture, geotag inputs, and acknowledgement-based submission.</p>
+                </div>
+                <div class="service-directory-route">
+                  <strong data-i18n="services.stageLabel">Workflow Use</strong>
+                  <span data-i18n="services.serviceTwoRoute">Available inside the beneficiary workspace.</span>
+                </div>
+                <div class="service-directory-action">
+                  <a class="button secondary" href="/beneficiary" data-i18n="actions.beneficiary">Beneficiary Services</a>
+                </div>
+              </article>
+
+              <article class="service-directory-row" data-service-group="public">
+                <div class="service-directory-main">
+                  <div class="service-directory-head">
+                    <div class="service-directory-code">
+                      <span class="service-card-code" data-i18n="services.serviceThreeCode">Module 03</span>
+                      <span class="tag" data-i18n="services.serviceThreeTag">Public Entry</span>
+                    </div>
+                    <h3 data-i18n="services.serviceThreeTitle">Status Tracking</h3>
+                  </div>
+                  <p class="service-card-meta" data-i18n="services.serviceThreeMeta">Role: Beneficiary · Access: Public workspace</p>
+                  <p data-i18n="services.serviceThreeBody">Stage-level visibility for scrutiny, clarifications, inspections, recommendation, and final decision status.</p>
+                </div>
+                <div class="service-directory-route">
+                  <strong data-i18n="services.stageLabel">Workflow Use</strong>
+                  <span data-i18n="services.serviceThreeRoute">Accessible from the beneficiary workspace dashboard.</span>
+                </div>
+                <div class="service-directory-action">
+                  <a class="button secondary" href="/beneficiary" data-i18n="actions.beneficiary">Beneficiary Services</a>
+                </div>
+              </article>
+
+              <article class="service-directory-row" data-service-group="secure">
+                <div class="service-directory-main">
+                  <div class="service-directory-head">
+                    <div class="service-directory-code">
+                      <span class="service-card-code" data-i18n="services.serviceFourCode">Module 04</span>
+                      <span class="tag" data-i18n="services.serviceFourTag">Secure Workflow</span>
+                    </div>
+                    <h3 data-i18n="services.serviceFourTitle">Review and Recommendation</h3>
+                  </div>
+                  <p class="service-card-meta" data-i18n="services.serviceFourMeta">Role: State officer · Access: Secure login</p>
+                  <p data-i18n="services.serviceFourBody">Application scrutiny, clarification management, inspection assignment, and eligibility recommendation by state officers.</p>
+                </div>
+                <div class="service-directory-route">
+                  <strong data-i18n="services.stageLabel">Workflow Use</strong>
+                  <span data-i18n="services.serviceFourRoute">Operates through the secure officer console.</span>
+                </div>
+                <div class="service-directory-action">
+                  <a class="button primary" href="/login" data-i18n="utility.login">Secure Login</a>
+                </div>
+              </article>
+
+              <article class="service-directory-row" data-service-group="secure">
+                <div class="service-directory-main">
+                  <div class="service-directory-head">
+                    <div class="service-directory-code">
+                      <span class="service-card-code" data-i18n="services.serviceFiveCode">Module 05</span>
+                      <span class="tag" data-i18n="services.serviceFiveTag">Secure Workflow</span>
+                    </div>
+                    <h3 data-i18n="services.serviceFiveTitle">Field Verification</h3>
+                  </div>
+                  <p class="service-card-meta" data-i18n="services.serviceFiveMeta">Role: Inspector · Access: Secure login</p>
+                  <p data-i18n="services.serviceFiveBody">On-ground verification with field observations, location coordinates, photographs, and inspection remarks.</p>
+                </div>
+                <div class="service-directory-route">
+                  <strong data-i18n="services.stageLabel">Workflow Use</strong>
+                  <span data-i18n="services.serviceFiveRoute">Executed within the inspection workflow.</span>
+                </div>
+                <div class="service-directory-action">
+                  <a class="button primary" href="/login" data-i18n="utility.login">Secure Login</a>
+                </div>
+              </article>
+
+              <article class="service-directory-row" data-service-group="secure">
+                <div class="service-directory-main">
+                  <div class="service-directory-head">
+                    <div class="service-directory-code">
+                      <span class="service-card-code" data-i18n="services.serviceSixCode">Module 06</span>
+                      <span class="tag" data-i18n="services.serviceSixTag">Secure Workflow</span>
+                    </div>
+                    <h3 data-i18n="services.serviceSixTitle">Approval and Monitoring</h3>
+                  </div>
+                  <p class="service-card-meta" data-i18n="services.serviceSixMeta">Role: NMB administrator · Access: Secure login</p>
+                  <p data-i18n="services.serviceSixBody">National-level approval, return decisions, readiness oversight, and implementation monitoring.</p>
+                </div>
+                <div class="service-directory-route">
+                  <strong data-i18n="services.stageLabel">Workflow Use</strong>
+                  <span data-i18n="services.serviceSixRoute">Restricted to the board administration environment.</span>
+                </div>
+                <div class="service-directory-action">
+                  <a class="button primary" href="/login" data-i18n="utility.login">Secure Login</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <aside class="catalog-aside services-guidance-panel">
+            <div class="services-guidance-card">
+              <h3 data-i18n="services.asideOneHeading">Before You Proceed</h3>
+              <ul class="services-guidance-list">
+                <li data-i18n="services.asideOneItemOne">Use the beneficiary workspace for public registration, filing, and status-viewing functions.</li>
+                <li data-i18n="services.asideOneItemTwo">Use secure login for scrutiny, inspection, approval, and monitoring actions.</li>
+                <li data-i18n="services.asideOneItemThree">Use secure login for role-restricted services and avoid duplicate public submissions.</li>
+              </ul>
+              <div class="services-guidance-note">
+                <strong data-i18n="services.guidanceNoteTitle">Service route discipline</strong>
+                <p data-i18n="services.guidanceNoteBody">Public pages should guide users to the correct route quickly. Role-restricted actions should remain inside secure workflows.</p>
+              </div>
+              <div class="services-guidance-actions">
+                <a class="button secondary" href="/login" data-i18n="services.supportAction">Open Secure Login</a>
+              </div>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section class="section-block">
+      <section class="section-block catalog-section access-summary-section">
         <div class="section-heading">
-          <h2 data-i18n="services.groupsHeading">User Groups and Access Pathways</h2>
-          <p data-i18n="services.groupsLead">Services are grouped according to the needs of beneficiaries, inspectors, officers, and administrators.</p>
+          <h2 data-i18n="services.groupsHeading">Access by Role</h2>
+          <p data-i18n="services.groupsLead">Use the correct entry point for each operating role.</p>
         </div>
-        <div class="feature-grid">
-          <article class="card">
-            <h3 data-i18n="services.groupOneTitle">Beneficiaries</h3>
-            <p data-i18n="services.groupOneBody">Profile management, identity verification, application submission, and application status tracking.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="services.groupTwoTitle">State Officers</h3>
-            <p data-i18n="services.groupTwoBody">Scrutiny, query management, inspection assignment, recommendation, and state-level progress review.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="services.groupThreeTitle">Inspectors</h3>
-            <p data-i18n="services.groupThreeBody">Field verification closure, geotagging, observations, and supporting photo-record capture.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="services.groupFourTitle">NMB Administrators</h3>
-            <p data-i18n="services.groupFourBody">Final approval, planning oversight, utilization visibility, service readiness review, and monitoring access.</p>
-          </article>
+        <div class="service-access-table-wrap">
+          <table class="service-access-table">
+            <thead>
+              <tr>
+                <th scope="col" data-i18n="services.matrixRoleLabel">Role</th>
+                <th scope="col" data-i18n="services.matrixServiceLabel">Core Services</th>
+                <th scope="col" data-i18n="services.matrixAccessLabel">Access Route</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-i18n="services.groupOneTitle">Beneficiaries</td>
+                <td data-i18n="services.groupOneBody">Registration, application filing, and status tracking.</td>
+                <td><span class="role-route" data-i18n="services.groupOneRoute">Beneficiary workspace</span></td>
+              </tr>
+              <tr>
+                <td data-i18n="services.groupTwoTitle">State Officers</td>
+                <td data-i18n="services.groupTwoBody">Scrutiny, clarification handling, inspection assignment, and recommendation.</td>
+                <td><span class="role-route" data-i18n="services.groupTwoRoute">Secure officer login</span></td>
+              </tr>
+              <tr>
+                <td data-i18n="services.groupThreeTitle">Inspectors</td>
+                <td data-i18n="services.groupThreeBody">Field verification closure, evidence capture, and inspection remarks.</td>
+                <td><span class="role-route" data-i18n="services.groupThreeRoute">Secure officer login</span></td>
+              </tr>
+              <tr>
+                <td data-i18n="services.groupFourTitle">NMB Administrators</td>
+                <td data-i18n="services.groupFourBody">Approval, monitoring, readiness oversight, and implementation review.</td>
+                <td><span class="role-route" data-i18n="services.groupFourRoute">Secure officer login</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
     </main>
@@ -147,13 +341,13 @@
             <a href="/beneficiary" data-i18n="actions.beneficiary">Beneficiary Services</a>
             <a href="/login" data-i18n="utility.login">Secure Login</a>
             <a href="/dashboard" data-i18n="nav.dashboard">Officer Console</a>
-            <a href="/helpdesk" data-i18n="nav.helpdesk">Helpdesk</a>
+            <a href="/updates" data-i18n="nav.updates">Updates</a>
           </div>
         </div>
         <div>
           <h3 data-i18n="footer.support">Support</h3>
           <p data-i18n="services.supportBody">Use the services directory to identify the correct service path for beneficiaries, inspection teams, and officers.</p>
-          <a class="footer-support-link" href="/helpdesk" data-i18n="services.supportAction">Open Helpdesk</a>
+          <a class="footer-support-link" href="/login" data-i18n="services.supportAction">Open Secure Login</a>
         </div>
       </div>
       <div class="footer-bottom">

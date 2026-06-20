@@ -1,0 +1,352 @@
+{
+  "enabled": false,
+  "provider": "azure_openai",
+  "knowledge_root": "knowledge",
+  "documents": 29,
+  "chunks": 45,
+  "categories": {
+    "demo": 3,
+    "faq": 18,
+    "official": 8
+  },
+  "azure_configured": false,
+  "documents_detail": [
+    {
+      "doc_id": "demo/helpdesk-triage-playbook.md",
+      "title": "Helpdesk Triage Playbook",
+      "category": "demo",
+      "summary": "Helpdesk Triage Playbook",
+      "source_type": "curated_markdown",
+      "path": "knowledge\\demo\\helpdesk-triage-playbook.md",
+      "tags": [
+        "demo"
+      ]
+    },
+    {
+      "doc_id": "demo/sample-workflow-scenarios.md",
+      "title": "Sample Workflow Scenarios",
+      "category": "demo",
+      "summary": "Sample Workflow Scenarios",
+      "source_type": "curated_markdown",
+      "path": "knowledge\\demo\\sample-workflow-scenarios.md",
+      "tags": [
+        "demo"
+      ]
+    },
+    {
+      "doc_id": "demo/seeded-scenarios-and-demo-talk-tracks.md",
+      "title": "Seeded Scenarios And Demo Talk Tracks",
+      "category": "demo",
+      "summary": "Seeded Scenarios And Demo Talk Tracks",
+      "source_type": "curated_markdown",
+      "path": "knowledge\\demo\\seeded-scenarios-and-demo-talk-tracks.md",
+      "tags": [
+        "demo"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#1",
+      "title": "What is the National Makhana Board portal used for?",
+      "category": "faq",
+      "summary": "What is the National Makhana Board portal used for?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "overview",
+        "portal"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#2",
+      "title": "Can a farmer apply through this portal?",
+      "category": "faq",
+      "summary": "Can a farmer apply through this portal?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "beneficiary",
+        "application"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#3",
+      "title": "Which users are supported by the portal?",
+      "category": "faq",
+      "summary": "Which users are supported by the portal?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "roles",
+        "access"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#4",
+      "title": "Is this portal only a website for information display?",
+      "category": "faq",
+      "summary": "Is this portal only a website for information display?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "overview",
+        "workflow"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#5",
+      "title": "What service areas are available in the portal?",
+      "category": "faq",
+      "summary": "What service areas are available in the portal?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "services",
+        "modules"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#6",
+      "title": "What are the main support areas shown under schemes?",
+      "category": "faq",
+      "summary": "What are the main support areas shown under schemes?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "schemes",
+        "support-areas"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#7",
+      "title": "Does the portal already use live Aadhaar, DBT, SMS, and WhatsApp integration?",
+      "category": "faq",
+      "summary": "Does the portal already use live Aadhaar, DBT, SMS, and WhatsApp integration?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "integrations",
+        "poc"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#8",
+      "title": "What does integration-ready mean in this proof of concept?",
+      "category": "faq",
+      "summary": "What does integration-ready mean in this proof of concept?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "integrations",
+        "readiness"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#9",
+      "title": "What can I do if I cannot log in?",
+      "category": "faq",
+      "summary": "What can I do if I cannot log in?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "login",
+        "helpdesk"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#10",
+      "title": "What does Submitted status mean for an application?",
+      "category": "faq",
+      "summary": "What does Submitted status mean for an application?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "status",
+        "workflow"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#11",
+      "title": "What does Clarification Raised mean?",
+      "category": "faq",
+      "summary": "What does Clarification Raised mean?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "status",
+        "clarification"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#12",
+      "title": "What does Inspection Assigned mean?",
+      "category": "faq",
+      "summary": "What does Inspection Assigned mean?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "status",
+        "inspection"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#13",
+      "title": "What does Recommended by State mean?",
+      "category": "faq",
+      "summary": "What does Recommended by State mean?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "status",
+        "state-review"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#14",
+      "title": "What can beneficiaries do after secure login?",
+      "category": "faq",
+      "summary": "What can beneficiaries do after secure login?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "beneficiary",
+        "workspace"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#15",
+      "title": "What can state officers do in the portal?",
+      "category": "faq",
+      "summary": "What can state officers do in the portal?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "officer",
+        "workflow"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#16",
+      "title": "What can NMB administrators do in the portal?",
+      "category": "faq",
+      "summary": "What can NMB administrators do in the portal?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "admin",
+        "monitoring"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#17",
+      "title": "Why does the proof of concept use seeded records?",
+      "category": "faq",
+      "summary": "Why does the proof of concept use seeded records?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "demo",
+        "seeded-data"
+      ]
+    },
+    {
+      "doc_id": "faq/public-faq.json#18",
+      "title": "How should this portal be evaluated in a bid or demonstration setting?",
+      "category": "faq",
+      "summary": "How should this portal be evaluated in a bid or demonstration setting?",
+      "source_type": "curated_json",
+      "path": "knowledge\\faq\\public-faq.json",
+      "tags": [
+        "bid",
+        "demonstration"
+      ]
+    },
+    {
+      "doc_id": "official/bid-positioning-and-differentiators.md",
+      "title": "Bid Positioning And Differentiators",
+      "category": "official",
+      "summary": "Bid Positioning And Differentiators",
+      "source_type": "curated_markdown",
+      "path": "knowledge\\official\\bid-positioning-and-differentiators.md",
+      "tags": [
+        "official"
+      ]
+    },
+    {
+      "doc_id": "official/module-capabilities.md",
+      "title": "Module Capabilities",
+      "category": "official",
+      "summary": "Module Capabilities",
+      "source_type": "curated_markdown",
+      "path": "knowledge\\official\\module-capabilities.md",
+      "tags": [
+        "official"
+      ]
+    },
+    {
+      "doc_id": "official/portal-operating-model.md",
+      "title": "Portal Operating Model",
+      "category": "official",
+      "summary": "Portal Operating Model",
+      "source_type": "curated_markdown",
+      "path": "knowledge\\official\\portal-operating-model.md",
+      "tags": [
+        "official"
+      ]
+    },
+    {
+      "doc_id": "official/public-pages-and-guidance.md",
+      "title": "Public Pages And Guidance",
+      "category": "official",
+      "summary": "Public Pages And Guidance",
+      "source_type": "curated_markdown",
+      "path": "knowledge\\official\\public-pages-and-guidance.md",
+      "tags": [
+        "official"
+      ]
+    },
+    {
+      "doc_id": "official/rfp-scope-and-objectives.md",
+      "title": "Rfp Scope And Objectives",
+      "category": "official",
+      "summary": "RFP Scope And Objectives",
+      "source_type": "curated_markdown",
+      "path": "knowledge\\official\\rfp-scope-and-objectives.md",
+      "tags": [
+        "official"
+      ]
+    },
+    {
+      "doc_id": "official/role-model-and-access-paths.md",
+      "title": "Role Model And Access Paths",
+      "category": "official",
+      "summary": "Role Model And Access Paths",
+      "source_type": "curated_markdown",
+      "path": "knowledge\\official\\role-model-and-access-paths.md",
+      "tags": [
+        "official"
+      ]
+    },
+    {
+      "doc_id": "official/service-readiness-and-integrations.md",
+      "title": "Service Readiness And Integrations",
+      "category": "official",
+      "summary": "Service Readiness And Integrations",
+      "source_type": "curated_markdown",
+      "path": "knowledge\\official\\service-readiness-and-integrations.md",
+      "tags": [
+        "official"
+      ]
+    },
+    {
+      "doc_id": "official/workflow-lifecycles.md",
+      "title": "Workflow Lifecycles",
+      "category": "official",
+      "summary": "Workflow Lifecycles",
+      "source_type": "curated_markdown",
+      "path": "knowledge\\official\\workflow-lifecycles.md",
+      "tags": [
+        "official"
+      ]
+    }
+  ]
+}

@@ -4,14 +4,16 @@ from datetime import UTC, datetime
 from pathlib import Path
 import csv
 import io
+import json
 
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, Response
+from fastapi.responses import FileResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 from backend.app.core.config import settings
 from backend.app.core.security import issue_token, verify_password
+from backend.app.chatbot import answer_chat, chat_analytics_snapshot
 from backend.app.data import (
     add_audit,
     create_application,
@@ -23,6 +25,7 @@ from backend.app.data import (
     get_open_clarification,
     get_user_by_id,
     get_user_by_email,
+    list_chat_logs,
     list_integration_events,
     list_aap as load_aap,
     list_audit_logs,
@@ -37,6 +40,7 @@ from backend.app.data import (
     next_aap_id,
     next_application_id,
     next_budget_id,
+    next_chat_id,
     next_clarification_id,
     next_field_data_id,
     next_integration_event_id,
@@ -50,15 +54,17 @@ from backend.app.data import (
     save_field_data,
     save_integration_event,
     save_inspection,
+    save_chat_log,
     save_notification,
     storage_health,
 )
-from backend.app.deps import get_current_user, require_permission
+from backend.app.deps import get_current_user, get_optional_user, require_permission
 from backend.app.models import (
     AnnualActionPlan,
     ApplicationRecord,
     BeneficiaryProfile,
     BudgetRecord,
+    ChatInteractionRecord,
     ClarificationRecord,
     DocumentMeta,
     FieldDataRecord,
@@ -77,6 +83,10 @@ from backend.app.schemas import (
     BeneficiaryProfileRequest,
     BudgetRequest,
     BudgetUtilizationRequest,
+    ChatAction,
+    ChatMessageRequest,
+    ChatMessageResponse,
+    ChatSource,
     ClarificationRequest,
     ClarificationResponseRequest,
     DecisionRequest,
@@ -1047,6 +1057,97 @@ def report_overview(
         "summary": summary,
         "report_name": "State and National Monitoring Snapshot",
     }
+
+
+@app.post("/api/v1/chat/message", response_model=ChatMessageResponse)
+def chat_message(payload: ChatMessageRequest, user=Depends(get_optional_user)):
+    result = answer_chat(payload.message, payload.page, payload.language, user)
+    record = ChatInteractionRecord(
+        chat_id=next_chat_id(),
+        session_id=payload.session_id,
+        user_email=user.email if user else None,
+        role=user.role if user else "public",
+        page=payload.page,
+        language=payload.language,
+        message=payload.message,
+        answer=result.answer,
+        mode=result.mode,
+        fallback_used=result.fallback_used,
+        source_titles=[item.title for item in result.sources],
+        created_at=datetime.now(UTC).isoformat(),
+    )
+    save_chat_log(record)
+    return ChatMessageResponse(
+        answer=result.answer,
+        sources=[ChatSource(title=item.title, category=item.category, summary=item.summary) for item in result.sources],
+        suggested_actions=[ChatAction(label=item["label"], href=item["href"]) for item in result.suggested_actions],
+        fallback_used=result.fallback_used,
+        mode=result.mode,
+    )
+
+
+def _stream_chunks(text: str, target_size: int = 42) -> list[str]:
+    words = text.split()
+    chunks: list[str] = []
+    current = ""
+    for word in words:
+        candidate = f"{current} {word}".strip()
+        if current and len(candidate) > target_size:
+            chunks.append(current + " ")
+            current = word
+        else:
+            current = candidate
+    if current:
+        chunks.append(current)
+    return chunks or [text]
+
+
+@app.post("/api/v1/chat/stream")
+def chat_stream(payload: ChatMessageRequest, user=Depends(get_optional_user)):
+    result = answer_chat(payload.message, payload.page, payload.language, user)
+    record = ChatInteractionRecord(
+        chat_id=next_chat_id(),
+        session_id=payload.session_id,
+        user_email=user.email if user else None,
+        role=user.role if user else "public",
+        page=payload.page,
+        language=payload.language,
+        message=payload.message,
+        answer=result.answer,
+        mode=result.mode,
+        fallback_used=result.fallback_used,
+        source_titles=[item.title for item in result.sources],
+        created_at=datetime.now(UTC).isoformat(),
+    )
+    save_chat_log(record)
+
+    def event_stream():
+        yield json.dumps({"type": "status", "mode": result.mode, "fallback_used": result.fallback_used}) + "\n"
+        for chunk in _stream_chunks(result.answer):
+            yield json.dumps({"type": "delta", "content": chunk}) + "\n"
+        yield json.dumps(
+            {
+                "type": "complete",
+                "sources": [ChatSource(title=item.title, category=item.category, summary=item.summary).model_dump() for item in result.sources],
+                "suggested_actions": [ChatAction(label=item["label"], href=item["href"]).model_dump() for item in result.suggested_actions],
+                "mode": result.mode,
+                "fallback_used": result.fallback_used,
+            }
+        ) + "\n"
+
+    return StreamingResponse(event_stream(), media_type="application/x-ndjson")
+
+
+@app.get("/api/v1/chat/history")
+def chat_history(limit: int = 20, user=Depends(get_current_user)):
+    return [item.model_dump() for item in list_chat_logs(limit=limit, user_email=user.email)]
+
+
+@app.get("/api/v1/chat/analytics")
+def chat_analytics(user=Depends(get_current_user)):
+    if user.role != "nmb_admin":
+        raise HTTPException(status_code=403, detail="NMB admin only")
+    return chat_analytics_snapshot()
 
 
 @app.get("/")

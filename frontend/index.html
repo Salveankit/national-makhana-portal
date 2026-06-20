@@ -10,25 +10,34 @@
     <link rel="stylesheet" href="/assets/styles.css" />
   </head>
   <body data-page="home">
-    <div class="utility-bar">
+    <div class="utility-bar home-utility-bar">
       <div class="utility-primary">
+        <span class="india-flag" aria-hidden="true"></span>
+        <span data-i18n="utility.bharat">भारत सरकार</span>
         <span data-i18n="utility.gov">Government of India</span>
+        <span class="utility-divider" aria-hidden="true"></span>
+        <span data-i18n="utility.ministryShort">Ministry of Agriculture & Farmers Welfare</span>
+      </div>
+      <div class="utility-links">
         <a class="utility-link skip-link" href="#main" data-i18n="utility.skip">Skip to main content</a>
         <span data-i18n="utility.screenReader">Screen Reader Access</span>
+        <div class="text-size-controls" aria-label="Text size controls">
+          <button type="button" data-font-scale="small" aria-label="Decrease text size">A-</button>
+          <button type="button" data-font-scale="normal" aria-label="Reset text size">A</button>
+          <button type="button" data-font-scale="large" aria-label="Increase text size">A+</button>
+        </div>
+        <button class="contrast-toggle" type="button" data-contrast-toggle aria-pressed="false" data-i18n="utility.contrast">Contrast</button>
         <div class="lang-switcher" aria-label="Language selector">
           <button class="language-toggle" type="button" data-lang-switch="en" aria-pressed="true">English</button>
           <button class="language-toggle" type="button" data-lang-switch="hi" aria-pressed="false">हिन्दी</button>
         </div>
       </div>
-      <div class="utility-links">
-        <a class="utility-link" href="/health" data-i18n="utility.status">System Status</a>
-      </div>
     </div>
 
-    <header class="masthead">
+    <header class="masthead home-masthead">
       <div class="brand-block">
-        <div class="brand-mark" aria-hidden="true">
-          <img src="/assets/images/nmb-seal-logo.png" alt="" />
+        <div class="brand-mark brand-mark-emblem" aria-hidden="true">
+          <img src="/assets/images/india-government-emblem.png" alt="" />
         </div>
         <div class="brand-copy">
           <p class="eyebrow" data-i18n="masthead.gov">Government of India</p>
@@ -37,17 +46,26 @@
         </div>
       </div>
       <div class="masthead-actions">
-        <span class="header-badge" data-i18n="home.badge">National Agriculture Service Platform</span>
-        <a class="button primary" href="/login" data-i18n="actions.login">Service Login</a>
-        <a class="button secondary" href="/beneficiary" data-i18n="actions.beneficiary">Beneficiary Services</a>
+        <form class="home-search" action="/services" method="get" role="search">
+          <label class="sr-only" for="home-search-input" data-i18n="home.searchLabel">Search portal services</label>
+          <input id="home-search-input" name="q" type="search" data-i18n-placeholder="home.searchPlaceholder" placeholder="Search here..." />
+          <button type="submit" aria-label="Search">⌕</button>
+        </form>
+        <a class="button secondary home-directory-button" href="/services">
+          <span aria-hidden="true">☷</span>
+          <span data-i18n="home.directoryAction">Service Directory</span>
+        </a>
+        <a class="button primary home-login-button" href="/login">
+          <span aria-hidden="true">●</span>
+          <span data-i18n="actions.login">Service Login</span>
+        </a>
       </div>
     </header>
-    <nav class="gov-nav" aria-label="Primary navigation">
+    <nav class="gov-nav home-gov-nav" aria-label="Primary navigation">
       <a class="active" href="/" data-i18n="nav.home">Home</a>
       <a href="/services" data-i18n="nav.services">Services</a>
       <a href="/schemes" data-i18n="nav.schemes">Schemes</a>
       <a href="/updates" data-i18n="nav.updates">Updates</a>
-      <a href="/helpdesk" data-i18n="nav.helpdesk">Helpdesk</a>
       <a href="/dashboard" data-i18n="nav.dashboard">Officer Console</a>
     </nav>
 
@@ -55,63 +73,132 @@
       <div class="notice-strip" data-i18n="home.notice">
         Official portal for beneficiary services, field verification, state review, approval monitoring, and scheme administration for the makhana sector.
       </div>
-      <section class="hero-panel">
-        <div class="hero-copy">
-          <p class="eyebrow" data-i18n="home.heroEyebrow">National Makhana Board Digital Services</p>
-          <h2 class="hero-title" data-i18n="home.heroTitle">Single-window access for registration, application tracking, field verification, and board-level review.</h2>
-          <p data-i18n="home.heroBody">Access beneficiary services, service updates, scheme information, and secure officer workflows through one formal portal.</p>
-          <div class="actions">
-            <a class="button primary" href="/login" data-i18n="home.heroLogin">Open Secure Login</a>
-            <a class="button secondary" href="/beneficiary" data-i18n="home.heroBeneficiary">Open Beneficiary Workspace</a>
+
+      <section class="home-hero" aria-labelledby="home-hero-title">
+        <img
+          class="home-hero-image"
+          src="/assets/images/nmb-home-hero-ceremonial-v2.png"
+          alt="Makhana cultivation ponds with farmers and processing workers"
+        />
+        <div class="home-hero-content">
+          <p class="home-hero-kicker" data-i18n="home.heroEyebrow">National Makhana Board Digital Services</p>
+          <h2 id="home-hero-title" class="home-hero-title" data-i18n="home.heroTitle">National Makhana Board</h2>
+          <p class="home-hero-lead" data-i18n="home.heroBody">Single-window public access for registration, scheme information, application tracking, field verification, and board-level review.</p>
+          <div class="home-hero-actions">
+            <a class="button primary home-hero-button" href="/beneficiary" data-i18n="home.heroBeneficiary">Open Beneficiary Services</a>
+            <a class="button secondary home-hero-button" href="/login" data-i18n="home.heroLogin">Secure Officer Login</a>
+          </div>
+          <div class="home-hero-assurance" aria-label="Service assurance">
+            <span data-i18n="home.heroTagOne">Beneficiary filing</span>
+            <span data-i18n="home.heroTagTwo">Field verification</span>
+            <span data-i18n="home.heroTagThree">Board monitoring</span>
           </div>
         </div>
-        <aside class="stats-rail">
-          <div class="hero-art">
-            <img src="/assets/images/nmb-hero-illustration.png" alt="Makhana cultivation landscape with farmer family and field officer" />
-          </div>
-          <div class="stat-card">
-            <strong data-i18n="home.statOneTitle">10 States</strong>
-            <span data-i18n="home.statOneBody">States covered under the board programme</span>
-          </div>
-          <div class="stat-card">
-            <strong data-i18n="home.statTwoTitle">Single Window</strong>
-            <span data-i18n="home.statTwoBody">Farmer registration, application, and status tracking</span>
-          </div>
-          <div class="stat-card">
-            <strong data-i18n="home.statThreeTitle">Multi-Level Workflow</strong>
-            <span data-i18n="home.statThreeBody">State review, inspection, and board approval</span>
-          </div>
-        </aside>
       </section>
 
-      <section class="section-block">
+      <section class="home-stat-ribbon" aria-labelledby="home-stats-heading">
+        <h2 id="home-stats-heading" class="sr-only" data-i18n="home.statsHeading">Programme service summary</h2>
+        <article class="home-stat-item">
+          <span class="home-stat-icon" aria-hidden="true">⌖</span>
+          <span class="home-stat-label" data-i18n="home.statOneBody">States covered under the board programme</span>
+          <strong data-i18n="home.statOneTitle">10 States</strong>
+        </article>
+        <article class="home-stat-item">
+          <span class="home-stat-icon" aria-hidden="true">♙</span>
+          <span class="home-stat-label" data-i18n="home.statTwoBody">Farmer registration, application, and status tracking</span>
+          <strong data-i18n="home.statTwoTitle">Single Window</strong>
+        </article>
+        <article class="home-stat-item">
+          <span class="home-stat-icon" aria-hidden="true">✓</span>
+          <span class="home-stat-label" data-i18n="home.statThreeBody">State review, inspection, and board approval</span>
+          <strong data-i18n="home.statThreeTitle">Multi-Level Workflow</strong>
+        </article>
+        <article class="home-stat-item">
+          <span class="home-stat-icon" aria-hidden="true">♧</span>
+          <span class="home-stat-label" data-i18n="home.statFourBody">Public services and secured officer operations</span>
+          <strong data-i18n="home.statFourTitle">Role-Based Access</strong>
+        </article>
+      </section>
+
+      <section class="section-block home-services-section">
         <div class="section-heading">
-          <h2 data-i18n="home.serviceHeading">Service Areas</h2>
+          <span class="section-kicker" data-i18n="home.serviceKicker">Service Entry Points</span>
+          <h2 data-i18n="home.serviceHeading">Access core services without searching through the portal.</h2>
+          <p data-i18n="home.serviceLead">Use the correct route for public filing, scheme guidance, secure officer work, and implementation monitoring.</p>
         </div>
-        <div class="feature-grid">
-          <article class="card">
-            <h3 data-i18n="home.cardOneTitle">Beneficiary Services</h3>
-            <p data-i18n="home.cardOneBody">Farmer registration, identity verification, application submission, and status visibility.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="home.cardTwoTitle">Officer Operations</h3>
-            <p data-i18n="home.cardTwoBody">Application review, clarification handling, inspection assignment, recommendation, and approval.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="home.cardThreeTitle">Planning and Monitoring</h3>
-            <p data-i18n="home.cardThreeBody">Annual Action Plans, budget visibility, district updates, and national monitoring support.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="home.cardFourTitle">Inspection Support</h3>
-            <p data-i18n="home.cardFourBody">Field verification, geotagged site reporting, and inspection-based validation.</p>
-          </article>
+        <div class="home-service-grid">
+          <a class="home-service-card" href="/beneficiary">
+            <span class="home-service-media" aria-hidden="true">
+              <img src="/assets/images/nmb-workflow-illustration.webp" alt="" />
+            </span>
+            <span class="home-service-icon" aria-hidden="true">♧</span>
+            <span class="home-service-copy">
+              <strong data-i18n="home.cardOneTitle">Beneficiary Services</strong>
+              <span data-i18n="home.cardOneBody">Farmer registration, identity verification, application submission, and status visibility.</span>
+            </span>
+            <span class="home-service-action" data-i18n="home.cardOneAction">Open services</span>
+          </a>
+          <a class="home-service-card" href="/schemes">
+            <span class="home-service-media" aria-hidden="true">
+              <img src="/assets/images/nmb-services-hero-generated.png" alt="" />
+            </span>
+            <span class="home-service-icon" aria-hidden="true">▤</span>
+            <span class="home-service-copy">
+              <strong data-i18n="home.cardTwoTitle">Scheme Information</strong>
+              <span data-i18n="home.cardTwoBody">Eligibility guidance, scheme components, support categories, and public information.</span>
+            </span>
+            <span class="home-service-action" data-i18n="home.cardTwoAction">View schemes</span>
+          </a>
+          <a class="home-service-card" href="/login">
+            <span class="home-service-media" aria-hidden="true">
+              <img src="/assets/images/nmb-services-field-support-generated.png" alt="" />
+            </span>
+            <span class="home-service-icon" aria-hidden="true">☑</span>
+            <span class="home-service-copy">
+              <strong data-i18n="home.cardThreeTitle">Officer Operations</strong>
+              <span data-i18n="home.cardThreeBody">Review, clarification, inspection assignment, recommendation, and approval workflows.</span>
+            </span>
+            <span class="home-service-action" data-i18n="home.cardThreeAction">Go to login</span>
+          </a>
+          <a class="home-service-card" href="/dashboard">
+            <span class="home-service-media" aria-hidden="true">
+              <img src="/assets/images/nmb-console-operations.webp" alt="" />
+            </span>
+            <span class="home-service-icon" aria-hidden="true">◫</span>
+            <span class="home-service-copy">
+              <strong data-i18n="home.cardFourTitle">Planning and Monitoring</strong>
+              <span data-i18n="home.cardFourBody">Annual Action Plans, budget visibility, district updates, and national monitoring support.</span>
+            </span>
+            <span class="home-service-action" data-i18n="home.cardFourAction">Open console</span>
+          </a>
         </div>
+      </section>
+
+      <section class="home-info-band" aria-label="Latest portal information">
+        <div class="home-updates-panel">
+          <div class="section-heading">
+            <span class="section-kicker" data-i18n="home.updatesKicker">Latest Information</span>
+            <h2 data-i18n="home.updatesHeading">Notices and service guidance</h2>
+          </div>
+          <div class="home-update-list">
+            <a href="/updates" data-i18n="home.updateOne">Application filing and review status updates are available from the Updates section.</a>
+            <a href="/services" data-i18n="home.updateTwo">Use the service directory to choose the correct public or secure workflow route.</a>
+            <a href="/login" data-i18n="home.updateThree">Use secure login for officer access and beneficiary status support.</a>
+          </div>
+        </div>
+        <aside class="home-support-panel">
+          <span class="section-kicker" data-i18n="home.supportKicker">Need Assistance?</span>
+          <h2 data-i18n="home.supportHeading">Service guidance and secure access</h2>
+          <p data-i18n="home.supportBody">Use the service directory for public routes and secure login for officer and beneficiary account access.</p>
+          <a class="button primary" href="/services" data-i18n="home.supportAction">Open Services</a>
+        </aside>
       </section>
     </main>
 
-    <footer class="footer-note">
+    <footer class="footer-note home-footer">
       <div class="gov-footer-grid">
         <div class="footer-identity">
+          <img class="footer-emblem" src="/assets/images/india-government-emblem.png" alt="" aria-hidden="true" />
           <strong data-i18n="footer.portal">National Makhana Board Portal</strong>
           <p class="footer-ministry" data-i18n="footer.department">Department of Agriculture & Farmers Welfare</p>
           <p data-i18n="footer.gov">Government of India</p>
@@ -132,18 +219,25 @@
             <a href="/beneficiary" data-i18n="actions.beneficiary">Beneficiary Services</a>
             <a href="/login" data-i18n="utility.login">Secure Login</a>
             <a href="/dashboard" data-i18n="nav.dashboard">Officer Console</a>
-            <a href="/helpdesk" data-i18n="nav.helpdesk">Helpdesk</a>
+            <a href="/services" data-i18n="home.directoryAction">Service Directory</a>
           </div>
         </div>
         <div>
-          <h3 data-i18n="footer.support">Support</h3>
-          <p data-i18n="home.supportBody">Guidance for registration, login, application tracking, and public service access is available through the helpdesk.</p>
-          <a class="footer-support-link" href="/helpdesk" data-i18n="home.supportAction">Open Helpdesk</a>
+          <h3 data-i18n="footer.contact">Get in Touch</h3>
+          <p data-i18n="footer.address">Krishi Bhawan, Dr. Rajendra Prasad Road, New Delhi - 110001</p>
+          <p><a class="footer-support-link" href="mailto:nmb-mowf@gov.in">nmb-mowf@gov.in</a></p>
+          <div class="footer-social" aria-label="Social media links">
+            <a href="/updates" aria-label="Updates on X">X</a>
+            <a href="/updates" aria-label="Facebook updates">f</a>
+            <a href="/updates" aria-label="Instagram updates">◎</a>
+            <a href="/updates" aria-label="Video updates">▶</a>
+          </div>
+          <p class="visitor-count"><span data-i18n="footer.visitors">Visitors Count</span>: <strong>1 2 6 7 9 5</strong></p>
         </div>
       </div>
       <div class="footer-bottom">
         <span data-i18n="footer.rights">© 2026 National Makhana Board. All rights reserved.</span>
-        <span data-i18n="footer.updated">Last Updated: 18 June 2026</span>
+        <span data-i18n="footer.updated">Last Updated: 20 June 2026</span>
         <span data-i18n="footer.ownership">Content owned by the Department of Agriculture & Farmers Welfare, Government of India.</span>
       </div>
     </footer>

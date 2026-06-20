@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
-  <body class="dashboard-body">
+  <body class="dashboard-body" data-page="dashboard">
     <div class="utility-bar">
       <div class="utility-links">
         <span>Government of India</span>
@@ -22,8 +22,8 @@
     </div>
     <header class="masthead">
       <div class="brand-block">
-        <div class="brand-mark" aria-hidden="true">
-          <img src="assets/images/nmb-seal-logo.png" alt="" />
+        <div class="brand-mark brand-mark-emblem" aria-hidden="true">
+          <img src="assets/images/india-government-emblem.png" alt="" />
         </div>
         <div class="brand-copy">
           <p class="eyebrow">Government of India</p>
@@ -83,7 +83,7 @@
             <button class="console-tab" type="button" data-section-target="services">Services</button>
           </div>
 
-          <section class="console-section active" data-console-section="overview">
+          <section id="overview" class="console-section active" data-console-section="overview">
             <div class="section-shell">
               <div class="section-header">
                 <div>
@@ -232,7 +232,7 @@
             </div>
           </section>
 
-          <section class="console-section" data-console-section="planning">
+          <section id="planning" class="console-section" data-console-section="planning">
             <div class="section-shell">
               <div class="section-header">
                 <div>
@@ -340,7 +340,7 @@
             </div>
           </section>
 
-          <section class="console-section" data-console-section="workflow">
+          <section id="workflow" class="console-section" data-console-section="workflow">
             <div class="section-shell">
               <div class="section-header">
                 <div>
@@ -490,7 +490,7 @@
             </div>
           </section>
 
-          <section class="console-section" data-console-section="system">
+          <section id="system" class="console-section" data-console-section="system">
             <div class="section-shell">
               <div class="section-header">
                 <div>
@@ -526,7 +526,7 @@
             </div>
           </section>
 
-          <section class="console-section" data-console-section="services">
+          <section id="services-console" class="console-section" data-console-section="services">
             <div class="section-shell">
               <div class="section-header">
                 <div>
@@ -616,6 +616,7 @@
     <footer class="footer-note">
       Officer-facing operational workspace for planning, budgets, inspections, approval workflows, service readiness, and monitoring.
     </footer>
+    <script src="/assets/site.js"></script>
     <script src="assets/dashboard.js"></script>
   </body>
-</html>
+  </html>

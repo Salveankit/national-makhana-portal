@@ -1,0 +1,4 @@
+interface:
+  display_name: "Government Portal Chatbot"
+  short_description: "Design and implement serious gov portal chatbots"
+  default_prompt: "Use $government-portal-chatbot to design or refine the National Makhana Board portal chatbot."

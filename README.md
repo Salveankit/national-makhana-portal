@@ -1,80 +1,180 @@
 # National Makhana Board Portal
 
-This repository is a working proof of concept for a Government of India-style National Makhana Board digital services portal. Treat this README as the central mental model for future work in this codebase.
+This repository is a working Government of India-style portal PoC for the National Makhana Board. Use this README as the default mental model for future chats in this codebase.
 
-The product combines public portal pages, beneficiary services, officer operations, planning, monitoring, notifications, and integration-readiness demonstrations in one FastAPI application with a static HTML/CSS/JavaScript frontend.
+The application is one FastAPI project that serves:
+
+- public-facing portal pages
+- beneficiary self-service workflows
+- officer and inspector operations
+- NMB admin monitoring and decisions
+- mock integration demonstrations
+- an embedded AI-assisted chatbot grounded in curated portal knowledge and runtime data
 
 ## Current Product State
 
-The app is deployed on Vercel as a demo deployment and can also run locally with Uvicorn.
+The project is beyond a static demo site. It already behaves like a functional workflow PoC with seeded operational data.
 
-Current implementation:
+Implemented today:
 
 - FastAPI backend in `backend/app`
-- Static frontend pages in `frontend`
-- Role-based login and bearer-token session storage in browser local storage
-- SQLite-backed PoC persistence
-- File-based document placeholder storage
-- Seeded demo data for walkthroughs
-- Government-style public portal and officer console UI
-- Vercel configuration for serverless demo deployment
-- Regression tests covering core workflows
+- static HTML/CSS/JS frontend in `frontend`
+- role-based login with bearer-token auth stored in browser local storage
+- SQLite-backed seeded PoC persistence
+- placeholder document storage under local filesystem or `/tmp`
+- beneficiary profile, Aadhaar mock verification, application filing, clarification response, and status tracking
+- officer review, clarification, inspection, recommendation, AAP, field-data, and budget flows
+- NMB admin dashboards, approvals, batch decisions, audit visibility, and system overview
+- mock SMS, email, WhatsApp, Aadhaar KYC, and DBT integration logging
+- floating chatbot UI on public pages plus beneficiary and dashboard views
+- chatbot support for retrieval fallback, Azure OpenAI grounded responses, and streaming-style UI delivery
+- curated knowledge base under `knowledge/`
+- regression tests for workflows, knowledge loading, and chatbot behavior
 
 Important deployment reality:
 
-- Local mode stores SQLite and document placeholders under `backend/data`.
-- Vercel mode stores SQLite and document placeholders under `/tmp/national-makhana-portal`.
-- Vercel `/tmp` storage is not durable, so deployed demo data may reset between cold starts or deployments.
-- Production-grade persistence still needs a hosted database and object storage.
+- local runtime data lives under `backend/data`
+- Vercel runtime data lives under `/tmp/national-makhana-portal`
+- Vercel `/tmp` storage is ephemeral
+- this is still a PoC deployment model, not production persistence
 
 ## Product Mental Model
 
-The portal has four primary user perspectives:
+Treat the portal as a single-window digital service platform, not as a set of disconnected pages.
 
-- Public visitor: views official pages, services, schemes, updates, and helpdesk information.
-- Beneficiary/farmer: manages profile, verifies Aadhaar, submits applications, responds to clarifications, and tracks application status.
-- State officer/inspector: reviews applications, raises clarifications, assigns or completes inspections, submits AAPs, updates field data, and reports budget utilization.
-- NMB admin: monitors national/state dashboards, reviews AAPs, makes board decisions, runs batch decisions, views system health, and demonstrates integration readiness.
+There are four main user perspectives:
 
-The codebase should be understood as a single-window agriculture service platform, not as separate apps. The FastAPI app serves both APIs and frontend pages.
+- `public visitor`: understands the portal, finds the right service path, reads updates, and uses helpdesk guidance
+- `beneficiary`: manages profile, verifies identity in mock mode, submits applications, responds to clarifications, and tracks status
+- `state officer / inspector`: reviews cases, raises clarifications, assigns or completes inspections, submits planning data, and updates workflow records
+- `nmb admin`: monitors national/state operations, reviews AAPs and budgets, issues final decisions, and checks system readiness
+
+The chatbot should also be understood in this same model:
+
+- on public pages it acts as a guided portal assistant
+- on beneficiary pages it can answer from beneficiary runtime context plus static knowledge
+- on dashboard pages it can answer from operations/runtime context plus static knowledge
+
+## Core Surfaces
+
+Public surfaces:
+
+- `/`
+- `/services`
+- `/schemes`
+- `/updates`
+- `/helpdesk`
+- `/login`
+
+Protected/role-aware surfaces:
+
+- `/beneficiary`
+- `/dashboard`
+
+Operational endpoints:
+
+- `/health`
+- `/api/v1/*`
+
+## Chatbot Model
+
+The chatbot is now a meaningful part of the PoC, not just placeholder scaffolding.
+
+### What it does
+
+- presents a floating assistant shell in the UI
+- supports suggested prompts per page
+- sends questions to backend chat endpoints
+- shows a short artificial delay and streaming-style response reveal
+- formats answers into readable chat content
+- optionally shows source titles and guided next actions
+
+### Backend answer modes
+
+The chatbot currently has two broad answer paths:
+
+1. `azure_grounded`
+2. fallback retrieval modes
+
+Fallback modes include:
+
+- `retrieval_fallback`
+- `beneficiary_runtime_fallback`
+- `operations_runtime_fallback`
+
+### Knowledge sources
+
+The chatbot answers from:
+
+- curated file-based knowledge in `knowledge/official`, `knowledge/faq`, and `knowledge/demo`
+- runtime beneficiary data such as profile, applications, clarifications, and notifications
+- runtime operations data such as queues, inspections, AAPs, budgets, field summaries, and service readiness
+
+### Azure OpenAI reality
+
+Azure OpenAI is only considered active when all of the following are true:
+
+- `CHATBOT_ENABLED=true`
+- `AZURE_OPENAI_ENDPOINT` is set
+- `AZURE_OPENAI_API_KEY` is set
+- `AZURE_OPENAI_DEPLOYMENT` is set
+
+If any of those are missing, the chatbot still works, but it will answer through the local retrieval fallback path.
+
+There is no separate startup handshake endpoint today. The model is attempted at request time.
+
+### Main chat endpoints
+
+- `POST /api/v1/chat/message`
+- `POST /api/v1/chat/stream`
+- `GET /api/v1/chat/history`
+- `GET /api/v1/chat/analytics`
 
 ## Main User Flows
 
 Beneficiary flow:
 
-- Login as farmer
-- View or update profile
-- Tokenize Aadhaar verification in mock mode
-- Submit application with geo tag and document metadata
-- Track status history
-- Respond to clarification
+1. login as `farmer@example.com`
+2. open beneficiary workspace
+3. update profile
+4. run mock Aadhaar verification
+5. submit application with metadata and geotag
+6. track status history
+7. respond to open clarification
 
-Officer workflow:
+Officer flow:
 
-- Login as state officer or inspector
-- View assigned applications
-- Raise clarification
-- Assign field inspection
-- Complete inspection with geo tag and photo metadata
-- Recommend application to NMB
+1. login as state officer or inspector
+2. review assigned applications
+3. raise clarification if needed
+4. assign inspection
+5. complete inspection with remarks and geotag metadata
+6. recommend case onward
 
-NMB admin workflow:
+NMB admin flow:
 
-- Login as NMB admin
-- View KPI dashboard and filtered monitoring data
-- Review AAP submissions
-- Create or review budget records
-- Approve, reject, or return applications
-- Run batch decisions
-- View audit, notification, and integration logs
+1. login as `nmb.admin@example.com`
+2. review dashboard KPIs and filters
+3. inspect planning, workflow, and system overview sections
+4. review AAP and budget states
+5. approve, reject, or return applications
+6. run batch decision actions
 
-Integration demonstration flow:
+Integration-readiness flow:
 
-- View service catalog
-- Trigger SMS, email, or WhatsApp notification events
-- Trigger Aadhaar KYC demonstration
-- Trigger DBT disbursement demonstration
-- Review integration event logs
+1. open dashboard system/integration areas
+2. trigger mock notification events
+3. trigger mock Aadhaar KYC
+4. trigger mock DBT disbursement
+5. inspect recorded integration logs
+
+Chatbot demo flow:
+
+1. open any public page, `/beneficiary`, or `/dashboard`
+2. open the floating assistant
+3. ask a public workflow question or use a suggested prompt
+4. validate formatted response quality
+5. if logged in, test beneficiary or dashboard runtime questions
 
 ## Demo Accounts
 
@@ -90,45 +190,58 @@ farmer@example.com         / Pass@123
 ```text
 backend/
   app/
-    main.py              FastAPI routes, page serving, workflow actions
-    data.py              SQLite storage, seed data, persistence helpers
-    models.py            Domain records
-    schemas.py           Request/response models
-    deps.py              Auth dependencies
+    main.py                FastAPI routes, page serving, chat streaming, workflow actions
+    chatbot.py             Retrieval, runtime context assembly, Azure OpenAI call path
+    knowledge.py           Knowledge document/chunk loading and summary helpers
+    data.py                SQLite storage, seed data, persistence helpers
+    models.py              Domain records
+    schemas.py             Request/response models
+    deps.py                Auth dependencies
     core/
-      config.py          Environment settings
-      rbac.py            Role permissions
-      security.py        Password hashing and token helpers
-  data/                  Local runtime SQLite/documents, ignored by Git
+      config.py            Environment loading and settings
+      rbac.py              Role permissions
+      security.py          Password hashing and token helpers
+  data/                    Local runtime SQLite/documents, ignored by Git
 
 frontend/
-  index.html             Public portal home
-  login.html             Login page
-  beneficiary.html       Beneficiary workspace
-  dashboard.html         Officer/admin console
-  services.html          Public services page
-  schemes.html           Public schemes page
-  updates.html           Public updates page
-  helpdesk.html          Public helpdesk page
+  index.html               Public home
+  services.html            Public services
+  schemes.html             Public schemes
+  updates.html             Public updates
+  helpdesk.html            Public helpdesk
+  login.html               Secure login
+  beneficiary.html         Beneficiary workspace
+  dashboard.html           Officer/admin console
   assets/
-    styles.css           Shared government portal styling
-    app.js               Login/public frontend behavior
-    beneficiary.js       Beneficiary workspace behavior
-    dashboard.js         Officer console behavior
-    images/              Portal illustrations and logo assets
+    app.js                 Login and page-specific frontend wiring
+    beneficiary.js         Beneficiary workspace logic
+    dashboard.js           Dashboard workspace logic
+    site.js                Shared public UI, translations, chatbot shell/streaming behavior
+    styles.css             Shared visual system and chatbot styles
+    images/                Portal images and identity assets
+
+knowledge/
+  official/                Curated official/project guidance
+  faq/                     Structured portal and support Q&A
+  demo/                    PoC-specific seeded knowledge
+  manifest.json            Knowledge manifest used by tooling/reference
+  README.md                Knowledge base notes
 
 scripts/
-  reset_demo_data.py     Recreates seeded demo state locally
+  reset_demo_data.py       Rebuilds local seeded runtime state
+  build_knowledge_manifest.py
+                           Rebuilds knowledge manifest from curated content
 
 tests/
-  test_workflows.py      Regression tests for core workflows
+  test_workflows.py        End-to-end workflow regression coverage
+  test_knowledge_base.py   Knowledge loading and summary checks
+  test_chatbot.py          Chat response, runtime context, and stream tests
 ```
 
-## Backend Capabilities
+## Backend Capability Map
 
 Major API areas:
 
-- `/health`
 - `/api/v1/auth/*`
 - `/api/v1/locations/*`
 - `/api/v1/beneficiary/*`
@@ -142,40 +255,37 @@ Major API areas:
 - `/api/v1/notifications`
 - `/api/v1/system/overview`
 - `/api/v1/integrations/mock/*`
+- `/api/v1/chat/*`
 
 Key implementation notes:
 
-- The app seeds demo data automatically when the SQLite database is empty.
-- Auth is a lightweight PoC bearer token implementation, not production OAuth.
-- Audit logs are written for major workflow actions.
-- Notifications and integrations are logged as events, not sent through live providers.
-- SMS/WhatsApp notification demo recipients must be 10 digit mobile numbers.
-- Email notification demo recipients must be valid email addresses.
-- Uploaded documents are placeholder records/files, not a full secure upload pipeline.
+- the database seeds automatically when empty
+- auth is lightweight bearer-token PoC auth, not production identity
+- audit records are written for major actions
+- integration actions are logged, not connected to live providers
+- document handling is placeholder-level, not a hardened upload pipeline
+- chat history and analytics are stored with answer mode and source titles
 
-## Frontend Model
+## Frontend Mental Model
 
-The frontend is static HTML/CSS/JS served by FastAPI.
+The frontend is still static HTML/CSS/JS served by FastAPI, but it now behaves like a cohesive portal rather than isolated pages.
 
-The visual direction is a restrained Indian government portal style:
+Visual direction:
 
-- Noto Sans typography
-- Government identity bar, masthead, green navigation
-- Compact officer dashboard with sidebar workspaces
-- Minimal but useful illustrations
-- Dense forms and monitoring cards
-- Channel-aware notification form
-- Historical/current FY filters, not future-year defaults
+- Indian government portal tone
+- green agriculture-aligned palette
+- compact operational views
+- Noto Sans-based typography
+- dense cards, filters, and work panels
+- minimal decorative motion
+- readable floating chat assistant instead of a generic chatbot widget
 
-Officer console sections:
+Important frontend rules:
 
-- Dashboard Overview
-- Planning Workspace
-- Workflow Desk
-- System Overview
-- Service Readiness
-
-Avoid adding duplicate navigation controls inside content when the sidebar already owns workspace navigation.
+- public pages must stay formal and government-facing
+- officer/dashboard screens stay compact and dense
+- beneficiary/dashboard navigation should not be duplicated unnecessarily
+- chatbot should feel like a portal assistant, not a consumer-chat gimmick
 
 ## Local Development
 
@@ -191,11 +301,12 @@ Run locally:
 python -m uvicorn backend.app.main:app --reload --app-dir .
 ```
 
-Open:
+Useful URLs:
 
 ```text
 http://127.0.0.1:8000/
 http://127.0.0.1:8000/login
+http://127.0.0.1:8000/beneficiary
 http://127.0.0.1:8000/dashboard
 http://127.0.0.1:8000/health
 ```
@@ -206,42 +317,52 @@ Reset local demo data:
 python scripts/reset_demo_data.py
 ```
 
-Run tests:
+Rebuild knowledge manifest if needed:
+
+```powershell
+python scripts/build_knowledge_manifest.py
+```
+
+## Testing
+
+Fastest useful regression commands:
 
 ```powershell
 python -m unittest tests.test_workflows
+python -m unittest tests.test_chatbot
+python -m unittest tests.test_knowledge_base
+```
+
+Full current regression set:
+
+```powershell
+python -m unittest tests.test_workflows tests.test_chatbot tests.test_knowledge_base
 ```
 
 ## Vercel Deployment
 
-This repo is prepared for Vercel:
+This repo is configured for Vercel demo deployment.
 
-- `requirements.txt` defines Python dependencies.
-- `pyproject.toml` exposes `backend.app.main:app` as the app entry.
-- `vercel.json` sets PoC runtime storage paths under `/tmp`.
-- `.vercelignore` excludes tests, caches, local data, and development artifacts.
+Important constraints:
 
-Deployment model:
-
-- Push changes to GitHub.
-- Vercel imports the GitHub repo.
-- Future pushes to the connected production branch trigger deployments.
-
-Use Vercel deployment for demos only until persistence is moved off local SQLite.
+- runtime persistence is still temp-storage based on `/tmp`
+- seeded data may reset across deployments or cold starts
+- suitable for demos, evaluations, and bid walkthroughs
+- not suitable yet for durable production operations
 
 ## Docker
 
-Docker files exist for local/container demos:
+Container files exist for local/container demos:
 
-- `backend/Dockerfile` runs FastAPI on port `8000`
-- `frontend/Dockerfile` serves static files through Nginx on port `3000`
-- `docker-compose.yml` starts API, frontend, Postgres, Redis, and MinIO
+- `backend/Dockerfile`
+- `frontend/Dockerfile`
+- `docker-compose.yml`
 
-Current app persistence still uses SQLite by default. Postgres, Redis, and MinIO are infrastructure placeholders unless explicitly integrated later.
+Treat Docker infra as supportive demo tooling. The application still defaults to SQLite unless deliberately refactored to external infrastructure.
 
 ## Environment Variables
 
-The app reads:
+Core app and storage:
 
 ```text
 APP_ENV
@@ -249,75 +370,98 @@ APP_SECRET
 APP_DATA_DIR
 SQLITE_PATH
 DOCUMENT_ROOT
+```
+
+Chatbot and knowledge:
+
+```text
+CHATBOT_ENABLED
+CHATBOT_PROVIDER
+CHATBOT_DEFAULT_LANGUAGE
+KNOWLEDGE_BASE_DIR
+KNOWLEDGE_CHUNK_SIZE
+KNOWLEDGE_CHUNK_OVERLAP
+AZURE_OPENAI_ENDPOINT
+AZURE_OPENAI_API_KEY
+AZURE_OPENAI_DEPLOYMENT
+AZURE_OPENAI_API_VERSION
+```
+
+Mock integration flags:
+
+```text
 SMS_GATEWAY_ENABLED
 EMAIL_GATEWAY_ENABLED
 WHATSAPP_GATEWAY_ENABLED
 AADHAAR_VAULT_ENABLED
 ```
 
-Defaults:
+Important default behavior:
 
-- `EMAIL_GATEWAY_ENABLED=true`
-- `SMS_GATEWAY_ENABLED=false`
-- `WHATSAPP_GATEWAY_ENABLED=false`
-- `AADHAAR_VAULT_ENABLED=false`
+- `CHATBOT_ENABLED` defaults to `false`
+- `EMAIL_GATEWAY_ENABLED` defaults to `true`
+- most other integration flags default to `false`
 
 ## Current Limitations
 
-Do not mistake the PoC for a production system.
+This remains a PoC and bid/demo platform.
 
 Known limitations:
 
-- SQLite is local/serverless-temp storage.
-- Vercel data is ephemeral.
-- Auth is simplified.
-- No real Aadhaar, SMS, WhatsApp, email, or DBT integration is active.
-- Document handling is placeholder-based.
-- No production-grade file upload, virus scanning, or object storage.
-- No database migrations.
-- No admin user management UI.
-- No real observability pipeline beyond health and logs.
+- SQLite is still the main persistence layer
+- Vercel storage is ephemeral
+- auth is simplified
+- no production OAuth, SSO, or hardened session management
+- no live Aadhaar, DBT, SMS, WhatsApp, or email integrations
+- no production-grade object storage or secure file pipeline
+- no migrations framework
+- no dedicated admin user-management interface
+- chatbot quality still depends on curated knowledge and prompt discipline
+- chatbot can fall back silently to retrieval if Azure is disabled or unavailable
 
-## Future Development Priorities
+## Immediate Priorities
 
-Highest value next steps:
+Highest-value next steps from the current state:
 
-- Replace SQLite with hosted Postgres.
-- Move document placeholders/files to object storage.
-- Add migration tooling.
-- Replace mock integrations with provider adapters.
-- Add stronger auth and session management.
-- Add role/user administration.
-- Add deployment smoke tests.
-- Add Playwright UI checks for key pages.
-- Split public static assets to a CDN/static hosting path if needed.
+- add durable Postgres persistence
+- move documents to object storage
+- add migration tooling
+- improve chat diagnostics so active mode is more transparent
+- harden off-topic chat behavior
+- add UI smoke coverage for public, beneficiary, dashboard, and chat flows
+- replace mock integrations with adapter-based live providers when needed
+- strengthen auth/session model
 
-## Rules for Future Chats
+## Rules For Future Chats
 
 When continuing work in this repo:
 
-- Preserve the Government of India portal tone.
-- Keep admin/officer screens compact, dense, and task-focused.
-- Avoid duplicate navigation; sidebar owns officer-console workspaces.
-- Do not introduce future financial years unless explicitly requested.
-- Treat Vercel deployment as demo infrastructure until durable storage is added.
-- Keep local runtime data out of Git.
-- Run `python -m unittest tests.test_workflows` after backend or workflow changes.
-- Prefer small, directly useful UI changes over decorative redesigns.
-- Update this README when the product model, deployment model, or persistence model changes.
+- preserve the Government of India portal tone
+- keep officer/admin screens compact and operational
+- keep public wording formal and non-startup
+- do not reintroduce obvious `PoC`, `demo`, or internal-delivery wording into public UI unless the user explicitly wants it
+- treat the chatbot as a serious product surface, not a novelty
+- do not assume Azure OpenAI is active unless `CHATBOT_ENABLED=true` and deployment variables are configured
+- keep local runtime data out of Git
+- run relevant unittests after workflow, chatbot, or knowledge changes
+- update this README when architecture, deployment model, or product mental model changes
 
 ## Quick Smoke Test
 
-After deployment or a major change:
+After a major change:
 
-1. Open `/health`.
-2. Open `/login`.
-3. Login as `nmb.admin@example.com`.
-4. Open `/dashboard`.
-5. Check dashboard filters and service readiness tab.
-6. Trigger one notification demo with SMS mobile number `9876543210`.
-7. Confirm `/api/v1/reports/overview?format=csv` still exports.
+1. open `/health`
+2. open `/login`
+3. login as `nmb.admin@example.com`
+4. open `/dashboard`
+5. verify dashboard summary loads
+6. open chatbot on dashboard and ask `Summarize the AAP and budget situation.`
+7. login as `farmer@example.com` and ask `Do I have any open clarification?`
+8. trigger one notification demo with mobile `9876543210`
+9. confirm `/api/v1/reports/overview?format=csv` still exports
 
-## Demo Script
+## Related Docs
 
-Use [DEMO_SCRIPT.md](DEMO_SCRIPT.md) for the curated walkthrough order and seeded scenario list.
+- [DEMO_SCRIPT.md](DEMO_SCRIPT.md)
+- [knowledge/README.md](knowledge/README.md)
+- [NMB_PORTAL_BUILD_BLUEPRINT.md](NMB_PORTAL_BUILD_BLUEPRINT.md)

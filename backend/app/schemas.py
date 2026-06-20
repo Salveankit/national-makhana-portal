@@ -141,3 +141,29 @@ class MockDBTRequest(BaseModel):
     beneficiary_name: str
     bank_account_last4: str
     amount: float
+
+
+class ChatMessageRequest(BaseModel):
+    message: str
+    page: str = "home"
+    language: str = "en"
+    session_id: str | None = None
+
+
+class ChatSource(BaseModel):
+    title: str
+    category: str
+    summary: str
+
+
+class ChatAction(BaseModel):
+    label: str
+    href: str
+
+
+class ChatMessageResponse(BaseModel):
+    answer: str
+    sources: list[ChatSource]
+    suggested_actions: list[ChatAction]
+    fallback_used: bool
+    mode: str

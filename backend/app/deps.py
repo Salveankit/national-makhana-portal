@@ -20,6 +20,19 @@ def get_current_user(request: Request, authorization: str | None = Header(defaul
     return user
 
 
+def get_optional_user(request: Request, authorization: str | None = Header(default=None)):
+    if not authorization or not authorization.startswith("Bearer "):
+        return None
+    payload = decode_token(authorization.replace("Bearer ", "", 1))
+    if not payload:
+        return None
+    user = get_user_by_email(payload["sub"])
+    if not user:
+        return None
+    request.state.user = user
+    return user
+
+
 def require_permission(permission: str):
     def checker(request: Request, user=Depends(get_current_user)):
         if not has_permission(user.role, permission):

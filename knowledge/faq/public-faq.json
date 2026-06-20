@@ -1,0 +1,110 @@
+[
+  {
+    "question": "What is the National Makhana Board portal used for?",
+    "answer": "The portal is a single-window digital platform for public scheme information, beneficiary registration, application tracking, state review workflows, inspection handling, planning, monitoring, notifications, and helpdesk support related to the makhana sector.",
+    "audience": "public",
+    "tags": ["overview", "portal"]
+  },
+  {
+    "question": "Can a farmer apply through this portal?",
+    "answer": "Yes. The portal is designed to support beneficiary registration, profile completion, application submission, document metadata handling, clarification response, and application status tracking through a single-window workflow.",
+    "audience": "public",
+    "tags": ["beneficiary", "application"]
+  },
+  {
+    "question": "Which users are supported by the portal?",
+    "answer": "The portal supports public visitors, beneficiaries or farmers, state officers or inspectors, and National Makhana Board administrators through role-based access and workflows.",
+    "audience": "public",
+    "tags": ["roles", "access"]
+  },
+  {
+    "question": "Is this portal only a website for information display?",
+    "answer": "No. The portal should be understood as a workflow and monitoring platform with a public information layer attached. It covers beneficiary transactions, officer review, inspections, Annual Action Plans, budget visibility, monitoring, and integration-readiness in addition to public information pages.",
+    "audience": "public",
+    "tags": ["overview", "workflow"]
+  },
+  {
+    "question": "What service areas are available in the portal?",
+    "answer": "The service catalogue covers beneficiary registration, application submission, status tracking, state review and recommendation, field verification, approval and monitoring, Annual Action Plan support, field data reporting, budget tracking, notifications, and system-readiness visibility.",
+    "audience": "public",
+    "tags": ["services", "modules"]
+  },
+  {
+    "question": "What are the main support areas shown under schemes?",
+    "answer": "The portal presents intervention areas such as Makhana Cultivation Support, Nursery and Input Support, Processing and Value Addition, Training and Extension, Inspection and Verification, and State Planning and Monitoring.",
+    "audience": "public",
+    "tags": ["schemes", "support-areas"]
+  },
+  {
+    "question": "Does the portal already use live Aadhaar, DBT, SMS, and WhatsApp integration?",
+    "answer": "The current proof of concept demonstrates integration readiness and mock workflow behavior. Live provider activation depends on production integration, credentials, and departmental rollout.",
+    "audience": "public",
+    "tags": ["integrations", "poc"]
+  },
+  {
+    "question": "What does integration-ready mean in this proof of concept?",
+    "answer": "Integration-ready means the workflow points, event structures, notifications, and audit surfaces are already productized in the portal. Replacing mock integrations with live providers should be treated as an adapter activation and production-hardening step, not a redesign of the platform.",
+    "audience": "public",
+    "tags": ["integrations", "readiness"]
+  },
+  {
+    "question": "What can I do if I cannot log in?",
+    "answer": "You should verify your email and password, confirm you are using the correct portal role, and use the helpdesk if the issue continues. In the proof of concept, secure access is role-based and different workspaces are available for beneficiaries and officers.",
+    "audience": "public",
+    "tags": ["login", "helpdesk"]
+  },
+  {
+    "question": "What does Submitted status mean for an application?",
+    "answer": "Submitted means the beneficiary has formally filed the application into the workflow and it is awaiting or entering state-level review. It is no longer only a draft, but it is not yet approved.",
+    "audience": "public",
+    "tags": ["status", "workflow"]
+  },
+  {
+    "question": "What does Clarification Raised mean?",
+    "answer": "Clarification Raised means the reviewing officer needs more detail, correction, or supporting explanation before the case can move forward. The beneficiary is expected to respond through the formal workflow.",
+    "audience": "public",
+    "tags": ["status", "clarification"]
+  },
+  {
+    "question": "What does Inspection Assigned mean?",
+    "answer": "Inspection Assigned means the application has moved to field verification and an inspector has been tasked to review the case on the ground. This step supports transparency and decision confidence before recommendation or final review.",
+    "audience": "public",
+    "tags": ["status", "inspection"]
+  },
+  {
+    "question": "What does Recommended by State mean?",
+    "answer": "Recommended by State means the state-level review is complete and the case has been forwarded to the National Makhana Board side of the workflow for board-level consideration and decision.",
+    "audience": "public",
+    "tags": ["status", "state-review"]
+  },
+  {
+    "question": "What can beneficiaries do after secure login?",
+    "answer": "Beneficiaries can manage profile details, confirm identity verification state, submit applications, view status progression, review clarification requirements, and track progress toward final decision.",
+    "audience": "public",
+    "tags": ["beneficiary", "workspace"]
+  },
+  {
+    "question": "What can state officers do in the portal?",
+    "answer": "State officers can scrutinize applications, raise clarifications, assign inspections, recommend eligible cases, submit Annual Action Plans, update field data, and record budget utilization updates in the officer console.",
+    "audience": "public",
+    "tags": ["officer", "workflow"]
+  },
+  {
+    "question": "What can NMB administrators do in the portal?",
+    "answer": "NMB administrators can review recommended applications, record final decisions, monitor KPI dashboards, review Annual Action Plans, track budgets, inspect notification and integration logs, and assess overall system readiness.",
+    "audience": "public",
+    "tags": ["admin", "monitoring"]
+  },
+  {
+    "question": "Why does the proof of concept use seeded records?",
+    "answer": "Seeded records ensure the PoC opens with realistic dashboard values, mixed workflow states, inspection queues, budget entries, and integration logs. This lets committee members evaluate actual platform behavior rather than empty screens.",
+    "audience": "public",
+    "tags": ["demo", "seeded-data"]
+  },
+  {
+    "question": "How should this portal be evaluated in a bid or demonstration setting?",
+    "answer": "It should be evaluated as a productized operations portal that already shows end-to-end workflow coverage, role-based access, dashboard monitoring, notifications, auditability, and integration-readiness. The value lies in realistic process coverage, not decorative UI alone.",
+    "audience": "public",
+    "tags": ["bid", "demonstration"]
+  }
+]

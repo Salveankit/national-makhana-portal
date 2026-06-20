@@ -27,8 +27,8 @@
 
     <header class="masthead">
       <div class="brand-block">
-        <div class="brand-mark" aria-hidden="true">
-          <img src="/assets/images/nmb-seal-logo.png" alt="" />
+        <div class="brand-mark brand-mark-emblem" aria-hidden="true">
+          <img src="/assets/images/india-government-emblem.png" alt="" />
         </div>
         <div class="brand-copy">
           <p class="eyebrow" data-i18n="masthead.gov">Government of India</p>
@@ -45,46 +45,137 @@
     <nav class="gov-nav" aria-label="Primary navigation">
       <a href="/" data-i18n="nav.home">Home</a>
       <a href="/services" data-i18n="nav.services">Services</a>
-      <a class="active" href="/schemes" data-i18n="nav.schemes">Schemes</a>
+      <a class="active" href="/schemes" data-i18n="nav.schemes" aria-current="page">Schemes</a>
       <a href="/updates" data-i18n="nav.updates">Updates</a>
-      <a href="/helpdesk" data-i18n="nav.helpdesk">Helpdesk</a>
       <a href="/dashboard" data-i18n="nav.dashboard">Officer Console</a>
     </nav>
 
-    <main id="main" class="page-shell">
-      <div class="notice-strip" data-i18n="schemes.notice">
-        Support areas shown below reflect the major areas of assistance covered by the portal.
-      </div>
+    <main id="main" class="page-shell schemes-page-shell">
+      <nav class="scheme-breadcrumb" aria-label="Breadcrumb">
+        <a href="/" data-i18n="nav.home">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page" data-i18n="schemes.breadcrumbCurrent">Schemes</span>
+      </nav>
 
-      <section class="section-block">
-        <div class="section-heading">
-          <h2 data-i18n="schemes.heading">Priority Support Areas</h2>
-          <p data-i18n="schemes.lead">These categories help users understand how cultivation, processing, verification, and planning support can be administered.</p>
+      <section class="section-block scheme-intro-panel">
+        <div class="scheme-intro-main">
+          <span class="section-kicker" data-i18n="schemes.badge">Scheme Overview</span>
+          <h1 class="scheme-page-title" data-i18n="schemes.heading">Priority Support Areas</h1>
+          <p class="scheme-page-lead" data-i18n="schemes.lead">These categories help users understand how cultivation, processing, verification, and planning support can be administered.</p>
+          <div class="scheme-intro-actions">
+            <a class="button primary" href="/services" data-i18n="schemes.primaryAction">Browse Services</a>
+            <a class="button secondary" href="/login" data-i18n="schemes.secondaryAction">Secure Login</a>
+          </div>
+
+          <div class="scheme-lifecycle scheme-lifecycle-inline" aria-labelledby="scheme-lifecycle-title">
+            <div class="scheme-lifecycle-head">
+              <h2 id="scheme-lifecycle-title" data-i18n="schemes.lifecycleHeading">Makhana Development Lifecycle</h2>
+              <p data-i18n="schemes.lifecycleLead">The support areas below show how public services connect field activity, processing readiness, oversight, and implementation review.</p>
+            </div>
+            <div class="scheme-lifecycle-visual">
+              <img src="/assets/images/schemes-lifecycle-illustration.png" alt="Illustration showing makhana cultivation, nursery support, processing, training, verification, and state planning as one connected programme chain." loading="lazy" />
+            </div>
+            <ol class="scheme-lifecycle-labels">
+              <li data-i18n="schemes.lifecycleOne">Cultivation</li>
+              <li data-i18n="schemes.lifecycleTwo">Nursery and Inputs</li>
+              <li data-i18n="schemes.lifecycleThree">Processing</li>
+              <li data-i18n="schemes.lifecycleFour">Training and Extension</li>
+              <li data-i18n="schemes.lifecycleFive">Inspection and Verification</li>
+              <li data-i18n="schemes.lifecycleSix">State Planning and Monitoring</li>
+            </ol>
+          </div>
         </div>
-        <div class="feature-grid">
-          <article class="card">
+
+        <aside class="scheme-summary-panel" aria-label="Scheme summary">
+          <strong class="scheme-summary-title" data-i18n="schemes.summaryHeading">Scheme Summary</strong>
+          <div class="scheme-summary-list">
+            <article class="scheme-summary-item">
+              <span class="scheme-summary-label" data-i18n="schemes.statOneLabel">Support Pillars</span>
+              <strong class="scheme-summary-value" data-i18n="schemes.statOneValue">6</strong>
+              <p data-i18n="schemes.statOneBody">Cultivation, inputs, processing, training, verification, and planning.</p>
+            </article>
+            <article class="scheme-summary-item">
+              <span class="scheme-summary-label" data-i18n="schemes.statTwoLabel">Delivery Model</span>
+              <strong class="scheme-summary-value" data-i18n="schemes.statTwoValue">State-led</strong>
+              <p data-i18n="schemes.statTwoBody">State review, inspection evidence, and board-level approval remain linked through the portal.</p>
+            </article>
+          </div>
+          <p class="scheme-summary-note" data-i18n="schemes.summaryNote">The six support areas work as one connected programme chain, from cultivation readiness through verification and state-level monitoring.</p>
+        </aside>
+
+      </section>
+
+      <section class="section-block scheme-support-section">
+        <div class="section-heading">
+          <h2 data-i18n="schemes.matrixHeading">Support Coverage Matrix</h2>
+          <p data-i18n="schemes.matrixLead">The support structure below groups field assistance, infrastructure needs, and administrative oversight into clear public categories.</p>
+        </div>
+        <div class="schemes-support-grid">
+          <article class="scheme-support-card">
+            <span class="scheme-support-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 4c-3.2 0-5.8 2.1-6.5 5.1-.7 3.2.8 6.3 3.9 8.2 1.3.8 2.2 2 2.6 3.4.4-1.4 1.3-2.6 2.6-3.4 3.1-1.9 4.6-5 3.9-8.2C17.8 6.1 15.2 4 12 4Z" fill="currentColor"/></svg>
+            </span>
             <h3 data-i18n="schemes.cardOneTitle">Makhana Cultivation Support</h3>
             <p data-i18n="schemes.cardOneBody">Coverage for cultivation expansion, farmer targeting, pond and field-based activity support, and production-linked assistance.</p>
           </article>
-          <article class="card">
+          <article class="scheme-support-card">
+            <span class="scheme-support-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3c1.5 3.4 4.2 4.9 6.8 5.5-1 3.6-4.1 6-6.8 7.5-2.7-1.5-5.8-3.9-6.8-7.5C7.8 7.9 10.5 6.4 12 3Z" fill="currentColor"/><path d="M12 14v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
             <h3 data-i18n="schemes.cardTwoTitle">Nursery and Input Support</h3>
             <p data-i18n="schemes.cardTwoBody">Input readiness, cluster support, and local enabling measures required for productive cultivation cycles.</p>
           </article>
-          <article class="card">
+          <article class="scheme-support-card">
+            <span class="scheme-support-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 10h16v10H4z" fill="currentColor"/><path d="M7 10V6h10v4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 15h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
             <h3 data-i18n="schemes.cardThreeTitle">Processing and Value Addition</h3>
             <p data-i18n="schemes.cardThreeBody">Post-harvest handling, grading, drying, storage, and local infrastructure needed for value realization.</p>
           </article>
-          <article class="card">
+          <article class="scheme-support-card">
+            <span class="scheme-support-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 6h14v12H5z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M15 4v4M9 4v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
             <h3 data-i18n="schemes.cardFourTitle">Training and Extension</h3>
             <p data-i18n="schemes.cardFourBody">Capacity building for farmers, field-level guidance, and awareness support across implementing regions.</p>
           </article>
-          <article class="card">
+          <article class="scheme-support-card">
+            <span class="scheme-support-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.4 2.8 8.3 7 10 4.2-1.7 7-5.6 7-10V6l-7-3Z" fill="currentColor"/><path d="m9.2 12.3 1.9 1.9 3.7-3.7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
             <h3 data-i18n="schemes.cardFiveTitle">Inspection and Verification</h3>
             <p data-i18n="schemes.cardFiveBody">Structured verification checks to support transparent review, geotagged field visits, and decision confidence.</p>
           </article>
-          <article class="card">
+          <article class="scheme-support-card">
+            <span class="scheme-support-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 18h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 16V9M12 16V6M17 16v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><circle cx="12" cy="5" r="1.5" fill="currentColor"/><circle cx="17" cy="11" r="1.5" fill="currentColor"/></svg>
+            </span>
             <h3 data-i18n="schemes.cardSixTitle">State Planning and Monitoring</h3>
             <p data-i18n="schemes.cardSixBody">Annual Action Plans, district-level target tracking, and utilization visibility for implementation review.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block scheme-guidance-panel">
+        <div class="section-heading">
+          <h2 data-i18n="schemes.guidanceHeading">How to use this page</h2>
+          <p data-i18n="schemes.guidanceLead">Use the support categories below to understand the programme structure before moving into a live service route.</p>
+        </div>
+        <div class="scheme-guidance-steps">
+          <article class="scheme-guidance-step">
+            <span class="scheme-guidance-index" aria-hidden="true">1</span>
+            <strong data-i18n="schemes.guidanceStepOneTitle">Understand the support category</strong>
+            <p data-i18n="schemes.guidanceStepOneBody">Review the category description first so the correct public or secure route is chosen for the next step.</p>
+          </article>
+          <article class="scheme-guidance-step">
+            <span class="scheme-guidance-index" aria-hidden="true">2</span>
+            <strong data-i18n="schemes.guidanceStepTwoTitle">Open the relevant service</strong>
+            <p data-i18n="schemes.guidanceStepTwoBody">Move to the services directory when you are ready to locate the correct beneficiary or officer workflow.</p>
+          </article>
+          <article class="scheme-guidance-step">
+            <span class="scheme-guidance-index" aria-hidden="true">3</span>
+            <strong data-i18n="schemes.guidanceStepThreeTitle">Use secure login only when required</strong>
+            <p data-i18n="schemes.guidanceStepThreeBody">Authenticated actions such as scrutiny, verification, and operational review continue through secure portal access.</p>
           </article>
         </div>
       </section>
@@ -113,7 +204,7 @@
             <a href="/beneficiary" data-i18n="actions.beneficiary">Beneficiary Services</a>
             <a href="/login" data-i18n="utility.login">Secure Login</a>
             <a href="/dashboard" data-i18n="nav.dashboard">Officer Console</a>
-            <a href="/helpdesk" data-i18n="nav.helpdesk">Helpdesk</a>
+            <a href="/services" data-i18n="nav.services">Services</a>
           </div>
         </div>
         <div>

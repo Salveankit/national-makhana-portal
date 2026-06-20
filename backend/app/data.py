@@ -15,6 +15,7 @@ from backend.app.models import (
     AuditEntry,
     BeneficiaryProfile,
     BudgetRecord,
+    ChatInteractionRecord,
     ClarificationRecord,
     DocumentMeta,
     FieldDataRecord,
@@ -143,6 +144,13 @@ def init_storage() -> None:
                 integration_type TEXT NOT NULL,
                 provider_name TEXT NOT NULL,
                 status TEXT NOT NULL,
+                created_at TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS chat_logs (
+                chat_id TEXT PRIMARY KEY,
+                payload TEXT NOT NULL,
+                role TEXT NOT NULL,
+                page TEXT NOT NULL,
                 created_at TEXT NOT NULL
             );
             """
@@ -857,6 +865,8 @@ def _next_id(prefix: str, table_name: str, state_code: str | None = None) -> str
         return f"NTF-{count:04d}"
     if prefix == "INT":
         return f"INT-{count:04d}"
+    if prefix == "CHAT":
+        return f"CHAT-{count:04d}"
     return f"{prefix}-{count:04d}"
 
 
@@ -882,6 +892,10 @@ def next_field_data_id() -> str:
 
 def next_budget_id(state_code: str) -> str:
     return _next_id("BUD", "budgets", state_code)
+
+
+def next_chat_id() -> str:
+    return _next_id("CHAT", "chat_logs")
 
 
 def create_application(record: ApplicationRecord) -> ApplicationRecord:
@@ -1162,6 +1176,49 @@ def save_budget(record: BudgetRecord) -> BudgetRecord:
         conn.commit()
         conn.close()
     return record
+
+
+def save_chat_log(record: ChatInteractionRecord) -> ChatInteractionRecord:
+    with DB_LOCK:
+        conn = _connect()
+        conn.execute(
+            """
+            INSERT INTO chat_logs(chat_id, payload, role, page, created_at)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(chat_id) DO UPDATE SET
+              payload = excluded.payload,
+              role = excluded.role,
+              page = excluded.page,
+              created_at = excluded.created_at
+            """,
+            (record.chat_id, _serialize(record), record.role, record.page, record.created_at),
+        )
+        conn.commit()
+        conn.close()
+    return record
+
+
+def list_chat_logs(limit: int = 100, role: str | None = None, page: str | None = None, user_email: str | None = None) -> list[ChatInteractionRecord]:
+    query = "SELECT payload FROM chat_logs"
+    clauses: list[str] = []
+    params: list[Any] = []
+    if role:
+        clauses.append("role = ?")
+        params.append(role)
+    if page:
+        clauses.append("page = ?")
+        params.append(page)
+    if user_email:
+        clauses.append("payload LIKE ?")
+        params.append(f'%\"user_email\":\"{user_email}\"%')
+    if clauses:
+        query += " WHERE " + " AND ".join(clauses)
+    query += " ORDER BY created_at DESC"
+    with DB_LOCK:
+        conn = _connect()
+        rows = conn.execute(query, params).fetchall()
+        conn.close()
+    return _deserialize_many(rows, ChatInteractionRecord)[:limit]
 
 
 init_storage()

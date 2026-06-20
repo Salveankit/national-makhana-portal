@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 190" role="img" aria-labelledby="title desc">
+<title id="title">Government of India emblem</title>
+<desc id="desc">Stylized black emblem lockup used for the National Makhana Board portal header and footer.</desc>
+<g fill="#111111">
+  <path d="M46 42c0-8 6-15 14-15 6 0 12 4 14 10 2-6 8-10 14-10 8 0 14 7 14 15 0 11-9 20-21 20h-14C55 62 46 53 46 42Z"/>
+  <circle cx="57" cy="40" r="12"/>
+  <circle cx="80" cy="34" r="13"/>
+  <circle cx="103" cy="40" r="12"/>
+  <circle cx="52" cy="27" r="3"/>
+  <circle cx="69" cy="23" r="3"/>
+  <circle cx="91" cy="23" r="3"/>
+  <circle cx="108" cy="27" r="3"/>
+  <rect x="60" y="58" width="40" height="16" rx="7"/>
+  <path d="M55 76h50l5 10H50l5-10Z"/>
+  <path d="M49 89h62v10H49z"/>
+  <path d="M56 103h48v11H56z"/>
+  <path d="M61 117h38v9H61z"/>
+  <circle cx="80" cy="94" r="10" fill="none" stroke="#111111" stroke-width="3"/>
+  <path d="M80 84v20M70 94h20M73 87l14 14M87 87 73 101" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M42 133h76v8H42z"/>
+  <path d="M48 145h64v7H48z"/>
+</g>
+<path d="M43 161h74" stroke="#FF9933" stroke-width="6" stroke-linecap="round"/>
+<path d="M43 171h74" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+<path d="M43 181h74" stroke="#138808" stroke-width="6" stroke-linecap="round"/>
+</svg>
