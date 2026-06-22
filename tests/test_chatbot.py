@@ -47,6 +47,20 @@ class ChatbotTests(unittest.TestCase):
         self.assertIn('"type": "delta"', response.text)
         self.assertIn('"type": "complete"', response.text)
 
+    def test_chat_diagnostics_exposes_mode_and_ranked_sources(self):
+        response = self.client.post(
+            "/api/v1/chat/diagnostics",
+            json={"message": "Which users are supported here?", "page": "home", "language": "en"},
+        )
+        self.assertEqual(response.status_code, 200, response.text)
+        body = response.json()
+        self.assertIn("azure_ready", body)
+        self.assertIn("provider_error", body)
+        self.assertIn("fallback_used", body)
+        self.assertIn("top_sources", body)
+        self.assertGreater(len(body["top_sources"]), 0)
+        self.assertIn("score", body["top_sources"][0])
+
     def test_beneficiary_chat_uses_runtime_context(self):
         token = self.login("farmer@example.com")
         response = self.client.post(

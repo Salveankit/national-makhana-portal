@@ -13,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 
 from backend.app.core.config import settings
 from backend.app.core.security import issue_token, verify_password
-from backend.app.chatbot import answer_chat, chat_analytics_snapshot
+from backend.app.chatbot import answer_chat, chat_analytics_snapshot, chat_debug_snapshot
 from backend.app.data import (
     add_audit,
     create_application,
@@ -1084,6 +1084,11 @@ def chat_message(payload: ChatMessageRequest, user=Depends(get_optional_user)):
         fallback_used=result.fallback_used,
         mode=result.mode,
     )
+
+
+@app.post("/api/v1/chat/diagnostics")
+def chat_diagnostics(payload: ChatMessageRequest, user=Depends(get_optional_user)):
+    return chat_debug_snapshot(payload.message, payload.page, payload.language, user)
 
 
 def _stream_chunks(text: str, target_size: int = 42) -> list[str]:

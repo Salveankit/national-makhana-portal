@@ -138,6 +138,12 @@ class ChatResult:
     mode: str
 
 
+@dataclass(slots=True)
+class ScoredSource:
+    score: int
+    source: ContextSource
+
+
 def _tokenize(value: str) -> list[str]:
     tokens = re.findall(r"[a-zA-Z0-9]+", value.lower())
     return [token for token in tokens if token not in STOP_WORDS and len(token) > 1]
@@ -330,18 +336,25 @@ def _score_source(source: ContextSource, query_terms: set[str], page: str, user:
     return score
 
 
-def retrieve_sources(message: str, page: str, user: User | None, limit: int = 5) -> list[ContextSource]:
+def rank_sources(message: str, page: str, user: User | None, limit: int = 5) -> list[ScoredSource]:
     query_terms = set(_tokenize(message))
     if not query_terms:
         query_terms = PAGE_HINTS.get(page, {"portal"})
     combined = _build_runtime_sources(user, page) + _static_sources()
-    scored: list[tuple[int, ContextSource]] = []
+    best_by_doc: dict[str, ScoredSource] = {}
     for source in combined:
         score = _score_source(source, query_terms, page, user)
         if score > 0:
-            scored.append((score, source))
-    scored.sort(key=lambda item: item[0], reverse=True)
-    return [source for _, source in scored[:limit]]
+            existing = best_by_doc.get(source.source_id)
+            candidate = ScoredSource(score=score, source=source)
+            if not existing or candidate.score > existing.score:
+                best_by_doc[source.source_id] = candidate
+    ranked = sorted(best_by_doc.values(), key=lambda item: item.score, reverse=True)
+    return ranked[:limit]
+
+
+def retrieve_sources(message: str, page: str, user: User | None, limit: int = 5) -> list[ContextSource]:
+    return [item.source for item in rank_sources(message, page, user, limit=limit)]
 
 
 def _dedupe_sources(sources: list[ContextSource]) -> list[ChatSourceItem]:
@@ -422,9 +435,21 @@ def _role_prompt(user: User | None) -> str:
     return "Use only the provided context and keep the response role-appropriate."
 
 
-def _azure_chat(message: str, page: str, language: str, user: User | None, sources: list[ContextSource]) -> str | None:
-    if not _azure_ready() or not sources:
-        return None
+def _azure_chat_attempt(
+    message: str, page: str, language: str, user: User | None, sources: list[ContextSource]
+) -> tuple[str | None, str | None]:
+    if not sources:
+        return None, "no_sources"
+    if not settings.chatbot_enabled:
+        return None, "chatbot_disabled"
+    if not all(
+        [
+            settings.azure_openai_endpoint,
+            settings.azure_openai_api_key,
+            settings.azure_openai_deployment,
+        ]
+    ):
+        return None, "azure_not_configured"
     endpoint = settings.azure_openai_endpoint.rstrip("/")
     url = (
         f"{endpoint}/openai/deployments/{settings.azure_openai_deployment}/chat/completions"
@@ -468,12 +493,24 @@ def _azure_chat(message: str, page: str, language: str, user: User | None, sourc
     try:
         with request.urlopen(req, timeout=15) as response:
             result = json.loads(response.read().decode("utf-8"))
-    except (error.URLError, TimeoutError, json.JSONDecodeError):
-        return None
+    except error.HTTPError as exc:
+        return None, f"http_error:{exc.code}"
+    except error.URLError:
+        return None, "network_error"
+    except TimeoutError:
+        return None, "timeout"
+    except json.JSONDecodeError:
+        return None, "invalid_json"
     choices = result.get("choices") or []
     if not choices:
-        return None
-    return choices[0].get("message", {}).get("content", "").strip() or None
+        return None, "empty_choices"
+    content = choices[0].get("message", {}).get("content", "").strip() or None
+    return content, None if content else "empty_message"
+
+
+def _azure_chat(message: str, page: str, language: str, user: User | None, sources: list[ContextSource]) -> str | None:
+    content, _reason = _azure_chat_attempt(message, page, language, user, sources)
+    return content
 
 
 def answer_chat(message: str, page: str, language: str, user: User | None = None) -> ChatResult:
@@ -493,6 +530,55 @@ def answer_chat(message: str, page: str, language: str, user: User | None = None
         fallback_used=generated is None,
         mode="azure_grounded" if generated else fallback_mode,
     )
+
+
+def chat_debug_snapshot(message: str, page: str, language: str, user: User | None = None) -> dict[str, object]:
+    normalized_page = page if page in PAGE_HINTS else "home"
+    ranked = rank_sources(message, normalized_page, user, limit=8)
+    sources = [item.source for item in ranked[:5]]
+    generated, provider_error = _azure_chat_attempt(message, normalized_page, language, user, sources)
+    if user and user.role == "beneficiary":
+        fallback_mode = "beneficiary_runtime_fallback"
+    elif user and user.role in {"state_officer", "inspector", "nmb_admin"}:
+        fallback_mode = "operations_runtime_fallback"
+    else:
+        fallback_mode = "retrieval_fallback"
+    result = ChatResult(
+        answer=generated or _fallback_answer(normalized_page, sources, user),
+        sources=_dedupe_sources(sources),
+        suggested_actions=SUGGESTED_ACTIONS.get(normalized_page, SUGGESTED_ACTIONS["home"]),
+        fallback_used=generated is None,
+        mode="azure_grounded" if generated else fallback_mode,
+    )
+    return {
+        "page": normalized_page,
+        "language": language,
+        "user_role": user.role if user else "public",
+        "chatbot_enabled": settings.chatbot_enabled,
+        "azure_configured": all(
+            [
+                settings.azure_openai_endpoint,
+                settings.azure_openai_api_key,
+                settings.azure_openai_deployment,
+            ]
+        ),
+        "azure_ready": _azure_ready(),
+        "provider_error": provider_error,
+        "mode": result.mode,
+        "fallback_used": result.fallback_used,
+        "answer_preview": result.answer,
+        "top_sources": [
+            {
+                "rank": index,
+                "score": item.score,
+                "source_id": item.source.source_id,
+                "title": item.source.title,
+                "category": item.source.category,
+                "summary": item.source.summary,
+            }
+            for index, item in enumerate(ranked, start=1)
+        ],
+    }
 
 
 def chat_analytics_snapshot() -> dict[str, object]:

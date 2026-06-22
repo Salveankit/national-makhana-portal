@@ -1202,7 +1202,13 @@ function renderAssistantText(text) {
 }
 
 function buildSourcesMarkup(copy, sources) {
-  return "";
+  if (!sources.length) return "";
+  return `<div class="chatbot-sources"><strong>${escapeChatHtml(copy.sources)}</strong><ul>${sources
+    .map(
+      (item) =>
+        `<li><strong>${escapeChatHtml(item.title)}</strong><br /><span>${escapeChatHtml(item.summary || item.category || "")}</span></li>`,
+    )
+    .join("")}</ul></div>`;
 }
 
 function buildActionsMarkup(actions) {
@@ -1312,6 +1318,15 @@ async function submitChatQuestion({ page, language, message, thread, form, toggl
       for (const line of lines) {
         if (!line.trim()) continue;
         const event = JSON.parse(line);
+        if (event.type === "status") {
+          assistantNode.dataset.chatMode = event.mode || "";
+          assistantNode.dataset.chatFallback = String(Boolean(event.fallback_used));
+          if (event.fallback_used) {
+            console.warn("[NMB chat] Fallback mode active", event);
+          } else {
+            console.info("[NMB chat] Azure grounded mode active", event);
+          }
+        }
         if (event.type === "delta") {
           if (!revealed) {
             await waitForRevealWindow();
