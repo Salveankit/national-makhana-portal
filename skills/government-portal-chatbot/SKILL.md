@@ -48,4 +48,4 @@ Read `references/nmb-chatbot-standards.md` when the task involves visual redesig
 - Run `python -m unittest tests.test_chatbot` after behavior changes.
 - Run `python -m unittest tests.test_knowledge_base` after `knowledge/*` edits.
 - Smoke test the UI by opening a public page and, if relevant, `/beneficiary` and `/dashboard`, then verify launcher, prompt chips, response rendering, and fallback behavior.
-- Do not assume Azure OpenAI is active; verify the effective mode from environment/config behavior before claiming grounded-model responses are live.
+- Do not assume Gemini is active; verify the effective mode from environment/config behavior before claiming grounded-model responses are live.

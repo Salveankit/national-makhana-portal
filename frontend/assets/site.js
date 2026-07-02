@@ -29,9 +29,10 @@ const translations = {
       },
       nav: {
         home: "Home",
+        about: "About",
         makhana: "Makhana in India",
         services: "Services",
-        schemes: "Schemes",
+        guidelines: "Guidelines",
         updates: "Updates",
         helpdesk: "Helpdesk",
         dashboard: "Officer Console",
@@ -81,9 +82,10 @@ const translations = {
       },
       nav: {
         home: "होम",
+        about: "परिचय",
         makhana: "भारत में मखाना",
         services: "सेवाएं",
-        schemes: "योजनाएं",
+        guidelines: "दिशानिर्देश",
         updates: "अपडेट",
         helpdesk: "सहायता केंद्र",
         dashboard: "अधिकारी कंसोल",
@@ -532,6 +534,256 @@ const translations = {
       supportAction: "सुरक्षित लॉगिन खोलें",
     },
   },
+  about: {
+    en: {
+      metaTitle: "About National Makhana Board",
+      breadcrumbCurrent: "About the Board",
+      badge: "Board Information",
+      heading: "National Makhana Board",
+      lead:
+        "The Board supports coordinated planning, beneficiary services, field monitoring, infrastructure development, and public communication for the makhana sector.",
+      primaryAction: "Browse Services",
+      secondaryAction: "View Guidelines",
+      summaryHeading: "Board Summary",
+      statOneLabel: "Operational Scope",
+      statOneValue: "National",
+      statOneBody:
+        "Public access, state coordination, district monitoring, and beneficiary workflow support.",
+      statTwoLabel: "Coverage Focus",
+      statTwoValue: "10 States",
+      statTwoBody:
+        "Planning, implementation review, and sector-development support across target states.",
+      sectionOneTitle: "Mandate and Role",
+      sectionOneBody:
+        "The National Makhana Board acts as a sector coordination body for programme planning, public service delivery support, implementation monitoring, and reporting visibility for makhana-related interventions.",
+      sectionTwoTitle: "What the Portal Supports",
+      sectionTwoBody:
+        "The portal combines public information, beneficiary services, field verification, state review workflows, Annual Action Plan handling, budget visibility, and national monitoring support in one digital platform.",
+      governanceHeading: "Administrative Structure",
+      governanceLead:
+        "The platform is organized to support public users, state operations, field verification, and board-level review through clearly separated service paths.",
+      cardOneTitle: "Public and Beneficiary Services",
+      cardOneBody:
+        "Farmer registration, application submission, status tracking, and document-linked service access.",
+      cardTwoTitle: "State and District Operations",
+      cardTwoBody:
+        "Application scrutiny, clarifications, inspections, district updates, and implementation-level reporting.",
+      cardThreeTitle: "Board Monitoring and Review",
+      cardThreeBody:
+        "Approval, return decisions, Annual Action Plan review, budget oversight, and national dashboard visibility.",
+      timelineHeading: "Service Delivery Chain",
+      timelineLead:
+        "The Board’s digital operating model connects public intake, state action, and central review into one monitored service chain.",
+      timelineOneTitle: "Public Information and Access",
+      timelineOneBody:
+        "Users review scheme information, guidelines, updates, and service routes before entering secure transactions.",
+      timelineTwoTitle: "Registration and Application Filing",
+      timelineTwoBody:
+        "Beneficiaries create profiles, submit applications, and receive application-level acknowledgement and status visibility.",
+      timelineThreeTitle: "State Review and Field Verification",
+      timelineThreeBody:
+        "State officers examine records, raise clarifications, assign inspections, and prepare recommendations for decision.",
+      timelineFourTitle: "Board Decision and Monitoring",
+      timelineFourBody:
+        "The Board reviews submissions, monitors state progress, and tracks planning and budget performance through the portal.",
+      supportBody:
+        "Use the service directory, guidelines, and updates sections for public reference before moving to secure service routes.",
+      supportAction: "Open Services",
+    },
+    hi: {
+      metaTitle: "राष्ट्रीय मखाना बोर्ड का परिचय",
+      breadcrumbCurrent: "बोर्ड का परिचय",
+      badge: "बोर्ड जानकारी",
+      heading: "राष्ट्रीय मखाना बोर्ड",
+      lead:
+        "बोर्ड मखाना क्षेत्र के लिए समन्वित योजना, लाभार्थी सेवाएं, फील्ड निगरानी, अवसंरचना विकास और सार्वजनिक संचार का समर्थन करता है।",
+      primaryAction: "सेवाएं देखें",
+      secondaryAction: "दिशानिर्देश देखें",
+      summaryHeading: "बोर्ड सारांश",
+      statOneLabel: "संचालन दायरा",
+      statOneValue: "राष्ट्रीय",
+      statOneBody:
+        "सार्वजनिक पहुंच, राज्य समन्वय, जिला निगरानी और लाभार्थी कार्यप्रवाह समर्थन।",
+      statTwoLabel: "कवरेज फोकस",
+      statTwoValue: "10 राज्य",
+      statTwoBody:
+        "लक्षित राज्यों में योजना, कार्यान्वयन समीक्षा और क्षेत्र-विकास समर्थन।",
+      sectionOneTitle: "अधिदेश और भूमिका",
+      sectionOneBody:
+        "राष्ट्रीय मखाना बोर्ड कार्यक्रम योजना, सार्वजनिक सेवा वितरण सहायता, कार्यान्वयन निगरानी और मखाना-संबंधित हस्तक्षेपों के लिए रिपोर्टिंग दृश्यता का समर्थन करने वाली समन्वय इकाई के रूप में कार्य करता है।",
+      sectionTwoTitle: "पोर्टल क्या समर्थन करता है",
+      sectionTwoBody:
+        "यह पोर्टल सार्वजनिक जानकारी, लाभार्थी सेवाएं, फील्ड सत्यापन, राज्य समीक्षा कार्यप्रवाह, वार्षिक कार्ययोजना प्रबंधन, बजट दृश्यता और राष्ट्रीय निगरानी समर्थन को एक डिजिटल मंच में जोड़ता है।",
+      governanceHeading: "प्रशासनिक संरचना",
+      governanceLead:
+        "यह मंच सार्वजनिक उपयोगकर्ताओं, राज्य संचालन, फील्ड सत्यापन और बोर्ड-स्तरीय समीक्षा के लिए स्पष्ट रूप से पृथक सेवा मार्गों का समर्थन करता है।",
+      cardOneTitle: "सार्वजनिक और लाभार्थी सेवाएं",
+      cardOneBody:
+        "किसान पंजीकरण, आवेदन जमा करना, स्थिति ट्रैकिंग और दस्तावेज़-आधारित सेवा पहुंच।",
+      cardTwoTitle: "राज्य और जिला संचालन",
+      cardTwoBody:
+        "आवेदन जांच, स्पष्टीकरण, निरीक्षण, जिला अपडेट और कार्यान्वयन-स्तरीय रिपोर्टिंग।",
+      cardThreeTitle: "बोर्ड निगरानी और समीक्षा",
+      cardThreeBody:
+        "स्वीकृति, वापसी निर्णय, वार्षिक कार्ययोजना समीक्षा, बजट पर्यवेक्षण और राष्ट्रीय डैशबोर्ड दृश्यता।",
+      timelineHeading: "सेवा वितरण शृंखला",
+      timelineLead:
+        "बोर्ड का डिजिटल संचालन मॉडल सार्वजनिक प्रवेश, राज्य कार्रवाई और केंद्रीय समीक्षा को एक निगरानी-समर्थित सेवा शृंखला में जोड़ता है।",
+      timelineOneTitle: "सार्वजनिक जानकारी और पहुंच",
+      timelineOneBody:
+        "उपयोगकर्ता सुरक्षित लेन-देन में प्रवेश करने से पहले योजना जानकारी, दिशानिर्देश, अपडेट और सेवा मार्गों की समीक्षा करते हैं।",
+      timelineTwoTitle: "पंजीकरण और आवेदन दाखिला",
+      timelineTwoBody:
+        "लाभार्थी प्रोफाइल बनाते हैं, आवेदन जमा करते हैं, और आवेदन-स्तरीय पावती तथा स्थिति दृश्यता प्राप्त करते हैं।",
+      timelineThreeTitle: "राज्य समीक्षा और फील्ड सत्यापन",
+      timelineThreeBody:
+        "राज्य अधिकारी रिकॉर्ड की जांच करते हैं, स्पष्टीकरण उठाते हैं, निरीक्षण सौंपते हैं और निर्णय हेतु अनुशंसाएं तैयार करते हैं।",
+      timelineFourTitle: "बोर्ड निर्णय और निगरानी",
+      timelineFourBody:
+        "बोर्ड प्रस्तुतियों की समीक्षा करता है, राज्य प्रगति की निगरानी करता है और पोर्टल के माध्यम से योजना एवं बजट प्रदर्शन को ट्रैक करता है।",
+      supportBody:
+        "सुरक्षित सेवा मार्गों पर जाने से पहले सार्वजनिक संदर्भ के लिए सेवा निर्देशिका, दिशानिर्देश और अपडेट अनुभाग का उपयोग करें।",
+      supportAction: "सेवाएं खोलें",
+    },
+  },
+  guidelines: {
+    en: {
+      metaTitle: "NMB Guidelines and Reference Documents",
+      breadcrumbCurrent: "Guidelines",
+      badge: "Guidelines Repository",
+      heading: "Operational Guidelines and Public Reference Material",
+      lead:
+        "This section organizes public reference documents, submission guidance, workflow notes, and field-level support material in a structured format for easy access.",
+      summaryHeading: "Reference Coverage",
+      statOneLabel: "Public Use",
+      statOneValue: "Advisory",
+      statOneBody: "Eligibility, document readiness, service routes, and operational notes.",
+      statTwoLabel: "Officer Use",
+      statTwoValue: "Workflow",
+      statTwoBody: "Review, inspection, planning, and monitoring reference points.",
+      libraryHeading: "Guideline Library",
+      libraryLead:
+        "Documents are grouped by purpose so that applicants, state offices, and reviewing authorities can locate the right reference material quickly.",
+      tagOne: "Public Reference",
+      cardOneTitle: "Beneficiary Registration Guidance",
+      cardOneBody:
+        "Reference note covering profile creation, location selection, identity preparation, and record-readiness before application filing.",
+      cardOneMeta: "Document Type: Guidance Note",
+      cardOneDate: "Issued: 18 June 2026",
+      tagTwo: "Application Workflow",
+      cardTwoTitle: "Application Submission and Document Checklist",
+      cardTwoBody:
+        "Reference checklist for land records, identity proof, cultivation details, geo-location capture, and scheme-component alignment.",
+      cardTwoMeta: "Document Type: Checklist",
+      cardTwoDate: "Issued: 19 June 2026",
+      tagThree: "State Operations",
+      cardThreeTitle: "State Review, Clarification, and Inspection Handling",
+      cardThreeBody:
+        "Operational guidance for scrutiny, clarification issuance, field verification assignment, and recommendation processing at the state level.",
+      cardThreeMeta: "Document Type: Operational SOP",
+      cardThreeDate: "Issued: 20 June 2026",
+      tagFour: "Planning and Monitoring",
+      cardFourTitle: "Annual Action Plan and District Reporting Reference",
+      cardFourBody:
+        "Planning note for state submissions, district-wise target preparation, budget requirement visibility, and reporting discipline.",
+      cardFourMeta: "Document Type: Planning Note",
+      cardFourDate: "Issued: 20 June 2026",
+      matrixHeading: "Reference Use Matrix",
+      matrixLead:
+        "The matrix below helps users identify which guidance set applies at each stage of the service cycle.",
+      tableHeadOne: "Workflow Stage",
+      tableHeadTwo: "Primary User",
+      tableHeadThree: "Reference Material",
+      tableHeadFour: "Use",
+      rowOneStage: "Registration",
+      rowOneUser: "Beneficiary",
+      rowOneDoc: "Registration guidance",
+      rowOneUse: "Profile and identity readiness",
+      rowTwoStage: "Application filing",
+      rowTwoUser: "Beneficiary",
+      rowTwoDoc: "Submission checklist",
+      rowTwoUse: "Document and geo-tag readiness",
+      rowThreeStage: "Review and inspection",
+      rowThreeUser: "State officer / Inspector",
+      rowThreeDoc: "Operational SOP",
+      rowThreeUse: "Clarification, inspection, recommendation",
+      rowFourStage: "Planning and monitoring",
+      rowFourUser: "State office / NMB",
+      rowFourDoc: "Planning reference",
+      rowFourUse: "AAP and district reporting",
+      supportBody:
+        "Use the guideline library with the services and updates sections for document-readiness and operational reference.",
+      supportAction: "Open Helpdesk",
+    },
+    hi: {
+      metaTitle: "एनएमबी दिशानिर्देश और संदर्भ दस्तावेज़",
+      breadcrumbCurrent: "दिशानिर्देश",
+      badge: "दिशानिर्देश भंडार",
+      heading: "संचालन दिशानिर्देश और सार्वजनिक संदर्भ सामग्री",
+      lead:
+        "यह अनुभाग सार्वजनिक संदर्भ दस्तावेज़ों, जमा मार्गदर्शन, कार्यप्रवाह नोट्स और फील्ड-स्तरीय सहायता सामग्री को आसान पहुंच के लिए संरचित रूप में व्यवस्थित करता है।",
+      summaryHeading: "संदर्भ कवरेज",
+      statOneLabel: "सार्वजनिक उपयोग",
+      statOneValue: "परामर्श",
+      statOneBody: "पात्रता, दस्तावेज़ तत्परता, सेवा मार्ग और संचालन नोट्स।",
+      statTwoLabel: "अधिकारी उपयोग",
+      statTwoValue: "कार्यप्रवाह",
+      statTwoBody: "समीक्षा, निरीक्षण, योजना और निगरानी संदर्भ बिंदु।",
+      libraryHeading: "दिशानिर्देश पुस्तकालय",
+      libraryLead:
+        "दस्तावेज़ों को उद्देश्य के अनुसार समूहित किया गया है ताकि आवेदक, राज्य कार्यालय और समीक्षा प्राधिकारी सही संदर्भ सामग्री शीघ्र खोज सकें।",
+      tagOne: "सार्वजनिक संदर्भ",
+      cardOneTitle: "लाभार्थी पंजीकरण मार्गदर्शन",
+      cardOneBody:
+        "प्रोफाइल निर्माण, स्थान चयन, पहचान तैयारी और आवेदन दाखिल करने से पहले रिकॉर्ड-तत्परता को कवर करने वाला संदर्भ नोट।",
+      cardOneMeta: "दस्तावेज़ प्रकार: मार्गदर्शन नोट",
+      cardOneDate: "जारी: 18 जून 2026",
+      tagTwo: "आवेदन कार्यप्रवाह",
+      cardTwoTitle: "आवेदन जमा और दस्तावेज़ चेकलिस्ट",
+      cardTwoBody:
+        "भूमि अभिलेख, पहचान प्रमाण, खेती विवरण, भू-स्थान संकलन और योजना-घटक संरेखण हेतु संदर्भ चेकलिस्ट।",
+      cardTwoMeta: "दस्तावेज़ प्रकार: चेकलिस्ट",
+      cardTwoDate: "जारी: 19 जून 2026",
+      tagThree: "राज्य संचालन",
+      cardThreeTitle: "राज्य समीक्षा, स्पष्टीकरण और निरीक्षण प्रबंधन",
+      cardThreeBody:
+        "राज्य स्तर पर जांच, स्पष्टीकरण जारी करने, फील्ड सत्यापन आवंटन और अनुशंसा प्रसंस्करण के लिए संचालन मार्गदर्शन।",
+      cardThreeMeta: "दस्तावेज़ प्रकार: संचालन एसओपी",
+      cardThreeDate: "जारी: 20 जून 2026",
+      tagFour: "योजना और निगरानी",
+      cardFourTitle: "वार्षिक कार्ययोजना और जिला रिपोर्टिंग संदर्भ",
+      cardFourBody:
+        "राज्य प्रस्तुतियों, जिला-स्तरीय लक्ष्य तैयारी, बजट आवश्यकता दृश्यता और रिपोर्टिंग अनुशासन हेतु योजना नोट।",
+      cardFourMeta: "दस्तावेज़ प्रकार: योजना नोट",
+      cardFourDate: "जारी: 20 जून 2026",
+      matrixHeading: "संदर्भ उपयोग मैट्रिक्स",
+      matrixLead:
+        "नीचे दिया गया मैट्रिक्स उपयोगकर्ताओं को यह पहचानने में मदद करता है कि सेवा चक्र के प्रत्येक चरण पर कौन सा मार्गदर्शन लागू होता है।",
+      tableHeadOne: "कार्यप्रवाह चरण",
+      tableHeadTwo: "मुख्य उपयोगकर्ता",
+      tableHeadThree: "संदर्भ सामग्री",
+      tableHeadFour: "उपयोग",
+      rowOneStage: "पंजीकरण",
+      rowOneUser: "लाभार्थी",
+      rowOneDoc: "पंजीकरण मार्गदर्शन",
+      rowOneUse: "प्रोफाइल और पहचान तत्परता",
+      rowTwoStage: "आवेदन दाखिला",
+      rowTwoUser: "लाभार्थी",
+      rowTwoDoc: "जमा चेकलिस्ट",
+      rowTwoUse: "दस्तावेज़ और जियोटैग तत्परता",
+      rowThreeStage: "समीक्षा और निरीक्षण",
+      rowThreeUser: "राज्य अधिकारी / निरीक्षक",
+      rowThreeDoc: "संचालन एसओपी",
+      rowThreeUse: "स्पष्टीकरण, निरीक्षण, अनुशंसा",
+      rowFourStage: "योजना और निगरानी",
+      rowFourUser: "राज्य कार्यालय / एनएमबी",
+      rowFourDoc: "योजना संदर्भ",
+      rowFourUse: "एएपी और जिला रिपोर्टिंग",
+      supportBody:
+        "दस्तावेज़-तत्परता और संचालन संदर्भ के लिए दिशानिर्देश पुस्तकालय का उपयोग सेवाओं और अपडेट अनुभागों के साथ करें।",
+      supportAction: "सहायता केंद्र खोलें",
+    },
+  },
   schemes: {
     en: {
       metaTitle: "NMB Schemes and Support Areas",
@@ -666,19 +918,66 @@ const translations = {
     en: {
       metaTitle: "NMB Updates and Circulars",
       badge: "Public Notices",
-      notice:
-        "This page is intended for circulars, advisories, system notices, and service-related announcements.",
-      heading: "Latest Notices",
+      breadcrumbCurrent: "Updates",
+      heading: "Updates, Circulars, and Public Advisories",
       lead:
-        "Illustrative notice blocks are presented in a formal structure that can later be linked to actual notifications and circular records.",
-      noticeOne:
-        "Beneficiary services are available for registration, application submission, and workflow status visibility through the portal.",
-      noticeTwo:
-        "State review, inspection assignment, recommendation handling, and approval review are supported in the officer console.",
-      noticeThree:
-        "Annual Action Plan submission, budget visibility, field reporting, and monitoring support are available through the portal.",
-      noticeFour:
-        "Notification services, identity verification, and benefit-transfer readiness are included within the portal scope.",
+        "This section provides official-style public notices, service advisories, implementation communications, and planning-related updates for portal users.",
+      summaryHeading: "Notice Coverage",
+      statOneLabel: "Public Notices",
+      statOneValue: "Service Access",
+      statOneBody:
+        "Registration, application filing, document readiness, and user guidance notices.",
+      statTwoLabel: "Operational Notices",
+      statTwoValue: "Planning and Review",
+      statTwoBody:
+        "State planning, scrutiny timelines, inspection handling, and monitoring advisories.",
+      featuredHeading: "Featured Circulars",
+      featuredLead:
+        "Priority notices are highlighted below for immediate public and operational attention.",
+      noticeOneTag: "Advisory",
+      noticeOneTitle:
+        "Beneficiary registration and application services remain available through the portal.",
+      noticeOneBody:
+        "Applicants may use the beneficiary workspace for profile updates, application filing, document-linked submissions, and application-level status visibility.",
+      noticeOneDate: "Issued: 20 June 2026",
+      noticeOneAudience: "Audience: Beneficiaries and field support teams",
+      noticeTwoTag: "Workflow Notice",
+      noticeTwoTitle:
+        "State review, clarification, and inspection handling are available in the officer console.",
+      noticeTwoBody:
+        "Authorized officers may review submissions, issue clarifications, assign inspections, record field outcomes, and prepare recommendations for board review.",
+      noticeTwoDate: "Issued: 20 June 2026",
+      noticeTwoAudience: "Audience: State officers and inspectors",
+      noticeThreeTag: "Planning Notice",
+      noticeThreeTitle:
+        "Annual Action Plan submission and monitoring support are active through the planning workspace.",
+      noticeThreeBody:
+        "State-level users may prepare submissions, review budget visibility, update district metrics, and monitor progress signals for planning review.",
+      noticeThreeDate: "Issued: 19 June 2026",
+      noticeThreeAudience: "Audience: State offices and board operations",
+      archiveHeading: "Notice Archive",
+      archiveLead:
+        "Recent circulars and system notices are organized in a structured archive for easy review.",
+      tableHeadOne: "Reference",
+      tableHeadTwo: "Subject",
+      tableHeadThree: "Category",
+      tableHeadFour: "Issue Date",
+      rowOneRef: "NMB/OPS/2026/011",
+      rowOneSubject: "Public advisory on beneficiary service access",
+      rowOneCategory: "Public Services",
+      rowOneDate: "20 June 2026",
+      rowTwoRef: "NMB/STATE/2026/014",
+      rowTwoSubject: "State scrutiny and inspection workflow communication",
+      rowTwoCategory: "Workflow",
+      rowTwoDate: "20 June 2026",
+      rowThreeRef: "NMB/AAP/2026/009",
+      rowThreeSubject: "Planning submission and district reporting readiness note",
+      rowThreeCategory: "Planning",
+      rowThreeDate: "19 June 2026",
+      rowFourRef: "NMB/SVC/2026/007",
+      rowFourSubject: "Notification, identity, and service-readiness communication",
+      rowFourCategory: "System Readiness",
+      rowFourDate: "18 June 2026",
       supportBody:
         "Updates, notices, and circulars should be read with the related service instructions available through the portal helpdesk.",
       supportAction: "Open Helpdesk",
@@ -686,19 +985,66 @@ const translations = {
     hi: {
       metaTitle: "एनएमबी अपडेट और परिपत्र",
       badge: "सार्वजनिक सूचनाएं",
-      notice:
-        "यह पृष्ठ परिपत्र, परामर्श, सिस्टम सूचनाएं और सेवा-संबंधी घोषणाओं के लिए है।",
-      heading: "नवीनतम सूचनाएं",
+      breadcrumbCurrent: "अपडेट",
+      heading: "अपडेट, परिपत्र और सार्वजनिक परामर्श",
       lead:
-        "उदाहरणात्मक सूचना ब्लॉक औपचारिक संरचना में प्रस्तुत किए गए हैं जिन्हें बाद में वास्तविक अधिसूचनाओं और परिपत्र अभिलेखों से जोड़ा जा सकता है।",
-      noticeOne:
-        "लाभार्थी सेवाएं पंजीकरण, आवेदन जमा करने और पोर्टल के माध्यम से कार्यप्रवाह स्थिति दृश्यता के लिए उपलब्ध हैं।",
-      noticeTwo:
-        "राज्य समीक्षा, निरीक्षण आवंटन, अनुशंसा प्रबंधन और स्वीकृति समीक्षा अधिकारी कंसोल में समर्थित हैं।",
-      noticeThree:
-        "वार्षिक कार्ययोजना जमा करना, बजट दृश्यता, फील्ड रिपोर्टिंग और निगरानी समर्थन पोर्टल के माध्यम से उपलब्ध हैं।",
-      noticeFour:
-        "अधिसूचना सेवाएं, पहचान सत्यापन और लाभ अंतरण तत्परता पोर्टल के दायरे में शामिल हैं।",
+        "यह अनुभाग पोर्टल उपयोगकर्ताओं के लिए आधिकारिक शैली की सार्वजनिक सूचनाएं, सेवा परामर्श, कार्यान्वयन संचार और योजना-संबंधी अपडेट प्रदान करता है।",
+      summaryHeading: "सूचना कवरेज",
+      statOneLabel: "सार्वजनिक सूचनाएं",
+      statOneValue: "सेवा पहुंच",
+      statOneBody:
+        "पंजीकरण, आवेदन दाखिला, दस्तावेज़ तत्परता और उपयोगकर्ता मार्गदर्शन संबंधी सूचनाएं।",
+      statTwoLabel: "संचालन सूचनाएं",
+      statTwoValue: "योजना और समीक्षा",
+      statTwoBody:
+        "राज्य योजना, जांच समय-सीमा, निरीक्षण प्रबंधन और निगरानी परामर्श।",
+      featuredHeading: "प्रमुख परिपत्र",
+      featuredLead:
+        "तत्काल सार्वजनिक और संचालन ध्यान हेतु प्राथमिक सूचनाएं नीचे प्रदर्शित हैं।",
+      noticeOneTag: "परामर्श",
+      noticeOneTitle:
+        "लाभार्थी पंजीकरण और आवेदन सेवाएं पोर्टल के माध्यम से उपलब्ध हैं।",
+      noticeOneBody:
+        "आवेदक प्रोफाइल अद्यतन, आवेदन दाखिला, दस्तावेज़-आधारित सबमिशन और आवेदन-स्तरीय स्थिति दृश्यता के लिए लाभार्थी कार्यस्थान का उपयोग कर सकते हैं।",
+      noticeOneDate: "जारी: 20 जून 2026",
+      noticeOneAudience: "लक्षित उपयोगकर्ता: लाभार्थी और फील्ड सहायता टीमें",
+      noticeTwoTag: "कार्यप्रवाह सूचना",
+      noticeTwoTitle:
+        "राज्य समीक्षा, स्पष्टीकरण और निरीक्षण प्रबंधन अधिकारी कंसोल में उपलब्ध है।",
+      noticeTwoBody:
+        "अधिकृत अधिकारी प्रस्तुतियों की समीक्षा कर सकते हैं, स्पष्टीकरण जारी कर सकते हैं, निरीक्षण आवंटित कर सकते हैं, फील्ड परिणाम दर्ज कर सकते हैं और बोर्ड समीक्षा हेतु अनुशंसाएं तैयार कर सकते हैं।",
+      noticeTwoDate: "जारी: 20 जून 2026",
+      noticeTwoAudience: "लक्षित उपयोगकर्ता: राज्य अधिकारी और निरीक्षक",
+      noticeThreeTag: "योजना सूचना",
+      noticeThreeTitle:
+        "वार्षिक कार्ययोजना जमा और निगरानी समर्थन योजना कार्यस्थान में सक्रिय है।",
+      noticeThreeBody:
+        "राज्य-स्तरीय उपयोगकर्ता प्रस्तुतियां तैयार कर सकते हैं, बजट दृश्यता की समीक्षा कर सकते हैं, जिला मेट्रिक्स अद्यतन कर सकते हैं और योजना समीक्षा के लिए प्रगति संकेतों की निगरानी कर सकते हैं।",
+      noticeThreeDate: "जारी: 19 जून 2026",
+      noticeThreeAudience: "लक्षित उपयोगकर्ता: राज्य कार्यालय और बोर्ड संचालन",
+      archiveHeading: "सूचना अभिलेख",
+      archiveLead:
+        "हालिया परिपत्र और सिस्टम सूचनाएं आसान समीक्षा के लिए संरचित अभिलेख में व्यवस्थित की गई हैं।",
+      tableHeadOne: "संदर्भ",
+      tableHeadTwo: "विषय",
+      tableHeadThree: "श्रेणी",
+      tableHeadFour: "जारी तिथि",
+      rowOneRef: "NMB/OPS/2026/011",
+      rowOneSubject: "लाभार्थी सेवा पहुंच पर सार्वजनिक परामर्श",
+      rowOneCategory: "सार्वजनिक सेवाएं",
+      rowOneDate: "20 जून 2026",
+      rowTwoRef: "NMB/STATE/2026/014",
+      rowTwoSubject: "राज्य जांच और निरीक्षण कार्यप्रवाह संचार",
+      rowTwoCategory: "कार्यप्रवाह",
+      rowTwoDate: "20 जून 2026",
+      rowThreeRef: "NMB/AAP/2026/009",
+      rowThreeSubject: "योजना जमा और जिला रिपोर्टिंग तत्परता नोट",
+      rowThreeCategory: "योजना",
+      rowThreeDate: "19 जून 2026",
+      rowFourRef: "NMB/SVC/2026/007",
+      rowFourSubject: "अधिसूचना, पहचान और सेवा-तत्परता संचार",
+      rowFourCategory: "सिस्टम तत्परता",
+      rowFourDate: "18 जून 2026",
       supportBody:
         "अपडेट, सूचनाएं और परिपत्रों को पोर्टल सहायता केंद्र में उपलब्ध संबंधित सेवा निर्देशों के साथ पढ़ा जाना चाहिए।",
       supportAction: "सहायता केंद्र खोलें",
@@ -1324,7 +1670,7 @@ async function submitChatQuestion({ page, language, message, thread, form, toggl
           if (event.fallback_used) {
             console.warn("[NMB chat] Fallback mode active", event);
           } else {
-            console.info("[NMB chat] Azure grounded mode active", event);
+            console.info("[NMB chat] Gemini grounded mode active", event);
           }
         }
         if (event.type === "delta") {

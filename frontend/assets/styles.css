@@ -3125,7 +3125,119 @@ pre {
   min-height: 80px;
 }
 
+.info-hero-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.75fr) minmax(280px, 0.95fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.info-hero-copy,
+.info-side-panel,
+.info-card,
+.guideline-card,
+.notice-card,
+.table-shell {
+  background: #fff;
+  border: 1px solid var(--color-border-light);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+.info-hero-copy,
+.info-side-panel,
+.info-card,
+.guideline-card,
+.notice-card,
+.table-shell {
+  padding: 22px;
+}
+
+.info-grid-two,
+.info-grid-three,
+.guideline-library,
+.notice-board {
+  display: grid;
+  gap: 16px;
+}
+
+.info-grid-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.info-grid-three,
+.guideline-library,
+.notice-board {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.info-card h2,
+.info-card h3,
+.guideline-card strong,
+.notice-card strong {
+  margin: 0 0 10px;
+}
+
+.info-card p,
+.guideline-card p,
+.notice-card p,
+.program-timeline p {
+  margin: 0;
+}
+
+.guideline-card,
+.notice-card {
+  display: grid;
+  gap: 12px;
+}
+
+.guideline-card-head,
+.notice-card-head {
+  display: grid;
+  gap: 10px;
+}
+
+.guideline-card-meta,
+.notice-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.program-timeline {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.program-timeline li {
+  padding-left: 4px;
+}
+
+.program-timeline strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.table-shell {
+  overflow-x: auto;
+}
+
+.table-shell .data-table {
+  min-width: 720px;
+}
+
 @media (max-width: 1180px) {
+
+  .info-grid-three,
+  .guideline-library,
+  .notice-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
   .scheme-intro-panel {
     grid-template-columns: 1fr;
@@ -3180,6 +3292,14 @@ pre {
 }
 
 @media (max-width: 980px) {
+
+  .info-hero-panel,
+  .info-grid-two,
+  .info-grid-three,
+  .guideline-library,
+  .notice-board {
+    grid-template-columns: 1fr;
+  }
 
   .scheme-lifecycle-labels {
     grid-template-columns: repeat(3, minmax(0, 1fr));

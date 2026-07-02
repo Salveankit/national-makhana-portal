@@ -151,11 +151,6 @@ def knowledge_base_summary() -> dict[str, Any]:
         "documents": len(documents),
         "chunks": len(chunks),
         "categories": categories,
-        "azure_configured": all(
-            [
-                settings.azure_openai_endpoint,
-                settings.azure_openai_api_key,
-                settings.azure_openai_deployment,
-            ]
-        ),
+        "gemini_model": settings.gemini_model,
+        "gemini_configured": bool(settings.gemini_api_key),
     }

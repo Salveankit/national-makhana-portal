@@ -28,6 +28,16 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(response.headers["x-content-type-options"], "nosniff")
         self.assertEqual(response.headers["x-frame-options"], "DENY")
 
+    def test_phase_one_public_pages_load(self):
+        for route, marker in [
+            ("/about", "National Makhana Board"),
+            ("/guidelines", "Guidelines"),
+            ("/updates", "Public Notices"),
+        ]:
+            response = self.client.get(route)
+            self.assertEqual(response.status_code, 200, route)
+            self.assertIn(marker, response.text)
+
     def test_end_to_end_workflow_and_dashboard(self):
         farmer_headers = self.auth_headers("farmer@example.com")
         officer_headers = self.auth_headers("bihar.officer@example.com")

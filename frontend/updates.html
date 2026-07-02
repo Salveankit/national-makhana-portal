@@ -44,35 +44,127 @@
     </header>
     <nav class="gov-nav" aria-label="Primary navigation">
       <a href="/" data-i18n="nav.home">Home</a>
+      <a href="/about" data-i18n="nav.about">About</a>
       <a href="/services" data-i18n="nav.services">Services</a>
-      <a href="/schemes" data-i18n="nav.schemes">Schemes</a>
+      <a href="/guidelines" data-i18n="nav.guidelines">Guidelines</a>
       <a class="active" href="/updates" data-i18n="nav.updates">Updates</a>
       <a href="/dashboard" data-i18n="nav.dashboard">Officer Console</a>
     </nav>
 
     <main id="main" class="page-shell">
-      <div class="notice-strip" data-i18n="updates.notice">
-        This page is intended for circulars, advisories, system notices, and service-related announcements.
-      </div>
+      <nav class="scheme-breadcrumb" aria-label="Breadcrumb">
+        <a href="/" data-i18n="nav.home">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page" data-i18n="updates.breadcrumbCurrent">Updates</span>
+      </nav>
+
+      <section class="section-block info-hero-panel">
+        <div class="info-hero-copy">
+          <span class="section-kicker" data-i18n="updates.badge">Public Notices</span>
+          <h1 class="scheme-page-title" data-i18n="updates.heading">Updates, Circulars, and Public Advisories</h1>
+          <p class="scheme-page-lead" data-i18n="updates.lead">This section provides official-style public notices, service advisories, implementation communications, and planning-related updates for portal users.</p>
+        </div>
+        <aside class="info-side-panel">
+          <strong class="scheme-summary-title" data-i18n="updates.summaryHeading">Notice Coverage</strong>
+          <div class="scheme-summary-list">
+            <article class="scheme-summary-item">
+              <span class="scheme-summary-label" data-i18n="updates.statOneLabel">Public Notices</span>
+              <strong class="scheme-summary-value" data-i18n="updates.statOneValue">Service Access</strong>
+              <p data-i18n="updates.statOneBody">Registration, application filing, document readiness, and user guidance notices.</p>
+            </article>
+            <article class="scheme-summary-item">
+              <span class="scheme-summary-label" data-i18n="updates.statTwoLabel">Operational Notices</span>
+              <strong class="scheme-summary-value" data-i18n="updates.statTwoValue">Planning and Review</strong>
+              <p data-i18n="updates.statTwoBody">State planning, scrutiny timelines, inspection handling, and monitoring advisories.</p>
+            </article>
+          </div>
+        </aside>
+      </section>
 
       <section class="section-block">
         <div class="section-heading">
-          <h2 data-i18n="updates.heading">Latest Notices</h2>
-          <p data-i18n="updates.lead">Illustrative notice blocks are presented in a formal structure that can later be linked to actual notifications and circular records.</p>
+          <h2 data-i18n="updates.featuredHeading">Featured Circulars</h2>
+          <p data-i18n="updates.featuredLead">Priority notices are highlighted below for immediate public and operational attention.</p>
         </div>
-        <div class="ticker">
-          <div class="ticker-item" data-i18n="updates.noticeOne">
-            Beneficiary services are available for registration, application submission, and workflow status visibility through the portal.
-          </div>
-          <div class="ticker-item" data-i18n="updates.noticeTwo">
-            State review, inspection assignment, recommendation handling, and approval review are supported in the officer console.
-          </div>
-          <div class="ticker-item" data-i18n="updates.noticeThree">
-            Annual Action Plan submission, budget visibility, field reporting, and monitoring support are available through the portal.
-          </div>
-          <div class="ticker-item" data-i18n="updates.noticeFour">
-            Notification services, identity verification, and benefit-transfer readiness are included within the portal scope.
-          </div>
+        <div class="notice-board">
+          <article class="notice-card">
+            <div class="notice-card-head">
+              <span class="tag" data-i18n="updates.noticeOneTag">Advisory</span>
+              <strong data-i18n="updates.noticeOneTitle">Beneficiary registration and application services remain available through the portal.</strong>
+            </div>
+            <p data-i18n="updates.noticeOneBody">Applicants may use the beneficiary workspace for profile updates, application filing, document-linked submissions, and application-level status visibility.</p>
+            <div class="notice-card-meta">
+              <span data-i18n="updates.noticeOneDate">Issued: 20 June 2026</span>
+              <span data-i18n="updates.noticeOneAudience">Audience: Beneficiaries and field support teams</span>
+            </div>
+          </article>
+          <article class="notice-card">
+            <div class="notice-card-head">
+              <span class="tag" data-i18n="updates.noticeTwoTag">Workflow Notice</span>
+              <strong data-i18n="updates.noticeTwoTitle">State review, clarification, and inspection handling are available in the officer console.</strong>
+            </div>
+            <p data-i18n="updates.noticeTwoBody">Authorized officers may review submissions, issue clarifications, assign inspections, record field outcomes, and prepare recommendations for board review.</p>
+            <div class="notice-card-meta">
+              <span data-i18n="updates.noticeTwoDate">Issued: 20 June 2026</span>
+              <span data-i18n="updates.noticeTwoAudience">Audience: State officers and inspectors</span>
+            </div>
+          </article>
+          <article class="notice-card">
+            <div class="notice-card-head">
+              <span class="tag" data-i18n="updates.noticeThreeTag">Planning Notice</span>
+              <strong data-i18n="updates.noticeThreeTitle">Annual Action Plan submission and monitoring support are active through the planning workspace.</strong>
+            </div>
+            <p data-i18n="updates.noticeThreeBody">State-level users may prepare submissions, review budget visibility, update district metrics, and monitor progress signals for planning review.</p>
+            <div class="notice-card-meta">
+              <span data-i18n="updates.noticeThreeDate">Issued: 19 June 2026</span>
+              <span data-i18n="updates.noticeThreeAudience">Audience: State offices and board operations</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <h2 data-i18n="updates.archiveHeading">Notice Archive</h2>
+          <p data-i18n="updates.archiveLead">Recent circulars and system notices are organized in a structured archive for easy review.</p>
+        </div>
+        <div class="table-shell">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-i18n="updates.tableHeadOne">Reference</th>
+                <th data-i18n="updates.tableHeadTwo">Subject</th>
+                <th data-i18n="updates.tableHeadThree">Category</th>
+                <th data-i18n="updates.tableHeadFour">Issue Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-i18n="updates.rowOneRef">NMB/OPS/2026/011</td>
+                <td data-i18n="updates.rowOneSubject">Public advisory on beneficiary service access</td>
+                <td data-i18n="updates.rowOneCategory">Public Services</td>
+                <td data-i18n="updates.rowOneDate">20 June 2026</td>
+              </tr>
+              <tr>
+                <td data-i18n="updates.rowTwoRef">NMB/STATE/2026/014</td>
+                <td data-i18n="updates.rowTwoSubject">State scrutiny and inspection workflow communication</td>
+                <td data-i18n="updates.rowTwoCategory">Workflow</td>
+                <td data-i18n="updates.rowTwoDate">20 June 2026</td>
+              </tr>
+              <tr>
+                <td data-i18n="updates.rowThreeRef">NMB/AAP/2026/009</td>
+                <td data-i18n="updates.rowThreeSubject">Planning submission and district reporting readiness note</td>
+                <td data-i18n="updates.rowThreeCategory">Planning</td>
+                <td data-i18n="updates.rowThreeDate">19 June 2026</td>
+              </tr>
+              <tr>
+                <td data-i18n="updates.rowFourRef">NMB/SVC/2026/007</td>
+                <td data-i18n="updates.rowFourSubject">Notification, identity, and service-readiness communication</td>
+                <td data-i18n="updates.rowFourCategory">System Readiness</td>
+                <td data-i18n="updates.rowFourDate">18 June 2026</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
     </main>
@@ -89,8 +181,9 @@
           <h3 data-i18n="footer.publicPages">Public Pages</h3>
           <div class="footer-links">
             <a href="/" data-i18n="nav.home">Home</a>
+            <a href="/about" data-i18n="nav.about">About</a>
             <a href="/services" data-i18n="nav.services">Services</a>
-            <a href="/schemes" data-i18n="nav.schemes">Schemes</a>
+            <a href="/guidelines" data-i18n="nav.guidelines">Guidelines</a>
             <a href="/updates" data-i18n="nav.updates">Updates</a>
           </div>
         </div>
@@ -100,18 +193,18 @@
             <a href="/beneficiary" data-i18n="actions.beneficiary">Beneficiary Services</a>
             <a href="/login" data-i18n="utility.login">Secure Login</a>
             <a href="/dashboard" data-i18n="nav.dashboard">Officer Console</a>
-            <a href="/services" data-i18n="nav.services">Services</a>
+            <a href="/helpdesk" data-i18n="nav.helpdesk">Helpdesk</a>
           </div>
         </div>
         <div>
           <h3 data-i18n="footer.support">Support</h3>
-          <p data-i18n="updates.supportBody">Updates, notices, and circulars should be read together with the related services and secure access routes.</p>
-          <a class="footer-support-link" href="/services" data-i18n="updates.supportAction">View Services</a>
+          <p data-i18n="updates.supportBody">Updates, notices, and circulars should be read with the related service instructions available through the portal helpdesk.</p>
+          <a class="footer-support-link" href="/helpdesk" data-i18n="updates.supportAction">Open Helpdesk</a>
         </div>
       </div>
       <div class="footer-bottom">
         <span data-i18n="footer.rights">© 2026 National Makhana Board. All rights reserved.</span>
-        <span data-i18n="footer.updated">Last Updated: 18 June 2026</span>
+        <span data-i18n="footer.updated">Last Updated: 20 June 2026</span>
         <span data-i18n="footer.ownership">Content owned by the Department of Agriculture & Farmers Welfare, Government of India.</span>
       </div>
     </footer>

@@ -19,4 +19,4 @@ class KnowledgeBaseTests(unittest.TestCase):
         summary = knowledge_base_summary()
         self.assertIn("official", summary["categories"])
         self.assertIn("faq", summary["categories"])
-        self.assertEqual(summary["provider"], "azure_openai")
+        self.assertEqual(summary["provider"], "gemini")

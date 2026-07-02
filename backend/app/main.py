@@ -1170,6 +1170,16 @@ def services_page():
     return FileResponse(frontend_dir / "services.html")
 
 
+@app.get("/about")
+def about_page():
+    return FileResponse(frontend_dir / "about.html")
+
+
+@app.get("/guidelines")
+def guidelines_page():
+    return FileResponse(frontend_dir / "guidelines.html")
+
+
 @app.get("/schemes")
 def schemes_page():
     return FileResponse(frontend_dir / "schemes.html")

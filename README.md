@@ -27,7 +27,7 @@ Implemented today:
 - NMB admin dashboards, approvals, batch decisions, audit visibility, and system overview
 - mock SMS, email, WhatsApp, Aadhaar KYC, and DBT integration logging
 - floating chatbot UI on public pages plus beneficiary and dashboard views
-- chatbot support for retrieval fallback, Azure OpenAI grounded responses, and streaming-style UI delivery
+- chatbot support for retrieval fallback, Gemini grounded responses, and streaming-style UI delivery
 - curated knowledge base under `knowledge/`
 - regression tests for workflows, knowledge loading, and chatbot behavior
 
@@ -93,7 +93,7 @@ The chatbot is now a meaningful part of the PoC, not just placeholder scaffoldin
 
 The chatbot currently has two broad answer paths:
 
-1. `azure_grounded`
+1. `gemini_grounded`
 2. fallback retrieval modes
 
 Fallback modes include:
@@ -110,16 +110,27 @@ The chatbot answers from:
 - runtime beneficiary data such as profile, applications, clarifications, and notifications
 - runtime operations data such as queues, inspections, AAPs, budgets, field summaries, and service readiness
 
-### Azure OpenAI reality
+### Gemini reality
 
-Azure OpenAI is only considered active when all of the following are true:
+Gemini is only considered active when all of the following are true:
 
 - `CHATBOT_ENABLED=true`
-- `AZURE_OPENAI_ENDPOINT` is set
-- `AZURE_OPENAI_API_KEY` is set
-- `AZURE_OPENAI_DEPLOYMENT` is set
+- `CHATBOT_PROVIDER=gemini`
+- `GEMINI_API_KEY` is set
 
 If any of those are missing, the chatbot still works, but it will answer through the local retrieval fallback path.
+
+Local configuration belongs in the ignored `.env` file:
+
+```text
+CHATBOT_ENABLED=true
+CHATBOT_PROVIDER=gemini
+GEMINI_API_KEY=your-google-ai-studio-key
+GEMINI_MODEL=gemini-3.5-flash
+GEMINI_API_BASE_URL=https://generativelanguage.googleapis.com/v1beta
+```
+
+For Vercel, configure the same values as project environment variables. Do not put the API key in `vercel.json` or frontend JavaScript.
 
 There is no separate startup handshake endpoint today. The model is attempted at request time.
 
@@ -191,7 +202,7 @@ farmer@example.com         / Pass@123
 backend/
   app/
     main.py                FastAPI routes, page serving, chat streaming, workflow actions
-    chatbot.py             Retrieval, runtime context assembly, Azure OpenAI call path
+    chatbot.py             Retrieval, runtime context assembly, Gemini call path
     knowledge.py           Knowledge document/chunk loading and summary helpers
     data.py                SQLite storage, seed data, persistence helpers
     models.py              Domain records
@@ -381,10 +392,9 @@ CHATBOT_DEFAULT_LANGUAGE
 KNOWLEDGE_BASE_DIR
 KNOWLEDGE_CHUNK_SIZE
 KNOWLEDGE_CHUNK_OVERLAP
-AZURE_OPENAI_ENDPOINT
-AZURE_OPENAI_API_KEY
-AZURE_OPENAI_DEPLOYMENT
-AZURE_OPENAI_API_VERSION
+GEMINI_API_KEY
+GEMINI_MODEL
+GEMINI_API_BASE_URL
 ```
 
 Mock integration flags:
@@ -417,7 +427,7 @@ Known limitations:
 - no migrations framework
 - no dedicated admin user-management interface
 - chatbot quality still depends on curated knowledge and prompt discipline
-- chatbot can fall back silently to retrieval if Azure is disabled or unavailable
+- chatbot can fall back silently to retrieval if Gemini is disabled or unavailable
 
 ## Immediate Priorities
 
@@ -441,7 +451,7 @@ When continuing work in this repo:
 - keep public wording formal and non-startup
 - do not reintroduce obvious `PoC`, `demo`, or internal-delivery wording into public UI unless the user explicitly wants it
 - treat the chatbot as a serious product surface, not a novelty
-- do not assume Azure OpenAI is active unless `CHATBOT_ENABLED=true` and deployment variables are configured
+- do not assume Gemini is active unless `CHATBOT_ENABLED=true`, `CHATBOT_PROVIDER=gemini`, and `GEMINI_API_KEY` is configured
 - keep local runtime data out of Git
 - run relevant unittests after workflow, chatbot, or knowledge changes
 - update this README when architecture, deployment model, or product mental model changes

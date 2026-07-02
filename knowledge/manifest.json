@@ -1,6 +1,6 @@
 {
-  "enabled": false,
-  "provider": "azure_openai",
+  "enabled": true,
+  "provider": "gemini",
   "knowledge_root": "knowledge",
   "documents": 29,
   "chunks": 45,
@@ -9,7 +9,8 @@
     "faq": 18,
     "official": 8
   },
-  "azure_configured": false,
+  "gemini_model": "gemini-3.5-flash",
+  "gemini_configured": false,
   "documents_detail": [
     {
       "doc_id": "demo/helpdesk-triage-playbook.md",

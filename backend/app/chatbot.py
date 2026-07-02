@@ -411,14 +411,8 @@ def _fallback_answer(page: str, sources: list[ContextSource], user: User | None)
     return answer
 
 
-def _azure_ready() -> bool:
-    return settings.chatbot_enabled and all(
-        [
-            settings.azure_openai_endpoint,
-            settings.azure_openai_api_key,
-            settings.azure_openai_deployment,
-        ]
-    )
+def _gemini_ready() -> bool:
+    return settings.chatbot_enabled and settings.chatbot_provider == "gemini" and bool(settings.gemini_api_key)
 
 
 def _role_prompt(user: User | None) -> str:
@@ -435,32 +429,25 @@ def _role_prompt(user: User | None) -> str:
     return "Use only the provided context and keep the response role-appropriate."
 
 
-def _azure_chat_attempt(
+def _gemini_chat_attempt(
     message: str, page: str, language: str, user: User | None, sources: list[ContextSource]
 ) -> tuple[str | None, str | None]:
     if not sources:
         return None, "no_sources"
     if not settings.chatbot_enabled:
         return None, "chatbot_disabled"
-    if not all(
-        [
-            settings.azure_openai_endpoint,
-            settings.azure_openai_api_key,
-            settings.azure_openai_deployment,
-        ]
-    ):
-        return None, "azure_not_configured"
-    endpoint = settings.azure_openai_endpoint.rstrip("/")
-    url = (
-        f"{endpoint}/openai/deployments/{settings.azure_openai_deployment}/chat/completions"
-        f"?api-version={settings.azure_openai_api_version}"
-    )
+    if settings.chatbot_provider != "gemini":
+        return None, "unsupported_provider"
+    if not settings.gemini_api_key:
+        return None, "gemini_not_configured"
+    endpoint = settings.gemini_api_base_url.rstrip("/")
+    url = f"{endpoint}/models/{settings.gemini_model}:generateContent"
     context = "\n\n".join(f"Source: {source.title} ({source.category})\n{source.text}" for source in sources)
     body = {
-        "messages": [
-            {
-                "role": "system",
-                "content": (
+        "systemInstruction": {
+            "parts": [
+                {
+                    "text": (
                     "You are the National Makhana Board portal assistant. "
                     "Answer only from the provided context. Use a formal Government of India service tone. "
                     "Do not claim live integrations or private outcomes unless explicitly stated in context. "
@@ -475,19 +462,23 @@ def _azure_chat_attempt(
                     "Do not repeat the user's question or add preambles like 'Based on the approved context'. "
                     f"{PAGE_PROMPTS.get(page, '')} {_role_prompt(user)}"
                 ),
-            },
+                }
+            ]
+        },
+        "contents": [
             {
                 "role": "user",
-                "content": f"Language: {language}\nQuestion: {message}\n\nApproved context:\n{context}",
-            },
+                "parts": [
+                    {"text": f"Language: {language}\nQuestion: {message}\n\nApproved context:\n{context}"}
+                ],
+            }
         ],
-        "temperature": 0.2,
-        "max_tokens": 420,
+        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 420},
     }
     req = request.Request(
         url,
         data=json.dumps(body).encode("utf-8"),
-        headers={"Content-Type": "application/json", "api-key": settings.azure_openai_api_key},
+        headers={"Content-Type": "application/json", "x-goog-api-key": settings.gemini_api_key},
         method="POST",
     )
     try:
@@ -501,22 +492,23 @@ def _azure_chat_attempt(
         return None, "timeout"
     except json.JSONDecodeError:
         return None, "invalid_json"
-    choices = result.get("choices") or []
-    if not choices:
-        return None, "empty_choices"
-    content = choices[0].get("message", {}).get("content", "").strip() or None
+    candidates = result.get("candidates") or []
+    if not candidates:
+        return None, "empty_candidates"
+    parts = candidates[0].get("content", {}).get("parts", [])
+    content = "".join(str(part.get("text", "")) for part in parts).strip() or None
     return content, None if content else "empty_message"
 
 
-def _azure_chat(message: str, page: str, language: str, user: User | None, sources: list[ContextSource]) -> str | None:
-    content, _reason = _azure_chat_attempt(message, page, language, user, sources)
+def _gemini_chat(message: str, page: str, language: str, user: User | None, sources: list[ContextSource]) -> str | None:
+    content, _reason = _gemini_chat_attempt(message, page, language, user, sources)
     return content
 
 
 def answer_chat(message: str, page: str, language: str, user: User | None = None) -> ChatResult:
     normalized_page = page if page in PAGE_HINTS else "home"
     sources = retrieve_sources(message, normalized_page, user)
-    generated = _azure_chat(message, normalized_page, language, user, sources)
+    generated = _gemini_chat(message, normalized_page, language, user, sources)
     if user and user.role == "beneficiary":
         fallback_mode = "beneficiary_runtime_fallback"
     elif user and user.role in {"state_officer", "inspector", "nmb_admin"}:
@@ -528,7 +520,7 @@ def answer_chat(message: str, page: str, language: str, user: User | None = None
         sources=_dedupe_sources(sources),
         suggested_actions=SUGGESTED_ACTIONS.get(normalized_page, SUGGESTED_ACTIONS["home"]),
         fallback_used=generated is None,
-        mode="azure_grounded" if generated else fallback_mode,
+        mode="gemini_grounded" if generated else fallback_mode,
     )
 
 
@@ -536,7 +528,7 @@ def chat_debug_snapshot(message: str, page: str, language: str, user: User | Non
     normalized_page = page if page in PAGE_HINTS else "home"
     ranked = rank_sources(message, normalized_page, user, limit=8)
     sources = [item.source for item in ranked[:5]]
-    generated, provider_error = _azure_chat_attempt(message, normalized_page, language, user, sources)
+    generated, provider_error = _gemini_chat_attempt(message, normalized_page, language, user, sources)
     if user and user.role == "beneficiary":
         fallback_mode = "beneficiary_runtime_fallback"
     elif user and user.role in {"state_officer", "inspector", "nmb_admin"}:
@@ -548,21 +540,17 @@ def chat_debug_snapshot(message: str, page: str, language: str, user: User | Non
         sources=_dedupe_sources(sources),
         suggested_actions=SUGGESTED_ACTIONS.get(normalized_page, SUGGESTED_ACTIONS["home"]),
         fallback_used=generated is None,
-        mode="azure_grounded" if generated else fallback_mode,
+        mode="gemini_grounded" if generated else fallback_mode,
     )
     return {
         "page": normalized_page,
         "language": language,
         "user_role": user.role if user else "public",
         "chatbot_enabled": settings.chatbot_enabled,
-        "azure_configured": all(
-            [
-                settings.azure_openai_endpoint,
-                settings.azure_openai_api_key,
-                settings.azure_openai_deployment,
-            ]
-        ),
-        "azure_ready": _azure_ready(),
+        "provider": settings.chatbot_provider,
+        "gemini_model": settings.gemini_model,
+        "gemini_configured": bool(settings.gemini_api_key),
+        "gemini_ready": _gemini_ready(),
         "provider_error": provider_error,
         "mode": result.mode,
         "fallback_used": result.fallback_used,

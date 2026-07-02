@@ -34,15 +34,16 @@ class Settings(BaseModel):
     whatsapp_gateway_enabled: bool = os.getenv("WHATSAPP_GATEWAY_ENABLED", "false").lower() == "true"
     aadhaar_vault_enabled: bool = os.getenv("AADHAAR_VAULT_ENABLED", "false").lower() == "true"
     chatbot_enabled: bool = os.getenv("CHATBOT_ENABLED", "false").lower() == "true"
-    chatbot_provider: str = os.getenv("CHATBOT_PROVIDER", "azure_openai")
+    chatbot_provider: str = os.getenv("CHATBOT_PROVIDER", "gemini")
     chatbot_default_language: str = os.getenv("CHATBOT_DEFAULT_LANGUAGE", "en")
     knowledge_base_dir: str = os.getenv("KNOWLEDGE_BASE_DIR", "knowledge")
     knowledge_chunk_size: int = int(os.getenv("KNOWLEDGE_CHUNK_SIZE", "900"))
     knowledge_chunk_overlap: int = int(os.getenv("KNOWLEDGE_CHUNK_OVERLAP", "120"))
-    azure_openai_endpoint: str = os.getenv("AZURE_OPENAI_ENDPOINT", "")
-    azure_openai_api_key: str = os.getenv("AZURE_OPENAI_API_KEY", "")
-    azure_openai_deployment: str = os.getenv("AZURE_OPENAI_DEPLOYMENT", "")
-    azure_openai_api_version: str = os.getenv("AZURE_OPENAI_API_VERSION", "2024-10-21")
+    gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
+    gemini_model: str = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
+    gemini_api_base_url: str = os.getenv(
+        "GEMINI_API_BASE_URL", "https://generativelanguage.googleapis.com/v1beta"
+    )
 
 
 settings = Settings()

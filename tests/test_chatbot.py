@@ -1,14 +1,28 @@
 import unittest
+import json
+from unittest.mock import MagicMock, patch
 
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
+from backend.app.chatbot import ContextSource, _gemini_chat_attempt
+from backend.app.core.config import settings
 
 
 class ChatbotTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.client = TestClient(app)
+
+    def setUp(self):
+        self._chatbot_enabled = settings.chatbot_enabled
+        self._gemini_api_key = settings.gemini_api_key
+        settings.chatbot_enabled = False
+        settings.gemini_api_key = ""
+
+    def tearDown(self):
+        settings.chatbot_enabled = self._chatbot_enabled
+        settings.gemini_api_key = self._gemini_api_key
 
     def login(self, email: str, password: str = "Pass@123") -> str:
         response = self.client.post("/api/v1/auth/login", json={"email": email, "password": password})
@@ -24,7 +38,7 @@ class ChatbotTests(unittest.TestCase):
         body = response.json()
         self.assertIn("answer", body)
         self.assertGreater(len(body["sources"]), 0)
-        self.assertIn(body["mode"], {"retrieval_fallback", "azure_grounded"})
+        self.assertIn(body["mode"], {"retrieval_fallback", "gemini_grounded"})
         self.assertNotIn("Based on the approved", body["answer"])
         self.assertNotIn("Question:", body["answer"])
 
@@ -54,7 +68,8 @@ class ChatbotTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200, response.text)
         body = response.json()
-        self.assertIn("azure_ready", body)
+        self.assertIn("gemini_ready", body)
+        self.assertIn("gemini_configured", body)
         self.assertIn("provider_error", body)
         self.assertIn("fallback_used", body)
         self.assertIn("top_sources", body)
@@ -70,7 +85,7 @@ class ChatbotTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200, response.text)
         body = response.json()
-        self.assertIn(body["mode"], {"beneficiary_runtime_fallback", "azure_grounded"})
+        self.assertIn(body["mode"], {"beneficiary_runtime_fallback", "gemini_grounded"})
         self.assertTrue(any(source["category"] == "runtime" for source in body["sources"]))
 
     def test_admin_chat_uses_operations_context(self):
@@ -82,7 +97,7 @@ class ChatbotTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200, response.text)
         body = response.json()
-        self.assertIn(body["mode"], {"operations_runtime_fallback", "azure_grounded"})
+        self.assertIn(body["mode"], {"operations_runtime_fallback", "gemini_grounded"})
         self.assertTrue(any(source["category"] == "runtime" for source in body["sources"]))
 
     def test_chat_history_and_analytics_endpoints(self):
@@ -100,3 +115,31 @@ class ChatbotTests(unittest.TestCase):
         analytics_res = self.client.get("/api/v1/chat/analytics", headers={"Authorization": f"Bearer {admin_token}"})
         self.assertEqual(analytics_res.status_code, 200, analytics_res.text)
         self.assertIn("total_chats", analytics_res.json())
+
+    def test_gemini_request_uses_grounded_context_and_parses_response(self):
+        settings.chatbot_enabled = True
+        settings.gemini_api_key = "test-key"
+        source = ContextSource(
+            source_id="official/test",
+            title="Approved guidance",
+            category="official",
+            summary="Approved summary",
+            text="Only this approved fact may be used.",
+        )
+        response = MagicMock()
+        response.read.return_value = json.dumps(
+            {"candidates": [{"content": {"parts": [{"text": "Grounded Gemini answer"}]}}]}
+        ).encode("utf-8")
+        urlopen = MagicMock()
+        urlopen.return_value.__enter__.return_value = response
+
+        with patch("backend.app.chatbot.request.urlopen", urlopen):
+            answer, provider_error = _gemini_chat_attempt("What is approved?", "home", "en", None, [source])
+
+        self.assertEqual(answer, "Grounded Gemini answer")
+        self.assertIsNone(provider_error)
+        sent_request = urlopen.call_args.args[0]
+        self.assertIn("gemini-3.5-flash:generateContent", sent_request.full_url)
+        self.assertEqual(sent_request.get_header("X-goog-api-key"), "test-key")
+        sent_body = json.loads(sent_request.data.decode("utf-8"))
+        self.assertIn("Only this approved fact may be used.", sent_body["contents"][0]["parts"][0]["text"])
