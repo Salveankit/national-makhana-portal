@@ -54,6 +54,21 @@ STOP_WORDS = {
     "why",
 }
 
+GENERIC_PHRASES = {
+    "hello",
+    "hi",
+    "hey",
+    "how are you",
+    "who are you",
+    "what can you do",
+    "tell me something",
+    "help me",
+    "can you help me",
+    "good morning",
+    "good afternoon",
+    "good evening",
+}
+
 PAGE_HINTS = {
     "home": {"portal", "overview", "services", "schemes"},
     "services": {"services", "registration", "application", "officer", "inspection"},
@@ -387,7 +402,47 @@ def _take_sentences(text: str, limit: int = 2) -> str:
     return " ".join(pieces[:limit])
 
 
-def _fallback_answer(page: str, sources: list[ContextSource], user: User | None) -> str:
+def _is_generic_prompt(message: str) -> bool:
+    normalized = re.sub(r"\s+", " ", message.strip().lower())
+    if not normalized:
+        return True
+    if normalized in GENERIC_PHRASES:
+        return True
+    generic_tokens = {"hello", "hi", "hey", "help", "thanks"}
+    token_set = set(_tokenize(normalized))
+    if token_set and token_set.issubset(generic_tokens):
+        return True
+    return len(token_set) <= 2 and any(phrase in normalized for phrase in GENERIC_PHRASES)
+
+
+def _generic_fallback_answer(page: str, user: User | None, sources: list[ContextSource]) -> str:
+    if user and user.role == "beneficiary":
+        return (
+            "I can help you understand your profile, application status, clarifications, and next steps in the portal. "
+            "Ask about any application stage or workflow and I will explain it clearly."
+        )
+    if user and user.role in {"state_officer", "inspector", "nmb_admin"}:
+        return (
+            "I can help you navigate queues, inspections, planning, budget tracking, and workflow actions in this portal. "
+            "Ask about a task, status, or module and I will explain it clearly."
+        )
+    portal_hint = ""
+    if sources:
+        portal_hint = f" This portal covers {sources[0].title.lower()} and related services." if sources[0].title else ""
+    if page in {"login", "helpdesk"}:
+        return (
+            "I can help you with login guidance, support questions, and finding the right portal path."
+            f"{portal_hint}"
+        )
+    return (
+        "I can help you understand the National Makhana Board portal, its services, scheme-related workflows, and where to go next."
+        f"{portal_hint}"
+    )
+
+
+def _fallback_answer(page: str, sources: list[ContextSource], user: User | None, generic_prompt: bool = False) -> str:
+    if generic_prompt:
+        return _generic_fallback_answer(page, user, sources)
     if not sources:
         return (
             "I could not find a trusted answer for that yet. Please use the Helpdesk or the relevant portal page for formal guidance."
@@ -443,20 +498,24 @@ def _gemini_chat_attempt(
     endpoint = settings.gemini_api_base_url.rstrip("/")
     url = f"{endpoint}/models/{settings.gemini_model}:generateContent"
     context = "\n\n".join(f"Source: {source.title} ({source.category})\n{source.text}" for source in sources)
+    generic_prompt = _is_generic_prompt(message)
     body = {
         "systemInstruction": {
             "parts": [
                 {
                     "text": (
                     "You are the National Makhana Board portal assistant. "
-                    "Answer only from the provided context. Use a formal Government of India service tone. "
+                    "Use the provided portal context as the primary factual reference whenever it is relevant. "
+                    "For generic greetings or broad assistant questions, reply naturally in plain English first and then briefly connect the user to the portal help you can provide. "
+                    "When relevant context exists, build the answer on top of that context instead of sounding like a pasted FAQ. "
+                    "Use a clear, natural, professional tone suitable for an official public service portal. "
                     "Do not claim live integrations or private outcomes unless explicitly stated in context. "
-                    "Write for chat readability: start with one short sentence, then use either 3 to 5 short bullets or 3 to 5 numbered steps when helpful. "
-                    "Keep the answer under 120 words unless the user explicitly asks for detail. "
+                    "Write for chat readability: use short paragraphs, and use 3 to 5 bullets or numbered steps only when they genuinely improve clarity. "
+                    "Keep the answer under 140 words unless the user explicitly asks for detail. "
                     "Prefer plain, readable formatting. Use short headings only when they improve clarity. "
                     "Use bold sparingly for short labels or important keywords only. "
-                    "Do not bold full sentences or long phrases inside list items, and do not put the whole answer in one paragraph. "
-                    "Keep each bullet or step to one short sentence where possible. "
+                    "Do not bold full sentences or long phrases inside list items. "
+                    "Keep each bullet or step to one short sentence where possible, but a short paragraph is acceptable. "
                     "Prefer flat lists. Do not create nested bullets. "
                     "Do not expose chain-of-thought, hidden reasoning, or internal analysis. "
                     "Do not repeat the user's question or add preambles like 'Based on the approved context'. "
@@ -469,11 +528,19 @@ def _gemini_chat_attempt(
             {
                 "role": "user",
                 "parts": [
-                    {"text": f"Language: {language}\nQuestion: {message}\n\nApproved context:\n{context}"}
+                    {
+                        "text": (
+                            f"Language: {language}\n"
+                            f"Question: {message}\n"
+                            f"Generic prompt: {'yes' if generic_prompt else 'no'}\n\n"
+                            "Portal reference context:\n"
+                            f"{context}"
+                        )
+                    }
                 ],
             }
         ],
-        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 420},
+        "generationConfig": {"temperature": 0.45, "maxOutputTokens": 420},
     }
     req = request.Request(
         url,
@@ -507,16 +574,19 @@ def _gemini_chat(message: str, page: str, language: str, user: User | None, sour
 
 def answer_chat(message: str, page: str, language: str, user: User | None = None) -> ChatResult:
     normalized_page = page if page in PAGE_HINTS else "home"
+    generic_prompt = _is_generic_prompt(message)
     sources = retrieve_sources(message, normalized_page, user)
     generated = _gemini_chat(message, normalized_page, language, user, sources)
     if user and user.role == "beneficiary":
         fallback_mode = "beneficiary_runtime_fallback"
     elif user and user.role in {"state_officer", "inspector", "nmb_admin"}:
         fallback_mode = "operations_runtime_fallback"
+    elif generic_prompt:
+        fallback_mode = "generic_fallback"
     else:
         fallback_mode = "retrieval_fallback"
     return ChatResult(
-        answer=generated or _fallback_answer(normalized_page, sources, user),
+        answer=generated or _fallback_answer(normalized_page, sources, user, generic_prompt=generic_prompt),
         sources=_dedupe_sources(sources),
         suggested_actions=SUGGESTED_ACTIONS.get(normalized_page, SUGGESTED_ACTIONS["home"]),
         fallback_used=generated is None,
@@ -526,6 +596,7 @@ def answer_chat(message: str, page: str, language: str, user: User | None = None
 
 def chat_debug_snapshot(message: str, page: str, language: str, user: User | None = None) -> dict[str, object]:
     normalized_page = page if page in PAGE_HINTS else "home"
+    generic_prompt = _is_generic_prompt(message)
     ranked = rank_sources(message, normalized_page, user, limit=8)
     sources = [item.source for item in ranked[:5]]
     generated, provider_error = _gemini_chat_attempt(message, normalized_page, language, user, sources)
@@ -533,10 +604,12 @@ def chat_debug_snapshot(message: str, page: str, language: str, user: User | Non
         fallback_mode = "beneficiary_runtime_fallback"
     elif user and user.role in {"state_officer", "inspector", "nmb_admin"}:
         fallback_mode = "operations_runtime_fallback"
+    elif generic_prompt:
+        fallback_mode = "generic_fallback"
     else:
         fallback_mode = "retrieval_fallback"
     result = ChatResult(
-        answer=generated or _fallback_answer(normalized_page, sources, user),
+        answer=generated or _fallback_answer(normalized_page, sources, user, generic_prompt=generic_prompt),
         sources=_dedupe_sources(sources),
         suggested_actions=SUGGESTED_ACTIONS.get(normalized_page, SUGGESTED_ACTIONS["home"]),
         fallback_used=generated is None,

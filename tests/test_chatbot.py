@@ -6,7 +6,7 @@ from pathlib import Path
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
-from backend.app.chatbot import ContextSource, _gemini_chat_attempt
+from backend.app.chatbot import ContextSource, _gemini_chat_attempt, answer_chat
 from backend.app.core import config as config_module
 from backend.app.core.config import settings
 
@@ -53,6 +53,12 @@ class ChatbotTests(unittest.TestCase):
         body = response.json()
         self.assertIn("helpdesk", body["answer"].lower())
         self.assertTrue(body["fallback_used"])
+
+    def test_generic_public_prompt_uses_natural_fallback_language(self):
+        result = answer_chat("hi", "home", "en")
+        self.assertTrue(result.fallback_used)
+        self.assertEqual(result.mode, "generic_fallback")
+        self.assertIn("I can help you understand the National Makhana Board portal", result.answer)
 
     def test_streaming_endpoint_returns_delta_and_complete_events(self):
         response = self.client.post(
@@ -145,6 +151,10 @@ class ChatbotTests(unittest.TestCase):
         self.assertEqual(sent_request.get_header("X-goog-api-key"), "test-key")
         sent_body = json.loads(sent_request.data.decode("utf-8"))
         self.assertIn("Only this approved fact may be used.", sent_body["contents"][0]["parts"][0]["text"])
+        instruction_text = sent_body["systemInstruction"]["parts"][0]["text"]
+        self.assertIn("reply naturally in plain English first", instruction_text)
+        self.assertIn("build the answer on top of that context", instruction_text)
+        self.assertEqual(sent_body["generationConfig"]["temperature"], 0.45)
 
     def test_vercel_default_data_dir_uses_tmp_storage(self):
         with patch.dict("os.environ", {"VERCEL": "1"}, clear=False):
