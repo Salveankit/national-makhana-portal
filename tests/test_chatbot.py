@@ -1,11 +1,13 @@
 import unittest
 import json
 from unittest.mock import MagicMock, patch
+from pathlib import Path
 
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
 from backend.app.chatbot import ContextSource, _gemini_chat_attempt
+from backend.app.core import config as config_module
 from backend.app.core.config import settings
 
 
@@ -143,3 +145,7 @@ class ChatbotTests(unittest.TestCase):
         self.assertEqual(sent_request.get_header("X-goog-api-key"), "test-key")
         sent_body = json.loads(sent_request.data.decode("utf-8"))
         self.assertIn("Only this approved fact may be used.", sent_body["contents"][0]["parts"][0]["text"])
+
+    def test_vercel_default_data_dir_uses_tmp_storage(self):
+        with patch.dict("os.environ", {"VERCEL": "1"}, clear=False):
+            self.assertEqual(config_module._default_data_dir(), Path("/tmp/national-makhana-portal"))
