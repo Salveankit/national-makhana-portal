@@ -440,6 +440,18 @@ def _generic_fallback_answer(page: str, user: User | None, sources: list[Context
     )
 
 
+def _generic_prompt_guidance(message: str) -> str:
+    if not _is_generic_prompt(message):
+        return ""
+    return (
+        "This is a generic conversational prompt. "
+        "Answer in 2 or 3 short sentences. "
+        "Do not use bullets or headings. "
+        "Sound natural, direct, and helpful. "
+        "If you mention portal capabilities, summarize them briefly instead of listing every role or module. "
+    )
+
+
 def _fallback_answer(page: str, sources: list[ContextSource], user: User | None, generic_prompt: bool = False) -> str:
     if generic_prompt:
         return _generic_fallback_answer(page, user, sources)
@@ -499,6 +511,7 @@ def _gemini_chat_attempt(
     url = f"{endpoint}/models/{settings.gemini_model}:generateContent"
     context = "\n\n".join(f"Source: {source.title} ({source.category})\n{source.text}" for source in sources)
     generic_prompt = _is_generic_prompt(message)
+    generic_guidance = _generic_prompt_guidance(message)
     body = {
         "systemInstruction": {
             "parts": [
@@ -519,7 +532,7 @@ def _gemini_chat_attempt(
                     "Prefer flat lists. Do not create nested bullets. "
                     "Do not expose chain-of-thought, hidden reasoning, or internal analysis. "
                     "Do not repeat the user's question or add preambles like 'Based on the approved context'. "
-                    f"{PAGE_PROMPTS.get(page, '')} {_role_prompt(user)}"
+                    f"{generic_guidance}{PAGE_PROMPTS.get(page, '')} {_role_prompt(user)}"
                 ),
                 }
             ]
