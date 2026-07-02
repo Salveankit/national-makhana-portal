@@ -426,17 +426,11 @@ def _generic_fallback_answer(page: str, user: User | None, sources: list[Context
             "I can help you navigate queues, inspections, planning, budget tracking, and workflow actions in this portal. "
             "Ask about a task, status, or module and I will explain it clearly."
         )
-    portal_hint = ""
-    if sources:
-        portal_hint = f" This portal covers {sources[0].title.lower()} and related services." if sources[0].title else ""
     if page in {"login", "helpdesk"}:
-        return (
-            "I can help you with login guidance, support questions, and finding the right portal path."
-            f"{portal_hint}"
-        )
+        return "I can help you with login guidance, support questions, and finding the right portal path."
     return (
-        "I can help you understand the National Makhana Board portal, its services, scheme-related workflows, and where to go next."
-        f"{portal_hint}"
+        "I can help you understand the National Makhana Board portal, its services, scheme-related workflows, and where to go next. "
+        "Ask about any page, service, status, or process and I will explain it in simple language."
     )
 
 
